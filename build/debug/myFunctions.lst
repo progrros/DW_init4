@@ -1,0 +1,347 @@
+ARM GAS  /tmp/ccy9Qw8D.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"myFunctions.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.add_distANDrssi_to_PCmsg,"ax",%progbits
+  18              		.align	1
+  19              		.global	add_distANDrssi_to_PCmsg
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	add_distANDrssi_to_PCmsg:
+  27              	.LVL0:
+  28              	.LFB133:
+  29              		.file 1 "Core/Src/myFunctions.c"
+   1:Core/Src/myFunctions.c **** /*
+   2:Core/Src/myFunctions.c ****  * myFunctions.c
+   3:Core/Src/myFunctions.c ****  *
+   4:Core/Src/myFunctions.c ****  *  Created on: Dec 3, 2022
+   5:Core/Src/myFunctions.c ****  *      Author: Mati
+   6:Core/Src/myFunctions.c ****  */
+   7:Core/Src/myFunctions.c **** 
+   8:Core/Src/myFunctions.c **** #include "myFunctions.h"
+   9:Core/Src/myFunctions.c **** #include <string.h>
+  10:Core/Src/myFunctions.c **** #include "main.h"
+  11:Core/Src/myFunctions.c **** #include <math.h>
+  12:Core/Src/myFunctions.c **** #include <stdio.h>
+  13:Core/Src/myFunctions.c **** 
+  14:Core/Src/myFunctions.c **** /* @fn 		add_dist_to_PCmsg
+  15:Core/Src/myFunctions.c ****  * @brief 	This function put measured distance to tx_dist_to_PC message
+  16:Core/Src/myFunctions.c ****  * @param   a is uint8_t array message which is send to PC module
+  17:Core/Src/myFunctions.c ****  * 			b is a measured distance
+  18:Core/Src/myFunctions.c ****  * 			c is a calculated RSSI
+  19:Core/Src/myFunctions.c ****  */
+  20:Core/Src/myFunctions.c **** /*
+  21:Core/Src/myFunctions.c ****  * add_dist_to_PCmsg function add distance to message which is send from anchor to PC module
+  22:Core/Src/myFunctions.c ****  * this function is used only in anchors
+  23:Core/Src/myFunctions.c ****  */
+  24:Core/Src/myFunctions.c **** void add_distANDrssi_to_PCmsg(uint8_t *a, char* b, char* c,uint8_t dist_idx, uint8_t addressTag)
+  25:Core/Src/myFunctions.c **** {
+  30              		.loc 1 25 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 4, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccy9Qw8D.s 			page 2
+
+
+  34              		.loc 1 25 1 is_stmt 0 view .LVU1
+  35 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+  36              		.cfi_def_cfa_offset 24
+  37              		.cfi_offset 4, -24
+  38              		.cfi_offset 5, -20
+  39              		.cfi_offset 6, -16
+  40              		.cfi_offset 7, -12
+  41              		.cfi_offset 8, -8
+  42              		.cfi_offset 14, -4
+  43 0004 0646     		mov	r6, r0
+  44 0006 0D46     		mov	r5, r1
+  45 0008 1746     		mov	r7, r2
+  46 000a 9846     		mov	r8, r3
+  26:Core/Src/myFunctions.c **** 	uint8_t i = 0;
+  47              		.loc 1 26 2 is_stmt 1 view .LVU2
+  48              	.LVL1:
+  27:Core/Src/myFunctions.c **** 	uint8_t temp = 0;
+  49              		.loc 1 27 2 view .LVU3
+  28:Core/Src/myFunctions.c **** 	for (i = 0; i < strlen(b);  i++)
+  50              		.loc 1 28 2 view .LVU4
+  51              		.loc 1 28 9 is_stmt 0 view .LVU5
+  52 000c 0024     		movs	r4, #0
+  53              		.loc 1 28 2 view .LVU6
+  54 000e 05E0     		b	.L2
+  55              	.LVL2:
+  56              	.L3:
+  29:Core/Src/myFunctions.c **** 	{
+  30:Core/Src/myFunctions.c **** 		a[dist_idx + i] = b[i];
+  57              		.loc 1 30 3 is_stmt 1 discriminator 3 view .LVU7
+  58              		.loc 1 30 14 is_stmt 0 discriminator 3 view .LVU8
+  59 0010 08EB0402 		add	r2, r8, r4
+  60              		.loc 1 30 22 discriminator 3 view .LVU9
+  61 0014 2B5D     		ldrb	r3, [r5, r4]	@ zero_extendqisi2
+  62              		.loc 1 30 19 discriminator 3 view .LVU10
+  63 0016 B354     		strb	r3, [r6, r2]
+  28:Core/Src/myFunctions.c **** 	for (i = 0; i < strlen(b);  i++)
+  64              		.loc 1 28 30 is_stmt 1 discriminator 3 view .LVU11
+  28:Core/Src/myFunctions.c **** 	for (i = 0; i < strlen(b);  i++)
+  65              		.loc 1 28 31 is_stmt 0 discriminator 3 view .LVU12
+  66 0018 0134     		adds	r4, r4, #1
+  67              	.LVL3:
+  28:Core/Src/myFunctions.c **** 	for (i = 0; i < strlen(b);  i++)
+  68              		.loc 1 28 31 discriminator 3 view .LVU13
+  69 001a E4B2     		uxtb	r4, r4
+  70              	.LVL4:
+  71              	.L2:
+  28:Core/Src/myFunctions.c **** 	for (i = 0; i < strlen(b);  i++)
+  72              		.loc 1 28 14 is_stmt 1 discriminator 1 view .LVU14
+  28:Core/Src/myFunctions.c **** 	for (i = 0; i < strlen(b);  i++)
+  73              		.loc 1 28 18 is_stmt 0 discriminator 1 view .LVU15
+  74 001c 2846     		mov	r0, r5
+  75 001e FFF7FEFF 		bl	strlen
+  76              	.LVL5:
+  28:Core/Src/myFunctions.c **** 	for (i = 0; i < strlen(b);  i++)
+  77              		.loc 1 28 2 discriminator 1 view .LVU16
+  78 0022 8442     		cmp	r4, r0
+  79 0024 F4D3     		bcc	.L3
+ARM GAS  /tmp/ccy9Qw8D.s 			page 3
+
+
+  31:Core/Src/myFunctions.c **** 	}
+  32:Core/Src/myFunctions.c **** 	temp = dist_idx + i;
+  80              		.loc 1 32 2 is_stmt 1 view .LVU17
+  81              		.loc 1 32 7 is_stmt 0 view .LVU18
+  82 0026 4444     		add	r4, r4, r8
+  83              	.LVL6:
+  84              		.loc 1 32 7 view .LVU19
+  85 0028 E4B2     		uxtb	r4, r4
+  86              	.LVL7:
+  33:Core/Src/myFunctions.c **** 	for (i = 0; i < strlen(c); i++)
+  87              		.loc 1 33 2 is_stmt 1 view .LVU20
+  88              		.loc 1 33 9 is_stmt 0 view .LVU21
+  89 002a 0025     		movs	r5, #0
+  90              	.LVL8:
+  91              		.loc 1 33 2 view .LVU22
+  92 002c 04E0     		b	.L4
+  93              	.LVL9:
+  94              	.L5:
+  34:Core/Src/myFunctions.c **** 	{
+  35:Core/Src/myFunctions.c **** 		a[temp + i] = c[i];
+  95              		.loc 1 35 3 is_stmt 1 discriminator 3 view .LVU23
+  96              		.loc 1 35 10 is_stmt 0 discriminator 3 view .LVU24
+  97 002e 6319     		adds	r3, r4, r5
+  98              		.loc 1 35 18 discriminator 3 view .LVU25
+  99 0030 7A5D     		ldrb	r2, [r7, r5]	@ zero_extendqisi2
+ 100              		.loc 1 35 15 discriminator 3 view .LVU26
+ 101 0032 F254     		strb	r2, [r6, r3]
+  33:Core/Src/myFunctions.c **** 	for (i = 0; i < strlen(c); i++)
+ 102              		.loc 1 33 29 is_stmt 1 discriminator 3 view .LVU27
+  33:Core/Src/myFunctions.c **** 	for (i = 0; i < strlen(c); i++)
+ 103              		.loc 1 33 30 is_stmt 0 discriminator 3 view .LVU28
+ 104 0034 0135     		adds	r5, r5, #1
+ 105              	.LVL10:
+  33:Core/Src/myFunctions.c **** 	for (i = 0; i < strlen(c); i++)
+ 106              		.loc 1 33 30 discriminator 3 view .LVU29
+ 107 0036 EDB2     		uxtb	r5, r5
+ 108              	.LVL11:
+ 109              	.L4:
+  33:Core/Src/myFunctions.c **** 	for (i = 0; i < strlen(c); i++)
+ 110              		.loc 1 33 14 is_stmt 1 discriminator 1 view .LVU30
+  33:Core/Src/myFunctions.c **** 	for (i = 0; i < strlen(c); i++)
+ 111              		.loc 1 33 18 is_stmt 0 discriminator 1 view .LVU31
+ 112 0038 3846     		mov	r0, r7
+ 113 003a FFF7FEFF 		bl	strlen
+ 114              	.LVL12:
+  33:Core/Src/myFunctions.c **** 	for (i = 0; i < strlen(c); i++)
+ 115              		.loc 1 33 2 discriminator 1 view .LVU32
+ 116 003e 8542     		cmp	r5, r0
+ 117 0040 F5D3     		bcc	.L5
+  36:Core/Src/myFunctions.c **** 	}
+  37:Core/Src/myFunctions.c **** 
+  38:Core/Src/myFunctions.c **** 	a[temp + i] = addressTag;
+ 118              		.loc 1 38 2 is_stmt 1 view .LVU33
+ 119              		.loc 1 38 9 is_stmt 0 view .LVU34
+ 120 0042 2C44     		add	r4, r4, r5
+ 121              	.LVL13:
+ 122              		.loc 1 38 14 view .LVU35
+ARM GAS  /tmp/ccy9Qw8D.s 			page 4
+
+
+ 123 0044 9DF81830 		ldrb	r3, [sp, #24]	@ zero_extendqisi2
+ 124 0048 3355     		strb	r3, [r6, r4]
+  39:Core/Src/myFunctions.c **** }
+ 125              		.loc 1 39 1 view .LVU36
+ 126 004a BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 127              		.loc 1 39 1 view .LVU37
+ 128              		.cfi_endproc
+ 129              	.LFE133:
+ 131              		.global	__aeabi_ui2d
+ 132              		.global	__aeabi_dmul
+ 133              		.global	__aeabi_ddiv
+ 134              		.global	__aeabi_i2d
+ 135              		.global	__aeabi_dadd
+ 136              		.global	__aeabi_f2d
+ 137              		.global	__aeabi_dsub
+ 138              		.global	__aeabi_d2f
+ 139              		.section	.text.getRSSI,"ax",%progbits
+ 140              		.align	1
+ 141              		.global	getRSSI
+ 142              		.syntax unified
+ 143              		.thumb
+ 144              		.thumb_func
+ 145              		.fpu fpv4-sp-d16
+ 147              	getRSSI:
+ 148              	.LVL14:
+ 149              	.LFB134:
+  40:Core/Src/myFunctions.c **** 
+  41:Core/Src/myFunctions.c **** 
+  42:Core/Src/myFunctions.c **** /*
+  43:Core/Src/myFunctions.c ****  * Calculate RSSI
+  44:Core/Src/myFunctions.c ****  */
+  45:Core/Src/myFunctions.c **** float getRSSI(uint32_t C, uint16_t N, uint8_t D, float A)
+  46:Core/Src/myFunctions.c **** {
+ 150              		.loc 1 46 1 is_stmt 1 view -0
+ 151              		.cfi_startproc
+ 152              		@ args = 0, pretend = 0, frame = 0
+ 153              		@ frame_needed = 0, uses_anonymous_args = 0
+ 154              		.loc 1 46 1 is_stmt 0 view .LVU39
+ 155 0000 2DE97043 		push	{r4, r5, r6, r8, r9, lr}
+ 156              		.cfi_def_cfa_offset 24
+ 157              		.cfi_offset 4, -24
+ 158              		.cfi_offset 5, -20
+ 159              		.cfi_offset 6, -16
+ 160              		.cfi_offset 8, -12
+ 161              		.cfi_offset 9, -8
+ 162              		.cfi_offset 14, -4
+ 163 0004 0D46     		mov	r5, r1
+ 164 0006 1446     		mov	r4, r2
+ 165 0008 10EE106A 		vmov	r6, s0
+  47:Core/Src/myFunctions.c **** 	float rssi;
+ 166              		.loc 1 47 2 is_stmt 1 view .LVU40
+  48:Core/Src/myFunctions.c **** 	rssi = 10 * log10( (C * pow(2.0, 21.0))/pow((double) N, 2.0) ) + (6*D) - A;
+ 167              		.loc 1 48 2 view .LVU41
+ 168              		.loc 1 48 24 is_stmt 0 view .LVU42
+ 169 000c FFF7FEFF 		bl	__aeabi_ui2d
+ 170              	.LVL15:
+ 171              		.loc 1 48 24 view .LVU43
+ARM GAS  /tmp/ccy9Qw8D.s 			page 5
+
+
+ 172 0010 0022     		movs	r2, #0
+ 173 0012 1F4B     		ldr	r3, .L9+8
+ 174 0014 FFF7FEFF 		bl	__aeabi_dmul
+ 175              	.LVL16:
+ 176 0018 8046     		mov	r8, r0
+ 177 001a 8946     		mov	r9, r1
+ 178              		.loc 1 48 42 view .LVU44
+ 179 001c 2846     		mov	r0, r5
+ 180 001e FFF7FEFF 		bl	__aeabi_ui2d
+ 181              	.LVL17:
+ 182 0022 9FED191B 		vldr.64	d1, .L9
+ 183 0026 41EC100B 		vmov	d0, r0, r1
+ 184 002a FFF7FEFF 		bl	pow
+ 185              	.LVL18:
+ 186 002e 53EC102B 		vmov	r2, r3, d0
+ 187              		.loc 1 48 14 view .LVU45
+ 188 0032 4046     		mov	r0, r8
+ 189 0034 4946     		mov	r1, r9
+ 190 0036 FFF7FEFF 		bl	__aeabi_ddiv
+ 191              	.LVL19:
+ 192 003a 41EC100B 		vmov	d0, r0, r1
+ 193 003e FFF7FEFF 		bl	log10
+ 194              	.LVL20:
+ 195 0042 51EC100B 		vmov	r0, r1, d0
+ 196              		.loc 1 48 12 view .LVU46
+ 197 0046 0022     		movs	r2, #0
+ 198 0048 124B     		ldr	r3, .L9+12
+ 199 004a FFF7FEFF 		bl	__aeabi_dmul
+ 200              	.LVL21:
+ 201 004e 8046     		mov	r8, r0
+ 202 0050 8946     		mov	r9, r1
+ 203              		.loc 1 48 69 view .LVU47
+ 204 0052 04EB4404 		add	r4, r4, r4, lsl #1
+ 205              		.loc 1 48 65 view .LVU48
+ 206 0056 6000     		lsls	r0, r4, #1
+ 207 0058 FFF7FEFF 		bl	__aeabi_i2d
+ 208              	.LVL22:
+ 209 005c 4246     		mov	r2, r8
+ 210 005e 4B46     		mov	r3, r9
+ 211 0060 FFF7FEFF 		bl	__aeabi_dadd
+ 212              	.LVL23:
+ 213 0064 0446     		mov	r4, r0
+ 214 0066 0D46     		mov	r5, r1
+ 215              		.loc 1 48 73 view .LVU49
+ 216 0068 3046     		mov	r0, r6	@ float
+ 217 006a FFF7FEFF 		bl	__aeabi_f2d
+ 218              	.LVL24:
+ 219 006e 0246     		mov	r2, r0
+ 220 0070 0B46     		mov	r3, r1
+ 221 0072 2046     		mov	r0, r4
+ 222 0074 2946     		mov	r1, r5
+ 223 0076 FFF7FEFF 		bl	__aeabi_dsub
+ 224              	.LVL25:
+ 225              		.loc 1 48 7 view .LVU50
+ 226 007a FFF7FEFF 		bl	__aeabi_d2f
+ 227              	.LVL26:
+  49:Core/Src/myFunctions.c **** 	return rssi;
+ARM GAS  /tmp/ccy9Qw8D.s 			page 6
+
+
+ 228              		.loc 1 49 2 is_stmt 1 view .LVU51
+  50:Core/Src/myFunctions.c **** }
+ 229              		.loc 1 50 1 is_stmt 0 view .LVU52
+ 230 007e 00EE100A 		vmov	s0, r0
+ 231 0082 BDE87083 		pop	{r4, r5, r6, r8, r9, pc}
+ 232              	.LVL27:
+ 233              	.L10:
+ 234              		.loc 1 50 1 view .LVU53
+ 235 0086 00BF     		.align	3
+ 236              	.L9:
+ 237 0088 00000000 		.word	0
+ 238 008c 00000040 		.word	1073741824
+ 239 0090 00004041 		.word	1094713344
+ 240 0094 00002440 		.word	1076101120
+ 241              		.cfi_endproc
+ 242              	.LFE134:
+ 244              		.text
+ 245              	.Letext0:
+ 246              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
+ 247              		.file 3 "/usr/include/newlib/math.h"
+ 248              		.file 4 "/usr/include/newlib/string.h"
+ARM GAS  /tmp/ccy9Qw8D.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 myFunctions.c
+     /tmp/ccy9Qw8D.s:18     .text.add_distANDrssi_to_PCmsg:0000000000000000 $t
+     /tmp/ccy9Qw8D.s:26     .text.add_distANDrssi_to_PCmsg:0000000000000000 add_distANDrssi_to_PCmsg
+     /tmp/ccy9Qw8D.s:140    .text.getRSSI:0000000000000000 $t
+     /tmp/ccy9Qw8D.s:147    .text.getRSSI:0000000000000000 getRSSI
+     /tmp/ccy9Qw8D.s:237    .text.getRSSI:0000000000000088 $d
+
+UNDEFINED SYMBOLS
+strlen
+__aeabi_ui2d
+__aeabi_dmul
+__aeabi_ddiv
+__aeabi_i2d
+__aeabi_dadd
+__aeabi_f2d
+__aeabi_dsub
+__aeabi_d2f
+pow
+log10

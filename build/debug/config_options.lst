@@ -1,0 +1,130 @@
+ARM GAS  /tmp/cc8J4SRl.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"config_options.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	config_option_sp0
+  18              		.global	config_option_sp3
+  19              		.global	config_options
+  20              		.global	txconfig_options_ch9
+  21              		.global	txconfig_options
+  22              		.global	dist_str
+  23              		.section	.bss.dist_str,"aw",%nobits
+  24              		.align	2
+  27              	dist_str:
+  28 0000 00000000 		.space	16
+  28      00000000 
+  28      00000000 
+  28      00000000 
+  29              		.section	.data.config_option_sp0,"aw"
+  30              		.align	2
+  33              	config_option_sp0:
+  34 0000 05       		.byte	5
+  35 0001 05       		.byte	5
+  36 0002 00       		.byte	0
+  37 0003 09       		.byte	9
+  38 0004 09       		.byte	9
+  39 0005 03       		.byte	3
+  40 0006 01       		.byte	1
+  41 0007 00       		.byte	0
+  42 0008 00       		.byte	0
+  43 0009 00       		.space	1
+  44 000a 8100     		.short	129
+  45 000c 00       		.byte	0
+  46 000d 02       		.byte	2
+  47 000e 00       		.byte	0
+  48 000f 00       		.space	1
+  49              		.section	.data.config_option_sp3,"aw"
+  50              		.align	2
+  53              	config_option_sp3:
+  54 0000 05       		.byte	5
+  55 0001 05       		.byte	5
+  56 0002 00       		.byte	0
+  57 0003 09       		.byte	9
+  58 0004 09       		.byte	9
+  59 0005 03       		.byte	3
+  60 0006 01       		.byte	1
+ARM GAS  /tmp/cc8J4SRl.s 			page 2
+
+
+  61 0007 00       		.byte	0
+  62 0008 00       		.byte	0
+  63 0009 00       		.space	1
+  64 000a 8100     		.short	129
+  65 000c 03       		.byte	3
+  66 000d 02       		.byte	2
+  67 000e 00       		.byte	0
+  68 000f 00       		.space	1
+  69              		.section	.data.config_options,"aw"
+  70              		.align	2
+  73              	config_options:
+  74 0000 05       		.byte	5
+  75 0001 05       		.byte	5
+  76 0002 00       		.byte	0
+  77 0003 09       		.byte	9
+  78 0004 09       		.byte	9
+  79 0005 03       		.byte	3
+  80 0006 01       		.byte	1
+  81 0007 00       		.byte	0
+  82 0008 00       		.byte	0
+  83 0009 00       		.space	1
+  84 000a 8100     		.short	129
+  85 000c 01       		.byte	1
+  86 000d 02       		.byte	2
+  87 000e 00       		.byte	0
+  88 000f 00       		.space	1
+  89              		.section	.data.txconfig_options,"aw"
+  90              		.align	2
+  93              	txconfig_options:
+  94 0000 A8       		.byte	-88
+  95 0001 000000   		.space	3
+  96 0004 FDFDFDFD 		.word	-33686019
+  97 0008 0000     		.short	0
+  98 000a 0000     		.space	2
+  99              		.section	.data.txconfig_options_ch9,"aw"
+ 100              		.align	2
+ 103              	txconfig_options_ch9:
+ 104 0000 34       		.byte	52
+ 105 0001 000000   		.space	3
+ 106 0004 FEFEFEFE 		.word	-16843010
+ 107 0008 0000     		.short	0
+ 108 000a 0000     		.space	2
+ 109              		.text
+ 110              	.Letext0:
+ 111              		.file 1 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
+ 112              		.file 2 "Core/Inc/deca_device_api.h"
+ 113              		.file 3 "Core/Inc/config_options.h"
+ 114              		.file 4 "Core/Src/config_options.c"
+ARM GAS  /tmp/cc8J4SRl.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 config_options.c
+     /tmp/cc8J4SRl.s:33     .data.config_option_sp0:0000000000000000 config_option_sp0
+     /tmp/cc8J4SRl.s:53     .data.config_option_sp3:0000000000000000 config_option_sp3
+     /tmp/cc8J4SRl.s:73     .data.config_options:0000000000000000 config_options
+     /tmp/cc8J4SRl.s:103    .data.txconfig_options_ch9:0000000000000000 txconfig_options_ch9
+     /tmp/cc8J4SRl.s:93     .data.txconfig_options:0000000000000000 txconfig_options
+     /tmp/cc8J4SRl.s:27     .bss.dist_str:0000000000000000 dist_str
+     /tmp/cc8J4SRl.s:24     .bss.dist_str:0000000000000000 $d
+     /tmp/cc8J4SRl.s:30     .data.config_option_sp0:0000000000000000 $d
+     /tmp/cc8J4SRl.s:50     .data.config_option_sp3:0000000000000000 $d
+     /tmp/cc8J4SRl.s:70     .data.config_options:0000000000000000 $d
+     /tmp/cc8J4SRl.s:90     .data.txconfig_options:0000000000000000 $d
+     /tmp/cc8J4SRl.s:100    .data.txconfig_options_ch9:0000000000000000 $d
+
+NO UNDEFINED SYMBOLS
