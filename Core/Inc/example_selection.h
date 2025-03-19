@@ -17,7 +17,7 @@
 extern "C" {
 #endif
 
-#define INITIATOR_TYPE 'G'  // choose E, F or G
+#define INITIATOR_TYPE 'E'  // choose E, F or G
 
 //Enable the needed example/test. Please enable only one example/test!
 //#define TEST_READING_DEV_ID

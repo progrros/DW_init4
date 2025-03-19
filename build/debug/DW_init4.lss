@@ -37,19 +37,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_aranges 00001a40  00000000  00000000  0005a350  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0001d2c5  00000000  00000000  0005bd90  2**0
+ 17 .debug_line   0001d2c7  00000000  00000000  0005bd90  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00007be7  00000000  00000000  00079055  2**0
+ 18 .debug_str    00007be7  00000000  00000000  00079057  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_loc    00019ef0  00000000  00000000  00080c3c  2**0
+ 19 .debug_loc    00019ed3  00000000  00000000  00080c3e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_ranges 00001940  00000000  00000000  0009ab30  2**3
+ 20 .debug_ranges 00001940  00000000  00000000  0009ab18  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_frame  00004414  00000000  00000000  0009c470  2**2
+ 21 .debug_frame  00004414  00000000  00000000  0009c458  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .stab         00000024  00000000  00000000  000a0884  2**2
+ 22 .stab         00000024  00000000  00000000  000a086c  2**2
                   CONTENTS, READONLY, DEBUGGING
- 23 .stabstr      0000004e  00000000  00000000  000a08a8  2**0
+ 23 .stabstr      0000004e  00000000  00000000  000a0890  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -6104,11 +6104,10 @@ int ds_twr_initiator_sts(void)
         dwt_configuretxrf(&txconfig_options_ch9);
  800346c:	48b7      	ldr	r0, [pc, #732]	; (800374c <ds_twr_initiator_sts+0x314>)
  800346e:	f7ff fee7 	bl	8003240 <dwt_configuretxrf>
-#elif INITIATOR_TYPE == 'F'
-	dwt_configureframefilter(DWT_FF_ENABLE_802_15_4, DWT_FF_DATA_EN);
-   	dwt_setpanid(0xDECA);
-   	dwt_setaddress16(0x4656);
-#elif  INITIATOR_TYPE == 'G'
+    }
+
+    /* ====> Enable frame filtering <==== */
+#if INITIATOR_TYPE == 'E'
 	dwt_configureframefilter(DWT_FF_ENABLE_802_15_4, DWT_FF_DATA_EN);
  8003472:	2102      	movs	r1, #2
  8003474:	4608      	mov	r0, r1
@@ -6116,9 +6115,11 @@ int ds_twr_initiator_sts(void)
 	dwt_setpanid(0xDECA);
  800347a:	f64d 60ca 	movw	r0, #57034	; 0xdeca
  800347e:	f7ff fd1f 	bl	8002ec0 <dwt_setpanid>
-	dwt_setaddress16(0x4756);
- 8003482:	f244 7056 	movw	r0, #18262	; 0x4756
+	dwt_setaddress16(0x4556);
+ 8003482:	f244 5056 	movw	r0, #17750	; 0x4556
  8003486:	f7ff fd22 	bl	8002ece <dwt_setaddress16>
+	dwt_setpanid(0xDECA);
+	dwt_setaddress16(0x4756);
 #endif
 
     /* Apply default antenna delay value. See NOTE 2 below. */
@@ -6673,7 +6674,7 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOB, DW_IRQn_Pin|DW_RESET_Pin, GPIO_PIN_RESET);
  8003804:	4d0f      	ldr	r5, [pc, #60]	; (8003844 <MX_GPIO_Init+0x94>)
  8003806:	4622      	mov	r2, r4
- 8003808:	f44f 5140 	mov.w	r1, #12288	; 0x3000
+ 8003808:	f44f 51a0 	mov.w	r1, #5120	; 0x1400
  800380c:	4628      	mov	r0, r5
  800380e:	f000 fba5 	bl	8003f5c <HAL_GPIO_WritePin>
 
@@ -6695,7 +6696,7 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : DW_IRQn_Pin DW_RESET_Pin */
   GPIO_InitStruct.Pin = DW_IRQn_Pin|DW_RESET_Pin;
- 8003828:	f44f 5340 	mov.w	r3, #12288	; 0x3000
+ 8003828:	f44f 53a0 	mov.w	r3, #5120	; 0x1400
  800382c:	9303      	str	r3, [sp, #12]
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
  800382e:	9604      	str	r6, [sp, #16]
@@ -7033,7 +7034,7 @@ void my_reset_DWIC(void)
  80039ea:	af00      	add	r7, sp, #0
 	HAL_GPIO_WritePin(DW_RESET_GPIO_Port, DW_RESET_Pin, GPIO_PIN_RESET);
  80039ec:	2200      	movs	r2, #0
- 80039ee:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+ 80039ee:	f44f 6180 	mov.w	r1, #1024	; 0x400
  80039f2:	480a      	ldr	r0, [pc, #40]	; (8003a1c <my_reset_DWIC+0x34>)
  80039f4:	f000 fab2 	bl	8003f5c <HAL_GPIO_WritePin>
 	HAL_Delay(6);
@@ -7041,7 +7042,7 @@ void my_reset_DWIC(void)
  80039fa:	f000 f959 	bl	8003cb0 <HAL_Delay>
 	HAL_GPIO_WritePin(DW_RESET_GPIO_Port, DW_RESET_Pin, GPIO_PIN_SET);
  80039fe:	2201      	movs	r2, #1
- 8003a00:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+ 8003a00:	f44f 6180 	mov.w	r1, #1024	; 0x400
  8003a04:	4805      	ldr	r0, [pc, #20]	; (8003a1c <my_reset_DWIC+0x34>)
  8003a06:	f000 faa9 	bl	8003f5c <HAL_GPIO_WritePin>
 	HAL_Delay(3);

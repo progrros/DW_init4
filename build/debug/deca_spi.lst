@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cc023GSR.s 			page 1
+ARM GAS  /tmp/ccYjLzvd.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/cc023GSR.s 			page 1
   28:Core/Src/deca_spi.c **** /*! -----------------------------------------------------------------------------------------------
   29:Core/Src/deca_spi.c ****  * Function: openspi()
   30:Core/Src/deca_spi.c ****  *
-ARM GAS  /tmp/cc023GSR.s 			page 2
+ARM GAS  /tmp/ccYjLzvd.s 			page 2
 
 
   31:Core/Src/deca_spi.c ****  * Low level abstract function to open and initialise access to the SPI device.
@@ -118,7 +118,7 @@ ARM GAS  /tmp/cc023GSR.s 			page 1
   68              		.thumb_func
   69              		.fpu fpv4-sp-d16
   71              	writetospiwithcrc:
-ARM GAS  /tmp/cc023GSR.s 			page 3
+ARM GAS  /tmp/ccYjLzvd.s 			page 3
 
 
   72              	.LVL0:
@@ -178,7 +178,7 @@ ARM GAS  /tmp/cc023GSR.s 			page 1
  105              		.loc 1 69 12 is_stmt 0 discriminator 1 view .LVU15
  106 0012 1548     		ldr	r0, .L6
  107 0014 FFF7FEFF 		bl	HAL_SPI_GetState
-ARM GAS  /tmp/cc023GSR.s 			page 4
+ARM GAS  /tmp/ccYjLzvd.s 			page 4
 
 
  108              	.LVL3:
@@ -238,7 +238,7 @@ ARM GAS  /tmp/cc023GSR.s 			page 1
  151              		.loc 1 80 1 is_stmt 0 view .LVU24
  152 0060 0020     		movs	r0, #0
  153 0062 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
-ARM GAS  /tmp/cc023GSR.s 			page 5
+ARM GAS  /tmp/ccYjLzvd.s 			page 5
 
 
  154              	.LVL10:
@@ -298,7 +298,7 @@ ARM GAS  /tmp/cc023GSR.s 			page 1
  194 000c FFF7FEFF 		bl	decamutexon
  195              	.LVL12:
  196              		.loc 1 96 12 view .LVU31
-ARM GAS  /tmp/cc023GSR.s 			page 6
+ARM GAS  /tmp/ccYjLzvd.s 			page 6
 
 
  197 0010 0546     		mov	r5, r0
@@ -358,7 +358,7 @@ ARM GAS  /tmp/cc023GSR.s 			page 1
  110:Core/Src/deca_spi.c **** } // end writetospi()
  238              		.loc 1 110 1 is_stmt 0 view .LVU44
  239 004a 0020     		movs	r0, #0
-ARM GAS  /tmp/cc023GSR.s 			page 7
+ARM GAS  /tmp/ccYjLzvd.s 			page 7
 
 
  240 004c BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
@@ -418,7 +418,7 @@ ARM GAS  /tmp/cc023GSR.s 			page 1
  280 0002 0446     		mov	r4, r0
  126:Core/Src/deca_spi.c **** 	/* Blocking: Check whether previous transfer has been finished */
  127:Core/Src/deca_spi.c **** 	while (HAL_SPI_GetState(&hspi1) != HAL_SPI_STATE_READY);
-ARM GAS  /tmp/cc023GSR.s 			page 8
+ARM GAS  /tmp/ccYjLzvd.s 			page 8
 
 
  281              		.loc 1 127 2 is_stmt 1 view .LVU48
@@ -478,7 +478,7 @@ ARM GAS  /tmp/cc023GSR.s 			page 1
  326              	.L17:
  137:Core/Src/deca_spi.c **** }
  327              		.loc 1 137 1 is_stmt 0 view .LVU64
-ARM GAS  /tmp/cc023GSR.s 			page 9
+ARM GAS  /tmp/ccYjLzvd.s 			page 9
 
 
  328 0044 70BD     		pop	{r4, r5, r6, pc}
@@ -538,7 +538,7 @@ ARM GAS  /tmp/cc023GSR.s 			page 1
  368 0008 9146     		mov	r9, r2
  369 000a 9846     		mov	r8, r3
  153:Core/Src/deca_spi.c ****     int i;
-ARM GAS  /tmp/cc023GSR.s 			page 10
+ARM GAS  /tmp/ccYjLzvd.s 			page 10
 
 
  370              		.loc 1 153 5 is_stmt 1 view .LVU68
@@ -598,7 +598,7 @@ ARM GAS  /tmp/cc023GSR.s 			page 1
  410              		.loc 1 164 30 discriminator 3 view .LVU83
  164:Core/Src/deca_spi.c ****     {
  411              		.loc 1 164 31 is_stmt 0 discriminator 3 view .LVU84
-ARM GAS  /tmp/cc023GSR.s 			page 11
+ARM GAS  /tmp/ccYjLzvd.s 			page 11
 
 
  412 003a 0134     		adds	r4, r4, #1
@@ -658,7 +658,7 @@ ARM GAS  /tmp/cc023GSR.s 			page 1
  451              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
  452              		.file 3 "Drivers/CMSIS/Device/ST/STM32F3xx/Include/stm32f303xc.h"
  453              		.file 4 "Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h"
-ARM GAS  /tmp/cc023GSR.s 			page 12
+ARM GAS  /tmp/ccYjLzvd.s 			page 12
 
 
  454              		.file 5 "Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_gpio.h"
@@ -666,27 +666,27 @@ ARM GAS  /tmp/cc023GSR.s 			page 1
  456              		.file 7 "Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi.h"
  457              		.file 8 "Core/Inc/deca_device_api.h"
  458              		.file 9 "Core/Inc/port.h"
-ARM GAS  /tmp/cc023GSR.s 			page 13
+ARM GAS  /tmp/ccYjLzvd.s 			page 13
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 deca_spi.c
-     /tmp/cc023GSR.s:18     .text.openspi:0000000000000000 $t
-     /tmp/cc023GSR.s:26     .text.openspi:0000000000000000 openspi
-     /tmp/cc023GSR.s:42     .text.closespi:0000000000000000 $t
-     /tmp/cc023GSR.s:49     .text.closespi:0000000000000000 closespi
-     /tmp/cc023GSR.s:64     .text.writetospiwithcrc:0000000000000000 $t
-     /tmp/cc023GSR.s:71     .text.writetospiwithcrc:0000000000000000 writetospiwithcrc
-     /tmp/cc023GSR.s:159    .text.writetospiwithcrc:0000000000000068 $d
-     /tmp/cc023GSR.s:164    .text.writetospi:0000000000000000 $t
-     /tmp/cc023GSR.s:171    .text.writetospi:0000000000000000 writetospi
-     /tmp/cc023GSR.s:254    .text.writetospi:0000000000000060 $d
-     /tmp/cc023GSR.s:259    .text.spi_cs_low_delay:0000000000000000 $t
-     /tmp/cc023GSR.s:266    .text.spi_cs_low_delay:0000000000000000 spi_cs_low_delay
-     /tmp/cc023GSR.s:336    .text.spi_cs_low_delay:000000000000004c $d
-     /tmp/cc023GSR.s:341    .text.readfromspi:0000000000000000 $t
-     /tmp/cc023GSR.s:348    .text.readfromspi:0000000000000000 readfromspi
-     /tmp/cc023GSR.s:445    .text.readfromspi:0000000000000064 $d
+     /tmp/ccYjLzvd.s:18     .text.openspi:0000000000000000 $t
+     /tmp/ccYjLzvd.s:26     .text.openspi:0000000000000000 openspi
+     /tmp/ccYjLzvd.s:42     .text.closespi:0000000000000000 $t
+     /tmp/ccYjLzvd.s:49     .text.closespi:0000000000000000 closespi
+     /tmp/ccYjLzvd.s:64     .text.writetospiwithcrc:0000000000000000 $t
+     /tmp/ccYjLzvd.s:71     .text.writetospiwithcrc:0000000000000000 writetospiwithcrc
+     /tmp/ccYjLzvd.s:159    .text.writetospiwithcrc:0000000000000068 $d
+     /tmp/ccYjLzvd.s:164    .text.writetospi:0000000000000000 $t
+     /tmp/ccYjLzvd.s:171    .text.writetospi:0000000000000000 writetospi
+     /tmp/ccYjLzvd.s:254    .text.writetospi:0000000000000060 $d
+     /tmp/ccYjLzvd.s:259    .text.spi_cs_low_delay:0000000000000000 $t
+     /tmp/ccYjLzvd.s:266    .text.spi_cs_low_delay:0000000000000000 spi_cs_low_delay
+     /tmp/ccYjLzvd.s:336    .text.spi_cs_low_delay:000000000000004c $d
+     /tmp/ccYjLzvd.s:341    .text.readfromspi:0000000000000000 $t
+     /tmp/ccYjLzvd.s:348    .text.readfromspi:0000000000000000 readfromspi
+     /tmp/ccYjLzvd.s:445    .text.readfromspi:0000000000000064 $d
 
 UNDEFINED SYMBOLS
 decamutexon
