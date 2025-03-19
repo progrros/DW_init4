@@ -1,30 +1,5 @@
-/*! ----------------------------------------------------------------------------
- *  @file    ds_twr_initiator_sts.c
- *  @brief   Double-sided two-way ranging (DS TWR) initiator example code
- *
- *           This is a simple code example which acts as the initiator in a DS TWR distance measurement exchange. This application sends a "poll"
- *           frame (recording the TX time-stamp of the poll), after which it waits for a "response" message from the "ds_twr_responder_sts" example
- *           code (companion to this application) to complete the exchange.
- *
- *           This example utilises the 802.15.4z STS to accomplish secure timestamps between the initiator and responder. A 32-bit STS counter
- *           is part of the STS IV used to generate the scrambled timestamp sequence (STS) in the transmitted packet and to cross correlate in the
- *           receiver. This count normally advances by 1 for every 1024 chips (~2�s) of STS in BPRF mode, and by 1 for every 512 chips (~1�s) of STS
- *           in HPRF mode. If both devices (initiator and responder) have count values that are synced, then the communication between devices should
- *           result in secure timestamps which can be used to calculate distance. If not, then the devices need to re-sync their STS counter values.
- *           In this example, the initiator will send a plain-text value of it's 32-bit STS counter inside the "poll" frame. The receiver first
- *           checks the quality of the STS of the received frame. If the received frame has bad STS quality, it can then use the plain-text
- *           counter value received to adjust it's own STS counter value to match. This means that the next message in the sequence should be in sync again.
- *
- * @attention
- *
- * Copyright 2019 - 2020 (c) Decawave Ltd, Dublin, Ireland.
- *
- * All rights reserved.
- *
- * @author Decawave
- */
 #include "main.h"
-//#include "tim.h"
+#include "tim.h"
 #include <stdlib.h>
 #include <deca_device_api.h>
 #include <deca_regs.h>
@@ -61,7 +36,7 @@ extern void test_run_info(unsigned char *data);
 #define RX_ANT_DLY ANT_DELAY  //16525
 
 /* Number of Anchors */
-#define NUMBER_OF_ANCHORS 6// choose 4 or 6
+#define NUMBER_OF_ANCHORS 4// choose 4 or 6
 /* Index of address in msg */
 #define SOURCE_ADDRESS_IDX 7
 #define DESTINATION_ADDRESS_IDX 5

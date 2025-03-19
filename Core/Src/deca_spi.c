@@ -169,24 +169,6 @@ int readfromspi(uint16_t  headerLength,
     /* for the data buffer use LL functions directly as the HAL SPI read function
      * has issue reading single bytes */
 
-//    while(readlength-- > 0)
-//    {
-//        /* Wait until TXE flag is set to send data */
-//        while(__HAL_SPI_GET_FLAG(&hspi3, SPI_FLAG_TXE) == RESET)
-//        {
-//        }
-//
-//        hspi3.Instance->DR = 0; /* set output to 0 (MOSI), this is necessary for
-//        e.g. when waking up DW3000 from DEEPSLEEP via dwt_spicswakeup() function.
-//        */
-//
-//        /* Wait until RXNE flag is set to read data */
-//        while(__HAL_SPI_GET_FLAG(&hspi3, SPI_FLAG_RXNE) == RESET)
-//        {
-//        }
-//
-//        (*readBuffer++) = hspi3.Instance->DR;  //copy data read form (MISO)
-//    }
 
     HAL_SPI_Receive(&hspi1, readBuffer, readlength, 100);
 

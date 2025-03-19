@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cc6OBanu.s 			page 1
+ARM GAS  /tmp/ccvQcSe7.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
   27:Core/Src/shared_functions.c ****  *
   28:Core/Src/shared_functions.c ****  * @param reg: uint32_t value representing the current status register value.
   29:Core/Src/shared_functions.c ****  * @param errors: pointer to a uint32_t buffer that contains the sum of different errors logged dur
-ARM GAS  /tmp/cc6OBanu.s 			page 2
+ARM GAS  /tmp/ccvQcSe7.s 			page 2
 
 
   30:Core/Src/shared_functions.c ****  *
@@ -118,7 +118,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
   66              		.loc 1 47 5 is_stmt 1 view .LVU12
   67              		.loc 1 47 8 is_stmt 0 view .LVU13
   68 0024 10F4805F 		tst	r0, #4096
-ARM GAS  /tmp/cc6OBanu.s 			page 3
+ARM GAS  /tmp/ccvQcSe7.s 			page 3
 
 
   69 0028 02D0     		beq	.L4
@@ -178,7 +178,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  103              		.loc 1 67 5 is_stmt 1 view .LVU27
  104              		.loc 1 67 8 is_stmt 0 view .LVU28
  105 0052 10F4081F 		tst	r0, #2228224
-ARM GAS  /tmp/cc6OBanu.s 			page 4
+ARM GAS  /tmp/ccvQcSe7.s 			page 4
 
 
  106 0056 02D0     		beq	.L8
@@ -238,7 +238,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
   99:Core/Src/shared_functions.c ****         if (stsStatus & 0x020)
  100:Core/Src/shared_functions.c ****         {
  101:Core/Src/shared_functions.c ****             // Late first path estimation
-ARM GAS  /tmp/cc6OBanu.s 			page 5
+ARM GAS  /tmp/ccvQcSe7.s 			page 5
 
 
  102:Core/Src/shared_functions.c ****             errors[STS_LATE_FIRST_PATH_ERR] += 1;
@@ -298,7 +298,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
   83:Core/Src/shared_functions.c ****         if (stsStatus & 0x100)
  150              		.loc 1 83 9 is_stmt 1 view .LVU42
  151 0082 0021     		movs	r1, #0
-ARM GAS  /tmp/cc6OBanu.s 			page 6
+ARM GAS  /tmp/ccvQcSe7.s 			page 6
 
 
  152              	.LVL3:
@@ -358,7 +358,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
   99:Core/Src/shared_functions.c ****         {
  191              		.loc 1 99 9 is_stmt 1 view .LVU58
   99:Core/Src/shared_functions.c ****         {
-ARM GAS  /tmp/cc6OBanu.s 			page 7
+ARM GAS  /tmp/ccvQcSe7.s 			page 7
 
 
  192              		.loc 1 99 12 is_stmt 0 view .LVU59
@@ -418,7 +418,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  231              		.loc 1 119 9 is_stmt 1 view .LVU74
  119:Core/Src/shared_functions.c ****         {
  232              		.loc 1 119 12 is_stmt 0 view .LVU75
-ARM GAS  /tmp/cc6OBanu.s 			page 8
+ARM GAS  /tmp/ccvQcSe7.s 			page 8
 
 
  233 00e4 13F0020F 		tst	r3, #2
@@ -478,7 +478,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  270              		.loc 1 143 5 view .LVU84
  271              	.LVL6:
  144:Core/Src/shared_functions.c ****     /* Standard delay values for preamble lengths of 32, 64, 72 & 128 should be adequate.
-ARM GAS  /tmp/cc6OBanu.s 			page 9
+ARM GAS  /tmp/ccvQcSe7.s 			page 9
 
 
  145:Core/Src/shared_functions.c ****      * Additional time delay will be needed for larger preamble lengths.
@@ -538,7 +538,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  311 0024 4FF46070 		mov	r0, #896
  312              		.loc 1 157 9 view .LVU95
  313 0028 7047     		bx	lr
-ARM GAS  /tmp/cc6OBanu.s 			page 10
+ARM GAS  /tmp/ccvQcSe7.s 			page 10
 
 
  314              	.LVL9:
@@ -598,7 +598,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  345 003e 7047     		bx	lr
  346              	.L33:
  347              		.align	2
-ARM GAS  /tmp/cc6OBanu.s 			page 11
+ARM GAS  /tmp/ccvQcSe7.s 			page 11
 
 
  348              	.L32:
@@ -658,7 +658,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  197:Core/Src/shared_functions.c ****         break;
  198:Core/Src/shared_functions.c ****     case DWT_BR_6M8:
  199:Core/Src/shared_functions.c ****     default:
-ARM GAS  /tmp/cc6OBanu.s 			page 12
+ARM GAS  /tmp/ccvQcSe7.s 			page 12
 
 
  200:Core/Src/shared_functions.c ****         break;
@@ -718,7 +718,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  417 0002 4B78     		ldrb	r3, [r1, #1]	@ zero_extendqisi2
  418              		.loc 1 221 5 view .LVU125
  419 0004 013B     		subs	r3, r3, #1
-ARM GAS  /tmp/cc6OBanu.s 			page 13
+ARM GAS  /tmp/ccvQcSe7.s 			page 13
 
 
  420 0006 0C2B     		cmp	r3, #12
@@ -778,7 +778,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  251:Core/Src/shared_functions.c ****     default:
  252:Core/Src/shared_functions.c ****         break;
  253:Core/Src/shared_functions.c ****     }
-ARM GAS  /tmp/cc6OBanu.s 			page 14
+ARM GAS  /tmp/ccvQcSe7.s 			page 14
 
 
  254:Core/Src/shared_functions.c **** 
@@ -838,7 +838,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  485              		.loc 1 233 9 view .LVU144
  233:Core/Src/shared_functions.c ****         break;
  486              		.loc 1 233 20 is_stmt 0 view .LVU145
-ARM GAS  /tmp/cc6OBanu.s 			page 15
+ARM GAS  /tmp/ccvQcSe7.s 			page 15
 
 
  487 0040 8038     		subs	r0, r0, #128
@@ -898,7 +898,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  526              		.loc 1 249 20 is_stmt 0 view .LVU160
  527 005c A0F50060 		sub	r0, r0, #2048
  528              	.LVL37:
-ARM GAS  /tmp/cc6OBanu.s 			page 16
+ARM GAS  /tmp/ccvQcSe7.s 			page 16
 
 
  250:Core/Src/shared_functions.c ****     default:
@@ -958,7 +958,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  565              		.loc 1 279 67 view .LVU167
  566 000c FFF7FEFF 		bl	get_rx_delay_time_txpreamble
  567              	.LVL41:
-ARM GAS  /tmp/cc6OBanu.s 			page 17
+ARM GAS  /tmp/ccvQcSe7.s 			page 17
 
 
  568              		.loc 1 279 65 view .LVU168
@@ -1018,7 +1018,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  603              		.syntax unified
  604              		.thumb
  605              		.thumb_func
-ARM GAS  /tmp/cc6OBanu.s 			page 18
+ARM GAS  /tmp/ccvQcSe7.s 			page 18
 
 
  606              		.fpu fpv4-sp-d16
@@ -1078,7 +1078,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  327:Core/Src/shared_functions.c ****     dwt_write32bitreg(STS_IV0_ID, iv_value);
  634              		.loc 1 327 5 is_stmt 1 view .LVU189
  635 0010 00EB6302 		add	r2, r0, r3, asr #1
-ARM GAS  /tmp/cc6OBanu.s 			page 19
+ARM GAS  /tmp/ccvQcSe7.s 			page 19
 
 
  636              	.LVL48:
@@ -1138,7 +1138,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  674              		.loc 1 345 5 view .LVU196
  675              		.loc 1 345 9 is_stmt 0 view .LVU197
  676 0000 0023     		movs	r3, #0
-ARM GAS  /tmp/cc6OBanu.s 			page 20
+ARM GAS  /tmp/ccvQcSe7.s 			page 20
 
 
  677 0002 0B60     		str	r3, [r1]
@@ -1198,7 +1198,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  356:Core/Src/shared_functions.c ****  *        /!\ This function assumes that length of time-stamps is 40 bits, for both TX and RX!
  357:Core/Src/shared_functions.c ****  *
  358:Core/Src/shared_functions.c ****  * @param  none
-ARM GAS  /tmp/cc6OBanu.s 			page 21
+ARM GAS  /tmp/ccvQcSe7.s 			page 21
 
 
  359:Core/Src/shared_functions.c ****  *
@@ -1258,7 +1258,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  759 0022 42EA0020 		orr	r0, r2, r0, lsl #8
  760              	.LVL61:
  368:Core/Src/shared_functions.c ****     {
-ARM GAS  /tmp/cc6OBanu.s 			page 22
+ARM GAS  /tmp/ccvQcSe7.s 			page 22
 
 
  761              		.loc 1 368 25 is_stmt 1 discriminator 3 view .LVU225
@@ -1318,7 +1318,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  797              		.cfi_def_cfa_offset 4
  798              		.cfi_offset 14, -4
  799 0002 83B0     		sub	sp, sp, #12
-ARM GAS  /tmp/cc6OBanu.s 			page 23
+ARM GAS  /tmp/ccvQcSe7.s 			page 23
 
 
  800              		.cfi_def_cfa_offset 16
@@ -1378,7 +1378,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  392:Core/Src/shared_functions.c ****     {
  842              		.loc 1 392 17 is_stmt 1 discriminator 1 view .LVU250
  392:Core/Src/shared_functions.c ****     {
-ARM GAS  /tmp/cc6OBanu.s 			page 24
+ARM GAS  /tmp/ccvQcSe7.s 			page 24
 
 
  843              		.loc 1 392 5 is_stmt 0 discriminator 1 view .LVU251
@@ -1438,7 +1438,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  879 0004 09E0     		b	.L71
  880              	.LVL74:
  881              	.L72:
-ARM GAS  /tmp/cc6OBanu.s 			page 25
+ARM GAS  /tmp/ccvQcSe7.s 			page 25
 
 
  416:Core/Src/shared_functions.c ****     {
@@ -1498,7 +1498,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  428:Core/Src/shared_functions.c ****  *         ts  timestamp value
  429:Core/Src/shared_functions.c ****  *
  430:Core/Src/shared_functions.c ****  * @return none
-ARM GAS  /tmp/cc6OBanu.s 			page 26
+ARM GAS  /tmp/ccvQcSe7.s 			page 26
 
 
  431:Core/Src/shared_functions.c ****  */
@@ -1558,7 +1558,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  960              	.LFE10:
  962              		.section	.text.resp_msg_set_ts,"ax",%progbits
  963              		.align	1
-ARM GAS  /tmp/cc6OBanu.s 			page 27
+ARM GAS  /tmp/ccvQcSe7.s 			page 27
 
 
  964              		.global	resp_msg_set_ts
@@ -1618,7 +1618,7 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  1000 0020 2143     		orrs	r1, r1, r4
  1001 0022 23FA0EFE 		lsr	lr, r3, lr
  1002 0026 41EA0E01 		orr	r1, r1, lr
-ARM GAS  /tmp/cc6OBanu.s 			page 28
+ARM GAS  /tmp/ccvQcSe7.s 			page 28
 
 
  1003              		.loc 1 458 21 discriminator 3 view .LVU297
@@ -1655,43 +1655,43 @@ ARM GAS  /tmp/cc6OBanu.s 			page 1
  1028              	.Letext0:
  1029              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
  1030              		.file 3 "Core/Inc/deca_device_api.h"
-ARM GAS  /tmp/cc6OBanu.s 			page 29
+ARM GAS  /tmp/ccvQcSe7.s 			page 29
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 shared_functions.c
-     /tmp/cc6OBanu.s:18     .text.check_for_status_errors:0000000000000000 $t
-     /tmp/cc6OBanu.s:26     .text.check_for_status_errors:0000000000000000 check_for_status_errors
-     /tmp/cc6OBanu.s:256    .text.get_rx_delay_time_txpreamble:0000000000000000 $t
-     /tmp/cc6OBanu.s:263    .text.get_rx_delay_time_txpreamble:0000000000000000 get_rx_delay_time_txpreamble
-     /tmp/cc6OBanu.s:282    .text.get_rx_delay_time_txpreamble:000000000000000e $d
-     /tmp/cc6OBanu.s:294    .text.get_rx_delay_time_txpreamble:000000000000001a $t
-     /tmp/cc6OBanu.s:349    .text.get_rx_delay_time_txpreamble:0000000000000040 $d
-     /tmp/cc6OBanu.s:354    .text.get_rx_delay_time_data_rate:0000000000000000 $t
-     /tmp/cc6OBanu.s:361    .text.get_rx_delay_time_data_rate:0000000000000000 get_rx_delay_time_data_rate
-     /tmp/cc6OBanu.s:389    .text.get_rx_delay_time_data_rate:0000000000000010 $d
-     /tmp/cc6OBanu.s:394    .text.set_delayed_rx_time:0000000000000000 $t
-     /tmp/cc6OBanu.s:401    .text.set_delayed_rx_time:0000000000000000 set_delayed_rx_time
-     /tmp/cc6OBanu.s:424    .text.set_delayed_rx_time:000000000000000e $d
-     /tmp/cc6OBanu.s:535    .text.set_resp_rx_timeout:0000000000000000 $t
-     /tmp/cc6OBanu.s:542    .text.set_resp_rx_timeout:0000000000000000 set_resp_rx_timeout
-     /tmp/cc6OBanu.s:601    .text.resync_sts:0000000000000000 $t
-     /tmp/cc6OBanu.s:608    .text.resync_sts:0000000000000000 resync_sts
-     /tmp/cc6OBanu.s:652    .text.resync_sts:0000000000000024 $d
-     /tmp/cc6OBanu.s:658    .text.resp_msg_get_ts:0000000000000000 $t
-     /tmp/cc6OBanu.s:665    .text.resp_msg_get_ts:0000000000000000 resp_msg_get_ts
-     /tmp/cc6OBanu.s:710    .text.get_tx_timestamp_u64:0000000000000000 $t
-     /tmp/cc6OBanu.s:717    .text.get_tx_timestamp_u64:0000000000000000 get_tx_timestamp_u64
-     /tmp/cc6OBanu.s:783    .text.get_rx_timestamp_u64:0000000000000000 $t
-     /tmp/cc6OBanu.s:790    .text.get_rx_timestamp_u64:0000000000000000 get_rx_timestamp_u64
-     /tmp/cc6OBanu.s:856    .text.final_msg_get_ts:0000000000000000 $t
-     /tmp/cc6OBanu.s:863    .text.final_msg_get_ts:0000000000000000 final_msg_get_ts
-     /tmp/cc6OBanu.s:911    .text.final_msg_set_ts:0000000000000000 $t
-     /tmp/cc6OBanu.s:918    .text.final_msg_set_ts:0000000000000000 final_msg_set_ts
-     /tmp/cc6OBanu.s:963    .text.resp_msg_set_ts:0000000000000000 $t
-     /tmp/cc6OBanu.s:970    .text.resp_msg_set_ts:0000000000000000 resp_msg_set_ts
-     /tmp/cc6OBanu.s:437    .text.set_delayed_rx_time:000000000000001b $d
-     /tmp/cc6OBanu.s:437    .text.set_delayed_rx_time:000000000000001c $t
+     /tmp/ccvQcSe7.s:18     .text.check_for_status_errors:0000000000000000 $t
+     /tmp/ccvQcSe7.s:26     .text.check_for_status_errors:0000000000000000 check_for_status_errors
+     /tmp/ccvQcSe7.s:256    .text.get_rx_delay_time_txpreamble:0000000000000000 $t
+     /tmp/ccvQcSe7.s:263    .text.get_rx_delay_time_txpreamble:0000000000000000 get_rx_delay_time_txpreamble
+     /tmp/ccvQcSe7.s:282    .text.get_rx_delay_time_txpreamble:000000000000000e $d
+     /tmp/ccvQcSe7.s:294    .text.get_rx_delay_time_txpreamble:000000000000001a $t
+     /tmp/ccvQcSe7.s:349    .text.get_rx_delay_time_txpreamble:0000000000000040 $d
+     /tmp/ccvQcSe7.s:354    .text.get_rx_delay_time_data_rate:0000000000000000 $t
+     /tmp/ccvQcSe7.s:361    .text.get_rx_delay_time_data_rate:0000000000000000 get_rx_delay_time_data_rate
+     /tmp/ccvQcSe7.s:389    .text.get_rx_delay_time_data_rate:0000000000000010 $d
+     /tmp/ccvQcSe7.s:394    .text.set_delayed_rx_time:0000000000000000 $t
+     /tmp/ccvQcSe7.s:401    .text.set_delayed_rx_time:0000000000000000 set_delayed_rx_time
+     /tmp/ccvQcSe7.s:424    .text.set_delayed_rx_time:000000000000000e $d
+     /tmp/ccvQcSe7.s:535    .text.set_resp_rx_timeout:0000000000000000 $t
+     /tmp/ccvQcSe7.s:542    .text.set_resp_rx_timeout:0000000000000000 set_resp_rx_timeout
+     /tmp/ccvQcSe7.s:601    .text.resync_sts:0000000000000000 $t
+     /tmp/ccvQcSe7.s:608    .text.resync_sts:0000000000000000 resync_sts
+     /tmp/ccvQcSe7.s:652    .text.resync_sts:0000000000000024 $d
+     /tmp/ccvQcSe7.s:658    .text.resp_msg_get_ts:0000000000000000 $t
+     /tmp/ccvQcSe7.s:665    .text.resp_msg_get_ts:0000000000000000 resp_msg_get_ts
+     /tmp/ccvQcSe7.s:710    .text.get_tx_timestamp_u64:0000000000000000 $t
+     /tmp/ccvQcSe7.s:717    .text.get_tx_timestamp_u64:0000000000000000 get_tx_timestamp_u64
+     /tmp/ccvQcSe7.s:783    .text.get_rx_timestamp_u64:0000000000000000 $t
+     /tmp/ccvQcSe7.s:790    .text.get_rx_timestamp_u64:0000000000000000 get_rx_timestamp_u64
+     /tmp/ccvQcSe7.s:856    .text.final_msg_get_ts:0000000000000000 $t
+     /tmp/ccvQcSe7.s:863    .text.final_msg_get_ts:0000000000000000 final_msg_get_ts
+     /tmp/ccvQcSe7.s:911    .text.final_msg_set_ts:0000000000000000 $t
+     /tmp/ccvQcSe7.s:918    .text.final_msg_set_ts:0000000000000000 final_msg_set_ts
+     /tmp/ccvQcSe7.s:963    .text.resp_msg_set_ts:0000000000000000 $t
+     /tmp/ccvQcSe7.s:970    .text.resp_msg_set_ts:0000000000000000 resp_msg_set_ts
+     /tmp/ccvQcSe7.s:437    .text.set_delayed_rx_time:000000000000001b $d
+     /tmp/ccvQcSe7.s:437    .text.set_delayed_rx_time:000000000000001c $t
 
 UNDEFINED SYMBOLS
 dwt_readstsstatus

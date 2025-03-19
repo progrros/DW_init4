@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cc7sAMpK.s 			page 1
+ARM GAS  /tmp/ccVmoTNI.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -27,261 +27,236 @@ ARM GAS  /tmp/cc7sAMpK.s 			page 1
   25              	send_tx_poll_msg:
   26              	.LFB133:
   27              		.file 1 "Core/Src/ds_twr_initiator_sts.c"
-   1:Core/Src/ds_twr_initiator_sts.c **** /*! ----------------------------------------------------------------------------
-   2:Core/Src/ds_twr_initiator_sts.c ****  *  @file    ds_twr_initiator_sts.c
-   3:Core/Src/ds_twr_initiator_sts.c ****  *  @brief   Double-sided two-way ranging (DS TWR) initiator example code
-   4:Core/Src/ds_twr_initiator_sts.c ****  *
-   5:Core/Src/ds_twr_initiator_sts.c ****  *           This is a simple code example which acts as the initiator in a DS TWR distance measure
-   6:Core/Src/ds_twr_initiator_sts.c ****  *           frame (recording the TX time-stamp of the poll), after which it waits for a "response"
-   7:Core/Src/ds_twr_initiator_sts.c ****  *           code (companion to this application) to complete the exchange.
-   8:Core/Src/ds_twr_initiator_sts.c ****  *
-   9:Core/Src/ds_twr_initiator_sts.c ****  *           This example utilises the 802.15.4z STS to accomplish secure timestamps between the in
-  10:Core/Src/ds_twr_initiator_sts.c ****  *           is part of the STS IV used to generate the scrambled timestamp sequence (STS) in the t
-  11:Core/Src/ds_twr_initiator_sts.c ****  *           receiver. This count normally advances by 1 for every 1024 chips (~2�s) of STS in BP
-  12:Core/Src/ds_twr_initiator_sts.c ****  *           in HPRF mode. If both devices (initiator and responder) have count values that are syn
-  13:Core/Src/ds_twr_initiator_sts.c ****  *           result in secure timestamps which can be used to calculate distance. If not, then the 
-  14:Core/Src/ds_twr_initiator_sts.c ****  *           In this example, the initiator will send a plain-text value of it's 32-bit STS counter
-  15:Core/Src/ds_twr_initiator_sts.c ****  *           checks the quality of the STS of the received frame. If the received frame has bad STS
-  16:Core/Src/ds_twr_initiator_sts.c ****  *           counter value received to adjust it's own STS counter value to match. This means that 
-  17:Core/Src/ds_twr_initiator_sts.c ****  *
-  18:Core/Src/ds_twr_initiator_sts.c ****  * @attention
-  19:Core/Src/ds_twr_initiator_sts.c ****  *
-  20:Core/Src/ds_twr_initiator_sts.c ****  * Copyright 2019 - 2020 (c) Decawave Ltd, Dublin, Ireland.
-  21:Core/Src/ds_twr_initiator_sts.c ****  *
-  22:Core/Src/ds_twr_initiator_sts.c ****  * All rights reserved.
-  23:Core/Src/ds_twr_initiator_sts.c ****  *
-  24:Core/Src/ds_twr_initiator_sts.c ****  * @author Decawave
-  25:Core/Src/ds_twr_initiator_sts.c ****  */
-  26:Core/Src/ds_twr_initiator_sts.c **** #include "main.h"
-  27:Core/Src/ds_twr_initiator_sts.c **** //#include "tim.h"
-  28:Core/Src/ds_twr_initiator_sts.c **** #include <stdlib.h>
-  29:Core/Src/ds_twr_initiator_sts.c **** #include <deca_device_api.h>
-  30:Core/Src/ds_twr_initiator_sts.c **** #include <deca_regs.h>
-  31:Core/Src/ds_twr_initiator_sts.c **** #include <deca_spi.h>
-ARM GAS  /tmp/cc7sAMpK.s 			page 2
+   1:Core/Src/ds_twr_initiator_sts.c **** #include "main.h"
+   2:Core/Src/ds_twr_initiator_sts.c **** #include "tim.h"
+   3:Core/Src/ds_twr_initiator_sts.c **** #include <stdlib.h>
+   4:Core/Src/ds_twr_initiator_sts.c **** #include <deca_device_api.h>
+   5:Core/Src/ds_twr_initiator_sts.c **** #include <deca_regs.h>
+   6:Core/Src/ds_twr_initiator_sts.c **** #include <deca_spi.h>
+   7:Core/Src/ds_twr_initiator_sts.c **** #include <deca_types.h>
+   8:Core/Src/ds_twr_initiator_sts.c **** #include <port.h>
+   9:Core/Src/ds_twr_initiator_sts.c **** #include <shared_defines.h>
+  10:Core/Src/ds_twr_initiator_sts.c **** #include <shared_functions.h>
+  11:Core/Src/ds_twr_initiator_sts.c **** #include <example_selection.h>
+  12:Core/Src/ds_twr_initiator_sts.c **** #include <config_options.h>
+  13:Core/Src/ds_twr_initiator_sts.c **** #include "string.h"
+  14:Core/Src/ds_twr_initiator_sts.c **** #include "stdio.h"
+  15:Core/Src/ds_twr_initiator_sts.c **** #include <time.h>
+  16:Core/Src/ds_twr_initiator_sts.c **** 
+  17:Core/Src/ds_twr_initiator_sts.c **** #if defined(TEST_DS_TWR_INITIATOR_STS)
+  18:Core/Src/ds_twr_initiator_sts.c **** 
+  19:Core/Src/ds_twr_initiator_sts.c **** extern void test_run_info(unsigned char *data);
+  20:Core/Src/ds_twr_initiator_sts.c **** 
+  21:Core/Src/ds_twr_initiator_sts.c **** /* Example application name */
+  22:Core/Src/ds_twr_initiator_sts.c **** #define APP_NAME "DS TWR INIT v1.0"
+  23:Core/Src/ds_twr_initiator_sts.c **** 
+  24:Core/Src/ds_twr_initiator_sts.c **** /* Inter-ranging delay period, in milliseconds. */
+  25:Core/Src/ds_twr_initiator_sts.c **** #define RNG_DELAY_MS 1
+  26:Core/Src/ds_twr_initiator_sts.c **** 
+  27:Core/Src/ds_twr_initiator_sts.c **** /* Default antenna delay values for 64 MHz PRF. See NOTE 2 below. */
+  28:Core/Src/ds_twr_initiator_sts.c **** #if INITIATOR_TYPE == 'E'
+  29:Core/Src/ds_twr_initiator_sts.c **** 	#define ANT_DELAY 16525//16525////16405//16549//16550
+  30:Core/Src/ds_twr_initiator_sts.c **** #elif  INITIATOR_TYPE == 'F'
+  31:Core/Src/ds_twr_initiator_sts.c **** 	#define ANT_DELAY 16525//16525////16405//16549//16550
+ARM GAS  /tmp/ccVmoTNI.s 			page 2
 
 
-  32:Core/Src/ds_twr_initiator_sts.c **** #include <deca_types.h>
-  33:Core/Src/ds_twr_initiator_sts.c **** #include <port.h>
-  34:Core/Src/ds_twr_initiator_sts.c **** #include <shared_defines.h>
-  35:Core/Src/ds_twr_initiator_sts.c **** #include <shared_functions.h>
-  36:Core/Src/ds_twr_initiator_sts.c **** #include <example_selection.h>
-  37:Core/Src/ds_twr_initiator_sts.c **** #include <config_options.h>
-  38:Core/Src/ds_twr_initiator_sts.c **** #include "string.h"
-  39:Core/Src/ds_twr_initiator_sts.c **** #include "stdio.h"
-  40:Core/Src/ds_twr_initiator_sts.c **** #include <time.h>
-  41:Core/Src/ds_twr_initiator_sts.c **** 
-  42:Core/Src/ds_twr_initiator_sts.c **** #if defined(TEST_DS_TWR_INITIATOR_STS)
+  32:Core/Src/ds_twr_initiator_sts.c **** #elif  INITIATOR_TYPE == 'G'
+  33:Core/Src/ds_twr_initiator_sts.c **** 	#define ANT_DELAY 16525//16525////16405//16549//16550
+  34:Core/Src/ds_twr_initiator_sts.c **** #endif
+  35:Core/Src/ds_twr_initiator_sts.c **** #define TX_ANT_DLY ANT_DELAY //16525
+  36:Core/Src/ds_twr_initiator_sts.c **** #define RX_ANT_DLY ANT_DELAY  //16525
+  37:Core/Src/ds_twr_initiator_sts.c **** 
+  38:Core/Src/ds_twr_initiator_sts.c **** /* Number of Anchors */
+  39:Core/Src/ds_twr_initiator_sts.c **** #define NUMBER_OF_ANCHORS 4// choose 4 or 6
+  40:Core/Src/ds_twr_initiator_sts.c **** /* Index of address in msg */
+  41:Core/Src/ds_twr_initiator_sts.c **** #define SOURCE_ADDRESS_IDX 7
+  42:Core/Src/ds_twr_initiator_sts.c **** #define DESTINATION_ADDRESS_IDX 5
   43:Core/Src/ds_twr_initiator_sts.c **** 
-  44:Core/Src/ds_twr_initiator_sts.c **** extern void test_run_info(unsigned char *data);
-  45:Core/Src/ds_twr_initiator_sts.c **** 
-  46:Core/Src/ds_twr_initiator_sts.c **** /* Example application name */
-  47:Core/Src/ds_twr_initiator_sts.c **** #define APP_NAME "DS TWR INIT v1.0"
-  48:Core/Src/ds_twr_initiator_sts.c **** 
-  49:Core/Src/ds_twr_initiator_sts.c **** /* Inter-ranging delay period, in milliseconds. */
-  50:Core/Src/ds_twr_initiator_sts.c **** #define RNG_DELAY_MS 1
-  51:Core/Src/ds_twr_initiator_sts.c **** 
-  52:Core/Src/ds_twr_initiator_sts.c **** /* Default antenna delay values for 64 MHz PRF. See NOTE 2 below. */
-  53:Core/Src/ds_twr_initiator_sts.c **** #if INITIATOR_TYPE == 'E'
-  54:Core/Src/ds_twr_initiator_sts.c **** 	#define ANT_DELAY 16525//16525////16405//16549//16550
-  55:Core/Src/ds_twr_initiator_sts.c **** #elif  INITIATOR_TYPE == 'F'
-  56:Core/Src/ds_twr_initiator_sts.c **** 	#define ANT_DELAY 16525//16525////16405//16549//16550
-  57:Core/Src/ds_twr_initiator_sts.c **** #elif  INITIATOR_TYPE == 'G'
-  58:Core/Src/ds_twr_initiator_sts.c **** 	#define ANT_DELAY 16525//16525////16405//16549//16550
+  44:Core/Src/ds_twr_initiator_sts.c **** /* ====> Addresses of anchors and current anchor number <==== */
+  45:Core/Src/ds_twr_initiator_sts.c **** uint8_t current_anchor = 1;
+  46:Core/Src/ds_twr_initiator_sts.c **** 
+  47:Core/Src/ds_twr_initiator_sts.c **** #if 0
+  48:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_A[] = {'A', 1};//{'A', 1};
+  49:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_B[] = {'A', 1};//{'B', 2};
+  50:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_C[] = {'A', 1};//{'C', 3};
+  51:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_D[] = {'A', 1};//{'D', 4};
+  52:Core/Src/ds_twr_initiator_sts.c **** #endif
+  53:Core/Src/ds_twr_initiator_sts.c **** 
+  54:Core/Src/ds_twr_initiator_sts.c **** #if 0
+  55:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_A[] = {'B', 2};//{'A', 1};
+  56:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_B[] = {'B', 2};//{'B', 2};
+  57:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_C[] = {'B', 2};//{'C', 3};
+  58:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_D[] = {'B', 2};//{'D', 4};
   59:Core/Src/ds_twr_initiator_sts.c **** #endif
-  60:Core/Src/ds_twr_initiator_sts.c **** #define TX_ANT_DLY ANT_DELAY //16525
-  61:Core/Src/ds_twr_initiator_sts.c **** #define RX_ANT_DLY ANT_DELAY  //16525
-  62:Core/Src/ds_twr_initiator_sts.c **** 
-  63:Core/Src/ds_twr_initiator_sts.c **** /* Number of Anchors */
-  64:Core/Src/ds_twr_initiator_sts.c **** #define NUMBER_OF_ANCHORS 6// choose 4 or 6
-  65:Core/Src/ds_twr_initiator_sts.c **** /* Index of address in msg */
-  66:Core/Src/ds_twr_initiator_sts.c **** #define SOURCE_ADDRESS_IDX 7
-  67:Core/Src/ds_twr_initiator_sts.c **** #define DESTINATION_ADDRESS_IDX 5
-  68:Core/Src/ds_twr_initiator_sts.c **** 
-  69:Core/Src/ds_twr_initiator_sts.c **** /* ====> Addresses of anchors and current anchor number <==== */
-  70:Core/Src/ds_twr_initiator_sts.c **** uint8_t current_anchor = 1;
-  71:Core/Src/ds_twr_initiator_sts.c **** 
-  72:Core/Src/ds_twr_initiator_sts.c **** #if 0
-  73:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_A[] = {'A', 1};//{'A', 1};
-  74:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_B[] = {'A', 1};//{'B', 2};
-  75:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_C[] = {'A', 1};//{'C', 3};
-  76:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_D[] = {'A', 1};//{'D', 4};
-  77:Core/Src/ds_twr_initiator_sts.c **** #endif
-  78:Core/Src/ds_twr_initiator_sts.c **** 
-  79:Core/Src/ds_twr_initiator_sts.c **** #if 0
-  80:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_A[] = {'B', 2};//{'A', 1};
-  81:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_B[] = {'B', 2};//{'B', 2};
-  82:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_C[] = {'B', 2};//{'C', 3};
-  83:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_D[] = {'B', 2};//{'D', 4};
-  84:Core/Src/ds_twr_initiator_sts.c **** #endif
-  85:Core/Src/ds_twr_initiator_sts.c **** 
-  86:Core/Src/ds_twr_initiator_sts.c **** #if 0
-  87:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_A[] = {'C', 3};//{'A', 1};
-  88:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_B[] = {'C', 3};//{'B', 2};
-ARM GAS  /tmp/cc7sAMpK.s 			page 3
+  60:Core/Src/ds_twr_initiator_sts.c **** 
+  61:Core/Src/ds_twr_initiator_sts.c **** #if 0
+  62:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_A[] = {'C', 3};//{'A', 1};
+  63:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_B[] = {'C', 3};//{'B', 2};
+  64:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_C[] = {'C', 3};//{'C', 3};
+  65:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_D[] = {'C', 3};//{'D', 4};
+  66:Core/Src/ds_twr_initiator_sts.c **** #endif
+  67:Core/Src/ds_twr_initiator_sts.c **** 
+  68:Core/Src/ds_twr_initiator_sts.c **** #if 0
+  69:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_A[] = {'D', 4};//{'A', 1};
+  70:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_B[] = {'D', 4};//{'B', 2};
+  71:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_C[] = {'D', 4};//{'C', 3};
+  72:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_D[] = {'D', 4};//{'D', 4};
+  73:Core/Src/ds_twr_initiator_sts.c **** #endif
+  74:Core/Src/ds_twr_initiator_sts.c **** 
+  75:Core/Src/ds_twr_initiator_sts.c **** #if 0
+  76:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_A[] = {'E', 5};//{'A', 1};
+  77:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_B[] = {'E', 5};//{'B', 2};
+  78:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_C[] = {'E', 5};//{'C', 3};
+  79:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_D[] = {'E', 5};//{'D', 4};
+  80:Core/Src/ds_twr_initiator_sts.c **** #endif
+  81:Core/Src/ds_twr_initiator_sts.c **** 
+  82:Core/Src/ds_twr_initiator_sts.c **** #if 0
+  83:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_A[] = {'F', 6};//{'A', 1};
+  84:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_B[] = {'F', 6};//{'B', 2};
+  85:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_C[] = {'F', 6};//{'C', 3};
+  86:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_D[] = {'F', 6};//{'D', 4};
+  87:Core/Src/ds_twr_initiator_sts.c **** #endif
+  88:Core/Src/ds_twr_initiator_sts.c **** 
+ARM GAS  /tmp/ccVmoTNI.s 			page 3
 
 
-  89:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_C[] = {'C', 3};//{'C', 3};
-  90:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_D[] = {'C', 3};//{'D', 4};
-  91:Core/Src/ds_twr_initiator_sts.c **** #endif
-  92:Core/Src/ds_twr_initiator_sts.c **** 
-  93:Core/Src/ds_twr_initiator_sts.c **** #if 0
-  94:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_A[] = {'D', 4};//{'A', 1};
-  95:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_B[] = {'D', 4};//{'B', 2};
-  96:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_C[] = {'D', 4};//{'C', 3};
-  97:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_D[] = {'D', 4};//{'D', 4};
-  98:Core/Src/ds_twr_initiator_sts.c **** #endif
-  99:Core/Src/ds_twr_initiator_sts.c **** 
- 100:Core/Src/ds_twr_initiator_sts.c **** #if 0
- 101:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_A[] = {'E', 5};//{'A', 1};
- 102:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_B[] = {'E', 5};//{'B', 2};
- 103:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_C[] = {'E', 5};//{'C', 3};
- 104:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_D[] = {'E', 5};//{'D', 4};
- 105:Core/Src/ds_twr_initiator_sts.c **** #endif
- 106:Core/Src/ds_twr_initiator_sts.c **** 
- 107:Core/Src/ds_twr_initiator_sts.c **** #if 0
- 108:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_A[] = {'F', 6};//{'A', 1};
- 109:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_B[] = {'F', 6};//{'B', 2};
- 110:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_C[] = {'F', 6};//{'C', 3};
- 111:Core/Src/ds_twr_initiator_sts.c **** static uint8_t address_of_D[] = {'F', 6};//{'D', 4};
- 112:Core/Src/ds_twr_initiator_sts.c **** #endif
- 113:Core/Src/ds_twr_initiator_sts.c **** 
- 114:Core/Src/ds_twr_initiator_sts.c **** 
- 115:Core/Src/ds_twr_initiator_sts.c **** #if 1
- 116:Core/Src/ds_twr_initiator_sts.c **** 	#if NUMBER_OF_ANCHORS == 4
- 117:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_A[] = {'A', 1};//{'A', 1};
- 118:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_B[] = {'B', 2};//{'B', 2};
- 119:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_C[] = {'C', 3};//{'C', 3};
- 120:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_D[] = {'D', 4};//{'D', 4};
- 121:Core/Src/ds_twr_initiator_sts.c **** //		static uint8_t address_of_A[] = {'A', 1};//{'A', 1};
- 122:Core/Src/ds_twr_initiator_sts.c **** //		static uint8_t address_of_B[] = {'B', 2};//{'B', 2};
- 123:Core/Src/ds_twr_initiator_sts.c **** //		static uint8_t address_of_D[] = {'D', 4};//{'D', 4};
- 124:Core/Src/ds_twr_initiator_sts.c **** //		static uint8_t address_of_C[] = {'E', 5};//{'C', 3};
- 125:Core/Src/ds_twr_initiator_sts.c **** 	#elif NUMBER_OF_ANCHORS == 6
- 126:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_A[] = {'A', 1};//{'A', 1};
- 127:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_B[] = {'B', 2};//{'B', 2};
- 128:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_C[] = {'C', 3};//{'C', 3};
- 129:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_D[] = {'D', 4};//{'D', 4};
- 130:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_E[] = {'E', 5};//{'E', 5};
- 131:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_F[] = {'F', 6};//{'F', 6};
- 132:Core/Src/ds_twr_initiator_sts.c **** 	#endif
- 133:Core/Src/ds_twr_initiator_sts.c **** #endif
- 134:Core/Src/ds_twr_initiator_sts.c **** 
- 135:Core/Src/ds_twr_initiator_sts.c **** /* Frames used in the ranging process. See NOTE 3 below. */
- 136:Core/Src/ds_twr_initiator_sts.c **** /* ==== Address of MAIN Initiator is -> 'V', 'E'==== */
- 137:Core/Src/ds_twr_initiator_sts.c **** /*
- 138:Core/Src/ds_twr_initiator_sts.c ****  * On index 5 and 6 in TX messages swap Address of current anchor
- 139:Core/Src/ds_twr_initiator_sts.c ****  * on index 7 and 8 in RX message swap Address of current anchor
- 140:Core/Src/ds_twr_initiator_sts.c ****  */
- 141:Core/Src/ds_twr_initiator_sts.c **** #if INITIATOR_TYPE == 'E'
- 142:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t tx_poll_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'W', 'A', 'V', 'E', 0xE0, 0, 0};
- 143:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t rx_resp_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'V', 'E', 'W', 'A', 0xE1, 0, 0};
- 144:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t tx_final_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'W', 'A', 'V', 'E', 0xE2, 0, 0, 0, 0,
- 145:Core/Src/ds_twr_initiator_sts.c **** #elif  INITIATOR_TYPE == 'F'
-ARM GAS  /tmp/cc7sAMpK.s 			page 4
+  89:Core/Src/ds_twr_initiator_sts.c **** 
+  90:Core/Src/ds_twr_initiator_sts.c **** #if 1
+  91:Core/Src/ds_twr_initiator_sts.c **** 	#if NUMBER_OF_ANCHORS == 4
+  92:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_A[] = {'A', 1};//{'A', 1};
+  93:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_B[] = {'B', 2};//{'B', 2};
+  94:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_C[] = {'C', 3};//{'C', 3};
+  95:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_D[] = {'D', 4};//{'D', 4};
+  96:Core/Src/ds_twr_initiator_sts.c **** //		static uint8_t address_of_A[] = {'A', 1};//{'A', 1};
+  97:Core/Src/ds_twr_initiator_sts.c **** //		static uint8_t address_of_B[] = {'B', 2};//{'B', 2};
+  98:Core/Src/ds_twr_initiator_sts.c **** //		static uint8_t address_of_D[] = {'D', 4};//{'D', 4};
+  99:Core/Src/ds_twr_initiator_sts.c **** //		static uint8_t address_of_C[] = {'E', 5};//{'C', 3};
+ 100:Core/Src/ds_twr_initiator_sts.c **** 	#elif NUMBER_OF_ANCHORS == 6
+ 101:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_A[] = {'A', 1};//{'A', 1};
+ 102:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_B[] = {'B', 2};//{'B', 2};
+ 103:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_C[] = {'C', 3};//{'C', 3};
+ 104:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_D[] = {'D', 4};//{'D', 4};
+ 105:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_E[] = {'E', 5};//{'E', 5};
+ 106:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t address_of_F[] = {'F', 6};//{'F', 6};
+ 107:Core/Src/ds_twr_initiator_sts.c **** 	#endif
+ 108:Core/Src/ds_twr_initiator_sts.c **** #endif
+ 109:Core/Src/ds_twr_initiator_sts.c **** 
+ 110:Core/Src/ds_twr_initiator_sts.c **** /* Frames used in the ranging process. See NOTE 3 below. */
+ 111:Core/Src/ds_twr_initiator_sts.c **** /* ==== Address of MAIN Initiator is -> 'V', 'E'==== */
+ 112:Core/Src/ds_twr_initiator_sts.c **** /*
+ 113:Core/Src/ds_twr_initiator_sts.c ****  * On index 5 and 6 in TX messages swap Address of current anchor
+ 114:Core/Src/ds_twr_initiator_sts.c ****  * on index 7 and 8 in RX message swap Address of current anchor
+ 115:Core/Src/ds_twr_initiator_sts.c ****  */
+ 116:Core/Src/ds_twr_initiator_sts.c **** #if INITIATOR_TYPE == 'E'
+ 117:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t tx_poll_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'W', 'A', 'V', 'E', 0xE0, 0, 0};
+ 118:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t rx_resp_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'V', 'E', 'W', 'A', 0xE1, 0, 0};
+ 119:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t tx_final_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'W', 'A', 'V', 'E', 0xE2, 0, 0, 0, 0,
+ 120:Core/Src/ds_twr_initiator_sts.c **** #elif  INITIATOR_TYPE == 'F'
+ 121:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t tx_poll_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'W', 'A', 'V', 'F', 0xE0, 0, 0};
+ 122:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t rx_resp_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'V', 'F', 'W', 'A', 0xE1, 0, 0};
+ 123:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t tx_final_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'W', 'A', 'V', 'F', 0xE2, 0, 0, 0, 0,
+ 124:Core/Src/ds_twr_initiator_sts.c **** #elif  INITIATOR_TYPE == 'G'
+ 125:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t tx_poll_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'W', 'A', 'V', 'G', 0xE0, 0, 0};
+ 126:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t rx_resp_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'V', 'G', 'W', 'A', 0xE1, 0, 0};
+ 127:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t tx_final_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'W', 'A', 'V', 'G', 0xE2, 0, 0, 0, 0,
+ 128:Core/Src/ds_twr_initiator_sts.c **** #endif
+ 129:Core/Src/ds_twr_initiator_sts.c **** 
+ 130:Core/Src/ds_twr_initiator_sts.c **** 
+ 131:Core/Src/ds_twr_initiator_sts.c **** 
+ 132:Core/Src/ds_twr_initiator_sts.c **** /* Length of the common part of the message (up to and including the function code, see NOTE 3 belo
+ 133:Core/Src/ds_twr_initiator_sts.c **** #define ALL_MSG_COMMON_LEN 10
+ 134:Core/Src/ds_twr_initiator_sts.c **** /* Indexes to access some of the fields in the frames defined above. */
+ 135:Core/Src/ds_twr_initiator_sts.c **** #define ALL_MSG_SN_IDX 2
+ 136:Core/Src/ds_twr_initiator_sts.c **** #define RESP_MSG_POLL_RX_TS_IDX 10
+ 137:Core/Src/ds_twr_initiator_sts.c **** #define RESP_MSG_RESP_TX_TS_IDX 14
+ 138:Core/Src/ds_twr_initiator_sts.c **** #define RESP_MSG_TS_LEN 4
+ 139:Core/Src/ds_twr_initiator_sts.c **** #define FINAL_MSG_POLL_TX_TS_IDX 10
+ 140:Core/Src/ds_twr_initiator_sts.c **** #define FINAL_MSG_RESP_RX_TS_IDX 14
+ 141:Core/Src/ds_twr_initiator_sts.c **** #define FINAL_MSG_FINAL_TX_TS_IDX 18
+ 142:Core/Src/ds_twr_initiator_sts.c **** /* Frame sequence number, incremented after each transmission. */
+ 143:Core/Src/ds_twr_initiator_sts.c **** static uint8_t frame_seq_nb = 0;
+ 144:Core/Src/ds_twr_initiator_sts.c **** 
+ 145:Core/Src/ds_twr_initiator_sts.c **** /* Buffer to store received response message.
+ARM GAS  /tmp/ccVmoTNI.s 			page 4
 
 
- 146:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t tx_poll_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'W', 'A', 'V', 'F', 0xE0, 0, 0};
- 147:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t rx_resp_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'V', 'F', 'W', 'A', 0xE1, 0, 0};
- 148:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t tx_final_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'W', 'A', 'V', 'F', 0xE2, 0, 0, 0, 0,
- 149:Core/Src/ds_twr_initiator_sts.c **** #elif  INITIATOR_TYPE == 'G'
- 150:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t tx_poll_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'W', 'A', 'V', 'G', 0xE0, 0, 0};
- 151:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t rx_resp_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'V', 'G', 'W', 'A', 0xE1, 0, 0};
- 152:Core/Src/ds_twr_initiator_sts.c **** 		static uint8_t tx_final_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'W', 'A', 'V', 'G', 0xE2, 0, 0, 0, 0,
- 153:Core/Src/ds_twr_initiator_sts.c **** #endif
- 154:Core/Src/ds_twr_initiator_sts.c **** 
+ 146:Core/Src/ds_twr_initiator_sts.c ****  * Its size is adjusted to longest frame that this example code is supposed to handle. */
+ 147:Core/Src/ds_twr_initiator_sts.c **** #define RX_BUF_LEN 24
+ 148:Core/Src/ds_twr_initiator_sts.c **** static uint8_t rx_buffer[RX_BUF_LEN];
+ 149:Core/Src/ds_twr_initiator_sts.c **** 
+ 150:Core/Src/ds_twr_initiator_sts.c **** /* Hold copy of status register state here for reference so that it can be examined at a debug brea
+ 151:Core/Src/ds_twr_initiator_sts.c **** static uint32_t status_reg = 0;
+ 152:Core/Src/ds_twr_initiator_sts.c **** 
+ 153:Core/Src/ds_twr_initiator_sts.c **** /* Delay between frames, in UWB microseconds. See NOTE 1 below. */
+ 154:Core/Src/ds_twr_initiator_sts.c **** #define POLL_TX_TO_RESP_RX_DLY_UUS (290 + CPU_COMP_RESP)//(290 + 327) //(290 + CPU_COMP) //
  155:Core/Src/ds_twr_initiator_sts.c **** 
- 156:Core/Src/ds_twr_initiator_sts.c **** 
- 157:Core/Src/ds_twr_initiator_sts.c **** /* Length of the common part of the message (up to and including the function code, see NOTE 3 belo
- 158:Core/Src/ds_twr_initiator_sts.c **** #define ALL_MSG_COMMON_LEN 10
- 159:Core/Src/ds_twr_initiator_sts.c **** /* Indexes to access some of the fields in the frames defined above. */
- 160:Core/Src/ds_twr_initiator_sts.c **** #define ALL_MSG_SN_IDX 2
- 161:Core/Src/ds_twr_initiator_sts.c **** #define RESP_MSG_POLL_RX_TS_IDX 10
- 162:Core/Src/ds_twr_initiator_sts.c **** #define RESP_MSG_RESP_TX_TS_IDX 14
- 163:Core/Src/ds_twr_initiator_sts.c **** #define RESP_MSG_TS_LEN 4
- 164:Core/Src/ds_twr_initiator_sts.c **** #define FINAL_MSG_POLL_TX_TS_IDX 10
- 165:Core/Src/ds_twr_initiator_sts.c **** #define FINAL_MSG_RESP_RX_TS_IDX 14
- 166:Core/Src/ds_twr_initiator_sts.c **** #define FINAL_MSG_FINAL_TX_TS_IDX 18
- 167:Core/Src/ds_twr_initiator_sts.c **** /* Frame sequence number, incremented after each transmission. */
- 168:Core/Src/ds_twr_initiator_sts.c **** static uint8_t frame_seq_nb = 0;
- 169:Core/Src/ds_twr_initiator_sts.c **** 
- 170:Core/Src/ds_twr_initiator_sts.c **** /* Buffer to store received response message.
- 171:Core/Src/ds_twr_initiator_sts.c ****  * Its size is adjusted to longest frame that this example code is supposed to handle. */
- 172:Core/Src/ds_twr_initiator_sts.c **** #define RX_BUF_LEN 24
- 173:Core/Src/ds_twr_initiator_sts.c **** static uint8_t rx_buffer[RX_BUF_LEN];
- 174:Core/Src/ds_twr_initiator_sts.c **** 
- 175:Core/Src/ds_twr_initiator_sts.c **** /* Hold copy of status register state here for reference so that it can be examined at a debug brea
- 176:Core/Src/ds_twr_initiator_sts.c **** static uint32_t status_reg = 0;
- 177:Core/Src/ds_twr_initiator_sts.c **** 
- 178:Core/Src/ds_twr_initiator_sts.c **** /* Delay between frames, in UWB microseconds. See NOTE 1 below. */
- 179:Core/Src/ds_twr_initiator_sts.c **** #define POLL_TX_TO_RESP_RX_DLY_UUS (290 + CPU_COMP_RESP)//(290 + 327) //(290 + CPU_COMP) //
- 180:Core/Src/ds_twr_initiator_sts.c **** 
- 181:Core/Src/ds_twr_initiator_sts.c **** /* This is the delay from Frame RX timestamp to TX reply timestamp used for calculating/setting the
- 182:Core/Src/ds_twr_initiator_sts.c ****  * frame length of approximately 550 us with above configuration. */
- 183:Core/Src/ds_twr_initiator_sts.c **** // Dane podane tutaj były podane dla preambuły o długości 128
- 184:Core/Src/ds_twr_initiator_sts.c **** // Aktulana dlugosc preambuly to 64 czyli mamy o 64 mniej symboli do wysłania niz w przypadku 128.
- 185:Core/Src/ds_twr_initiator_sts.c **** #if defined(CONFIG_OPTION_17)
- 186:Core/Src/ds_twr_initiator_sts.c **** 	#define RESP_RX_TO_FINAL_TX_DLY_UUS ((480 - 65) + CPU_COMP_INIT)//(480 + CPU_COMP_INIT)////(480 + 
- 187:Core/Src/ds_twr_initiator_sts.c **** #else
- 188:Core/Src/ds_twr_initiator_sts.c **** 	#define RESP_RX_TO_FINAL_TX_DLY_UUS (480 + CPU_COMP_INIT)
- 189:Core/Src/ds_twr_initiator_sts.c **** #endif
- 190:Core/Src/ds_twr_initiator_sts.c **** 
- 191:Core/Src/ds_twr_initiator_sts.c **** /* Receive response timeout. See NOTE 5 below. */
- 192:Core/Src/ds_twr_initiator_sts.c **** #define RESP_RX_TIMEOUT_UUS 300
- 193:Core/Src/ds_twr_initiator_sts.c **** 
- 194:Core/Src/ds_twr_initiator_sts.c **** /* Hold the amount of errors that have occurred */
- 195:Core/Src/ds_twr_initiator_sts.c **** static uint32_t errors[23] = {0};
+ 156:Core/Src/ds_twr_initiator_sts.c **** /* This is the delay from Frame RX timestamp to TX reply timestamp used for calculating/setting the
+ 157:Core/Src/ds_twr_initiator_sts.c ****  * frame length of approximately 550 us with above configuration. */
+ 158:Core/Src/ds_twr_initiator_sts.c **** // Dane podane tutaj były podane dla preambuły o długości 128
+ 159:Core/Src/ds_twr_initiator_sts.c **** // Aktulana dlugosc preambuly to 64 czyli mamy o 64 mniej symboli do wysłania niz w przypadku 128.
+ 160:Core/Src/ds_twr_initiator_sts.c **** #if defined(CONFIG_OPTION_17)
+ 161:Core/Src/ds_twr_initiator_sts.c **** 	#define RESP_RX_TO_FINAL_TX_DLY_UUS ((480 - 65) + CPU_COMP_INIT)//(480 + CPU_COMP_INIT)////(480 + 
+ 162:Core/Src/ds_twr_initiator_sts.c **** #else
+ 163:Core/Src/ds_twr_initiator_sts.c **** 	#define RESP_RX_TO_FINAL_TX_DLY_UUS (480 + CPU_COMP_INIT)
+ 164:Core/Src/ds_twr_initiator_sts.c **** #endif
+ 165:Core/Src/ds_twr_initiator_sts.c **** 
+ 166:Core/Src/ds_twr_initiator_sts.c **** /* Receive response timeout. See NOTE 5 below. */
+ 167:Core/Src/ds_twr_initiator_sts.c **** #define RESP_RX_TIMEOUT_UUS 300
+ 168:Core/Src/ds_twr_initiator_sts.c **** 
+ 169:Core/Src/ds_twr_initiator_sts.c **** /* Hold the amount of errors that have occurred */
+ 170:Core/Src/ds_twr_initiator_sts.c **** static uint32_t errors[23] = {0};
+ 171:Core/Src/ds_twr_initiator_sts.c **** 
+ 172:Core/Src/ds_twr_initiator_sts.c **** extern dwt_config_t config_options;
+ 173:Core/Src/ds_twr_initiator_sts.c **** extern dwt_txconfig_t txconfig_options;
+ 174:Core/Src/ds_twr_initiator_sts.c **** extern dwt_txconfig_t txconfig_options_ch9;
+ 175:Core/Src/ds_twr_initiator_sts.c **** 
+ 176:Core/Src/ds_twr_initiator_sts.c **** //my var
+ 177:Core/Src/ds_twr_initiator_sts.c **** uint32_t timtick_1;
+ 178:Core/Src/ds_twr_initiator_sts.c **** uint32_t timtick_2;
+ 179:Core/Src/ds_twr_initiator_sts.c **** uint32_t diff;
+ 180:Core/Src/ds_twr_initiator_sts.c **** uint8_t randomDelay;
+ 181:Core/Src/ds_twr_initiator_sts.c **** //uint8_t uCurrentTrim_val;
+ 182:Core/Src/ds_twr_initiator_sts.c **** 
+ 183:Core/Src/ds_twr_initiator_sts.c **** /*
+ 184:Core/Src/ds_twr_initiator_sts.c ****  * 128-bit STS key to be programmed into CP_KEY register.
+ 185:Core/Src/ds_twr_initiator_sts.c ****  *
+ 186:Core/Src/ds_twr_initiator_sts.c ****  * This key needs to be known and programmed the same at both units performing the SS-TWR.
+ 187:Core/Src/ds_twr_initiator_sts.c ****  * In a real application for security this would be private and unique to the two communicating uni
+ 188:Core/Src/ds_twr_initiator_sts.c ****  * and chosen/assigned in a secure manner lasting just for the period of their association.
+ 189:Core/Src/ds_twr_initiator_sts.c ****  *
+ 190:Core/Src/ds_twr_initiator_sts.c ****  * Here we use a default KEY as specified in the IEEE 802.15.4z annex
+ 191:Core/Src/ds_twr_initiator_sts.c ****  */
+ 192:Core/Src/ds_twr_initiator_sts.c **** static dwt_sts_cp_key_t cp_key =
+ 193:Core/Src/ds_twr_initiator_sts.c **** {
+ 194:Core/Src/ds_twr_initiator_sts.c ****         0x14EB220F,0xF86050A8,0xD1D336AA,0x14148674
+ 195:Core/Src/ds_twr_initiator_sts.c **** };
  196:Core/Src/ds_twr_initiator_sts.c **** 
- 197:Core/Src/ds_twr_initiator_sts.c **** extern dwt_config_t config_options;
- 198:Core/Src/ds_twr_initiator_sts.c **** extern dwt_txconfig_t txconfig_options;
- 199:Core/Src/ds_twr_initiator_sts.c **** extern dwt_txconfig_t txconfig_options_ch9;
- 200:Core/Src/ds_twr_initiator_sts.c **** 
- 201:Core/Src/ds_twr_initiator_sts.c **** //my var
- 202:Core/Src/ds_twr_initiator_sts.c **** uint32_t timtick_1;
-ARM GAS  /tmp/cc7sAMpK.s 			page 5
+ 197:Core/Src/ds_twr_initiator_sts.c **** /*
+ 198:Core/Src/ds_twr_initiator_sts.c ****  * 128-bit initial value for the nonce to be programmed into the CP_IV register.
+ 199:Core/Src/ds_twr_initiator_sts.c ****  *
+ 200:Core/Src/ds_twr_initiator_sts.c ****  * The IV, like the key, needs to be known and programmed the same at both units performing the SS-
+ 201:Core/Src/ds_twr_initiator_sts.c ****  * It can be considered as an extension of the KEY. The low 32 bits of the IV is the counter.
+ 202:Core/Src/ds_twr_initiator_sts.c ****  * In a real application for any particular key the value of the IV including the count should not 
+ARM GAS  /tmp/ccVmoTNI.s 			page 5
 
 
- 203:Core/Src/ds_twr_initiator_sts.c **** uint32_t timtick_2;
- 204:Core/Src/ds_twr_initiator_sts.c **** uint32_t diff;
- 205:Core/Src/ds_twr_initiator_sts.c **** uint8_t randomDelay;
- 206:Core/Src/ds_twr_initiator_sts.c **** //uint8_t uCurrentTrim_val;
- 207:Core/Src/ds_twr_initiator_sts.c **** 
- 208:Core/Src/ds_twr_initiator_sts.c **** /*
- 209:Core/Src/ds_twr_initiator_sts.c ****  * 128-bit STS key to be programmed into CP_KEY register.
- 210:Core/Src/ds_twr_initiator_sts.c ****  *
- 211:Core/Src/ds_twr_initiator_sts.c ****  * This key needs to be known and programmed the same at both units performing the SS-TWR.
- 212:Core/Src/ds_twr_initiator_sts.c ****  * In a real application for security this would be private and unique to the two communicating uni
- 213:Core/Src/ds_twr_initiator_sts.c ****  * and chosen/assigned in a secure manner lasting just for the period of their association.
- 214:Core/Src/ds_twr_initiator_sts.c ****  *
- 215:Core/Src/ds_twr_initiator_sts.c ****  * Here we use a default KEY as specified in the IEEE 802.15.4z annex
- 216:Core/Src/ds_twr_initiator_sts.c ****  */
- 217:Core/Src/ds_twr_initiator_sts.c **** static dwt_sts_cp_key_t cp_key =
- 218:Core/Src/ds_twr_initiator_sts.c **** {
- 219:Core/Src/ds_twr_initiator_sts.c ****         0x14EB220F,0xF86050A8,0xD1D336AA,0x14148674
- 220:Core/Src/ds_twr_initiator_sts.c **** };
- 221:Core/Src/ds_twr_initiator_sts.c **** 
- 222:Core/Src/ds_twr_initiator_sts.c **** /*
- 223:Core/Src/ds_twr_initiator_sts.c ****  * 128-bit initial value for the nonce to be programmed into the CP_IV register.
- 224:Core/Src/ds_twr_initiator_sts.c ****  *
- 225:Core/Src/ds_twr_initiator_sts.c ****  * The IV, like the key, needs to be known and programmed the same at both units performing the SS-
- 226:Core/Src/ds_twr_initiator_sts.c ****  * It can be considered as an extension of the KEY. The low 32 bits of the IV is the counter.
- 227:Core/Src/ds_twr_initiator_sts.c ****  * In a real application for any particular key the value of the IV including the count should not 
- 228:Core/Src/ds_twr_initiator_sts.c ****  * i.e. if the counter value wraps the upper 96-bits of the IV should be changed, e.g. incremented.
- 229:Core/Src/ds_twr_initiator_sts.c ****  *
- 230:Core/Src/ds_twr_initiator_sts.c ****  * Here we use a default IV as specified in the IEEE 802.15.4z annex
- 231:Core/Src/ds_twr_initiator_sts.c ****  */
- 232:Core/Src/ds_twr_initiator_sts.c **** static dwt_sts_cp_iv_t cp_iv =
- 233:Core/Src/ds_twr_initiator_sts.c **** {
- 234:Core/Src/ds_twr_initiator_sts.c ****         0x1F9A3DE4,0xD37EC3CA,0xC44FA8FB,0x362EEB34
- 235:Core/Src/ds_twr_initiator_sts.c **** };
- 236:Core/Src/ds_twr_initiator_sts.c **** 
- 237:Core/Src/ds_twr_initiator_sts.c **** /*
- 238:Core/Src/ds_twr_initiator_sts.c ****  * The 'poll' message initiating the ranging exchange includes a 32-bit counter which is part
- 239:Core/Src/ds_twr_initiator_sts.c ****  * of the IV used to generate the scrambled timestamp sequence (STS) in the transmitted packet.
- 240:Core/Src/ds_twr_initiator_sts.c ****  */
- 241:Core/Src/ds_twr_initiator_sts.c **** static void send_tx_poll_msg(void)
- 242:Core/Src/ds_twr_initiator_sts.c **** {
-  28              		.loc 1 242 1 view -0
+ 203:Core/Src/ds_twr_initiator_sts.c ****  * i.e. if the counter value wraps the upper 96-bits of the IV should be changed, e.g. incremented.
+ 204:Core/Src/ds_twr_initiator_sts.c ****  *
+ 205:Core/Src/ds_twr_initiator_sts.c ****  * Here we use a default IV as specified in the IEEE 802.15.4z annex
+ 206:Core/Src/ds_twr_initiator_sts.c ****  */
+ 207:Core/Src/ds_twr_initiator_sts.c **** static dwt_sts_cp_iv_t cp_iv =
+ 208:Core/Src/ds_twr_initiator_sts.c **** {
+ 209:Core/Src/ds_twr_initiator_sts.c ****         0x1F9A3DE4,0xD37EC3CA,0xC44FA8FB,0x362EEB34
+ 210:Core/Src/ds_twr_initiator_sts.c **** };
+ 211:Core/Src/ds_twr_initiator_sts.c **** 
+ 212:Core/Src/ds_twr_initiator_sts.c **** /*
+ 213:Core/Src/ds_twr_initiator_sts.c ****  * The 'poll' message initiating the ranging exchange includes a 32-bit counter which is part
+ 214:Core/Src/ds_twr_initiator_sts.c ****  * of the IV used to generate the scrambled timestamp sequence (STS) in the transmitted packet.
+ 215:Core/Src/ds_twr_initiator_sts.c ****  */
+ 216:Core/Src/ds_twr_initiator_sts.c **** static void send_tx_poll_msg(void)
+ 217:Core/Src/ds_twr_initiator_sts.c **** {
+  28              		.loc 1 217 1 view -0
   29              		.cfi_startproc
   30              		@ args = 0, pretend = 0, frame = 0
   31              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -289,80 +264,77 @@ ARM GAS  /tmp/cc7sAMpK.s 			page 1
   33              		.cfi_def_cfa_offset 8
   34              		.cfi_offset 4, -8
   35              		.cfi_offset 14, -4
- 243:Core/Src/ds_twr_initiator_sts.c ****     /* Write frame data to DW IC and prepare transmission. See NOTE 7 below. */
- 244:Core/Src/ds_twr_initiator_sts.c ****     tx_poll_msg[ALL_MSG_SN_IDX] = frame_seq_nb;
-  36              		.loc 1 244 5 view .LVU1
-  37              		.loc 1 244 33 is_stmt 0 view .LVU2
+ 218:Core/Src/ds_twr_initiator_sts.c ****     /* Write frame data to DW IC and prepare transmission. See NOTE 7 below. */
+ 219:Core/Src/ds_twr_initiator_sts.c ****     tx_poll_msg[ALL_MSG_SN_IDX] = frame_seq_nb;
+  36              		.loc 1 219 5 view .LVU1
+  37              		.loc 1 219 33 is_stmt 0 view .LVU2
   38 0002 114C     		ldr	r4, .L4
   39 0004 114B     		ldr	r3, .L4+4
   40 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
   41 0008 A370     		strb	r3, [r4, #2]
- 245:Core/Src/ds_twr_initiator_sts.c **** 
-ARM GAS  /tmp/cc7sAMpK.s 			page 6
-
-
- 246:Core/Src/ds_twr_initiator_sts.c ****     dwt_write32bitreg(SYS_STATUS_ID, SYS_STATUS_TXFRS_BIT_MASK);
-  42              		.loc 1 246 5 is_stmt 1 view .LVU3
+ 220:Core/Src/ds_twr_initiator_sts.c **** 
+ 221:Core/Src/ds_twr_initiator_sts.c ****     dwt_write32bitreg(SYS_STATUS_ID, SYS_STATUS_TXFRS_BIT_MASK);
+  42              		.loc 1 221 5 is_stmt 1 view .LVU3
   43 000a 8022     		movs	r2, #128
   44 000c 0021     		movs	r1, #0
   45 000e 4420     		movs	r0, #68
   46 0010 FFF7FEFF 		bl	dwt_write32bitoffsetreg
   47              	.LVL0:
- 247:Core/Src/ds_twr_initiator_sts.c ****     dwt_writetxdata(sizeof(tx_poll_msg), tx_poll_msg, 0); /* Zero offset in TX buffer. */
-  48              		.loc 1 247 5 view .LVU4
+ 222:Core/Src/ds_twr_initiator_sts.c ****     dwt_writetxdata(sizeof(tx_poll_msg), tx_poll_msg, 0); /* Zero offset in TX buffer. */
+  48              		.loc 1 222 5 view .LVU4
   49 0014 0022     		movs	r2, #0
   50 0016 2146     		mov	r1, r4
   51 0018 0C20     		movs	r0, #12
   52 001a FFF7FEFF 		bl	dwt_writetxdata
   53              	.LVL1:
- 248:Core/Src/ds_twr_initiator_sts.c ****     dwt_writetxfctrl(sizeof(tx_poll_msg), 0, 1); /* Zero offset in TX buffer, ranging. */
-  54              		.loc 1 248 5 view .LVU5
+ 223:Core/Src/ds_twr_initiator_sts.c ****     dwt_writetxfctrl(sizeof(tx_poll_msg), 0, 1); /* Zero offset in TX buffer, ranging. */
+  54              		.loc 1 223 5 view .LVU5
   55 001e 0122     		movs	r2, #1
   56 0020 0021     		movs	r1, #0
   57 0022 0C20     		movs	r0, #12
   58 0024 FFF7FEFF 		bl	dwt_writetxfctrl
   59              	.LVL2:
- 249:Core/Src/ds_twr_initiator_sts.c **** 
- 250:Core/Src/ds_twr_initiator_sts.c ****     /* Start transmission. */
- 251:Core/Src/ds_twr_initiator_sts.c ****     dwt_starttx(DWT_START_TX_IMMEDIATE | DWT_RESPONSE_EXPECTED);
-  60              		.loc 1 251 5 view .LVU6
+ 224:Core/Src/ds_twr_initiator_sts.c **** 
+ 225:Core/Src/ds_twr_initiator_sts.c ****     /* Start transmission. */
+ 226:Core/Src/ds_twr_initiator_sts.c ****     dwt_starttx(DWT_START_TX_IMMEDIATE | DWT_RESPONSE_EXPECTED);
+  60              		.loc 1 226 5 view .LVU6
+ARM GAS  /tmp/ccVmoTNI.s 			page 6
+
+
   61 0028 0220     		movs	r0, #2
   62 002a FFF7FEFF 		bl	dwt_starttx
   63              	.LVL3:
- 252:Core/Src/ds_twr_initiator_sts.c **** 
- 253:Core/Src/ds_twr_initiator_sts.c ****     /* Poll DW IC until TX frame sent event set. See NOTE 8 below. */
- 254:Core/Src/ds_twr_initiator_sts.c ****     while (!(dwt_read32bitreg(SYS_STATUS_ID) & SYS_STATUS_TXFRS_BIT_MASK))
-  64              		.loc 1 254 5 view .LVU7
+ 227:Core/Src/ds_twr_initiator_sts.c **** 
+ 228:Core/Src/ds_twr_initiator_sts.c ****     /* Poll DW IC until TX frame sent event set. See NOTE 8 below. */
+ 229:Core/Src/ds_twr_initiator_sts.c ****     while (!(dwt_read32bitreg(SYS_STATUS_ID) & SYS_STATUS_TXFRS_BIT_MASK))
+  64              		.loc 1 229 5 view .LVU7
   65              	.L2:
- 255:Core/Src/ds_twr_initiator_sts.c ****     { };
-  66              		.loc 1 255 7 discriminator 1 view .LVU8
- 254:Core/Src/ds_twr_initiator_sts.c ****     { };
-  67              		.loc 1 254 11 discriminator 1 view .LVU9
- 254:Core/Src/ds_twr_initiator_sts.c ****     { };
-  68              		.loc 1 254 14 is_stmt 0 discriminator 1 view .LVU10
+ 230:Core/Src/ds_twr_initiator_sts.c ****     { };
+  66              		.loc 1 230 7 discriminator 1 view .LVU8
+ 229:Core/Src/ds_twr_initiator_sts.c ****     { };
+  67              		.loc 1 229 11 discriminator 1 view .LVU9
+ 229:Core/Src/ds_twr_initiator_sts.c ****     { };
+  68              		.loc 1 229 14 is_stmt 0 discriminator 1 view .LVU10
   69 002e 0021     		movs	r1, #0
   70 0030 4420     		movs	r0, #68
   71 0032 FFF7FEFF 		bl	dwt_read32bitoffsetreg
   72              	.LVL4:
- 254:Core/Src/ds_twr_initiator_sts.c ****     { };
-  73              		.loc 1 254 11 discriminator 1 view .LVU11
+ 229:Core/Src/ds_twr_initiator_sts.c ****     { };
+  73              		.loc 1 229 11 discriminator 1 view .LVU11
   74 0036 10F0800F 		tst	r0, #128
   75 003a F8D0     		beq	.L2
-  76              		.loc 1 255 8 is_stmt 1 view .LVU12
- 256:Core/Src/ds_twr_initiator_sts.c **** 
- 257:Core/Src/ds_twr_initiator_sts.c ****     /* Clear TXFRS event. */
- 258:Core/Src/ds_twr_initiator_sts.c ****     dwt_write32bitreg(SYS_STATUS_ID, SYS_STATUS_TXFRS_BIT_MASK);
-  77              		.loc 1 258 5 view .LVU13
+  76              		.loc 1 230 8 is_stmt 1 view .LVU12
+ 231:Core/Src/ds_twr_initiator_sts.c **** 
+ 232:Core/Src/ds_twr_initiator_sts.c ****     /* Clear TXFRS event. */
+ 233:Core/Src/ds_twr_initiator_sts.c ****     dwt_write32bitreg(SYS_STATUS_ID, SYS_STATUS_TXFRS_BIT_MASK);
+  77              		.loc 1 233 5 view .LVU13
   78 003c 8022     		movs	r2, #128
   79 003e 0021     		movs	r1, #0
   80 0040 4420     		movs	r0, #68
   81 0042 FFF7FEFF 		bl	dwt_write32bitoffsetreg
   82              	.LVL5:
-ARM GAS  /tmp/cc7sAMpK.s 			page 7
-
-
- 259:Core/Src/ds_twr_initiator_sts.c **** }
-  83              		.loc 1 259 1 is_stmt 0 view .LVU14
+ 234:Core/Src/ds_twr_initiator_sts.c **** }
+  83              		.loc 1 234 1 is_stmt 0 view .LVU14
   84 0046 10BD     		pop	{r4, pc}
   85              	.L5:
   86              		.align	2
@@ -386,6 +358,9 @@ ARM GAS  /tmp/cc7sAMpK.s 			page 1
   99      4C454420 
   99      20202020 
   99      00
+ARM GAS  /tmp/ccVmoTNI.s 			page 7
+
+
  100 0025 000000   		.align	2
  101              	.LC2:
  102 0028 434F4E46 		.ascii	"CONFIG FAILED     \000"
@@ -409,22 +384,19 @@ ARM GAS  /tmp/cc7sAMpK.s 			page 1
  112              		.fpu fpv4-sp-d16
  114              	ds_twr_initiator_sts:
  115              	.LFB134:
- 260:Core/Src/ds_twr_initiator_sts.c **** 
- 261:Core/Src/ds_twr_initiator_sts.c **** /*! -----------------------------------------------------------------------------------------------
- 262:Core/Src/ds_twr_initiator_sts.c ****  * @fn ds_twr_initiator_sts()
- 263:Core/Src/ds_twr_initiator_sts.c ****  *
- 264:Core/Src/ds_twr_initiator_sts.c ****  * @brief Application entry point.
- 265:Core/Src/ds_twr_initiator_sts.c ****  *
- 266:Core/Src/ds_twr_initiator_sts.c ****  * @param  none
- 267:Core/Src/ds_twr_initiator_sts.c ****  *
- 268:Core/Src/ds_twr_initiator_sts.c ****  * @return none
-ARM GAS  /tmp/cc7sAMpK.s 			page 8
-
-
- 269:Core/Src/ds_twr_initiator_sts.c ****  */
- 270:Core/Src/ds_twr_initiator_sts.c **** int ds_twr_initiator_sts(void)
- 271:Core/Src/ds_twr_initiator_sts.c **** {
- 116              		.loc 1 271 1 is_stmt 1 view -0
+ 235:Core/Src/ds_twr_initiator_sts.c **** 
+ 236:Core/Src/ds_twr_initiator_sts.c **** /*! -----------------------------------------------------------------------------------------------
+ 237:Core/Src/ds_twr_initiator_sts.c ****  * @fn ds_twr_initiator_sts()
+ 238:Core/Src/ds_twr_initiator_sts.c ****  *
+ 239:Core/Src/ds_twr_initiator_sts.c ****  * @brief Application entry point.
+ 240:Core/Src/ds_twr_initiator_sts.c ****  *
+ 241:Core/Src/ds_twr_initiator_sts.c ****  * @param  none
+ 242:Core/Src/ds_twr_initiator_sts.c ****  *
+ 243:Core/Src/ds_twr_initiator_sts.c ****  * @return none
+ 244:Core/Src/ds_twr_initiator_sts.c ****  */
+ 245:Core/Src/ds_twr_initiator_sts.c **** int ds_twr_initiator_sts(void)
+ 246:Core/Src/ds_twr_initiator_sts.c **** {
+ 116              		.loc 1 246 1 is_stmt 1 view -0
  117              		.cfi_startproc
  118              		@ args = 0, pretend = 0, frame = 16
  119              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -441,1332 +413,1241 @@ ARM GAS  /tmp/cc7sAMpK.s 			page 1
  130              		.cfi_offset 14, -4
  131 0004 85B0     		sub	sp, sp, #20
  132              		.cfi_def_cfa_offset 56
- 272:Core/Src/ds_twr_initiator_sts.c ****     int16_t stsQual; /* This will contain STS quality index and status */
- 133              		.loc 1 272 5 view .LVU16
- 273:Core/Src/ds_twr_initiator_sts.c ****     int goodSts = 0; /* Used for checking STS quality in received signal */
- 134              		.loc 1 273 5 view .LVU17
+ 247:Core/Src/ds_twr_initiator_sts.c ****     int16_t stsQual; /* This will contain STS quality index and status */
+ 133              		.loc 1 247 5 view .LVU16
+ 248:Core/Src/ds_twr_initiator_sts.c ****     int goodSts = 0; /* Used for checking STS quality in received signal */
+ 134              		.loc 1 248 5 view .LVU17
  135              	.LVL6:
- 274:Core/Src/ds_twr_initiator_sts.c ****     uint8_t firstLoopFlag = 0; /* Used for checking if the program has gone through the main loop f
- 136              		.loc 1 274 5 view .LVU18
- 275:Core/Src/ds_twr_initiator_sts.c **** 
- 276:Core/Src/ds_twr_initiator_sts.c ****     /* Display application name on UART. */
- 277:Core/Src/ds_twr_initiator_sts.c ****     test_run_info((unsigned char *)APP_NAME);
- 137              		.loc 1 277 5 view .LVU19
- 138 0006 B048     		ldr	r0, .L36
+ARM GAS  /tmp/ccVmoTNI.s 			page 8
+
+
+ 249:Core/Src/ds_twr_initiator_sts.c ****     uint8_t firstLoopFlag = 0; /* Used for checking if the program has gone through the main loop f
+ 136              		.loc 1 249 5 view .LVU18
+ 250:Core/Src/ds_twr_initiator_sts.c **** 
+ 251:Core/Src/ds_twr_initiator_sts.c ****     /* Display application name on UART. */
+ 252:Core/Src/ds_twr_initiator_sts.c ****     test_run_info((unsigned char *)APP_NAME);
+ 137              		.loc 1 252 5 view .LVU19
+ 138 0006 C148     		ldr	r0, .L34
  139 0008 FFF7FEFF 		bl	test_run_info
  140              	.LVL7:
- 278:Core/Src/ds_twr_initiator_sts.c **** 
- 279:Core/Src/ds_twr_initiator_sts.c ****     /* Reset DW IC */
- 280:Core/Src/ds_twr_initiator_sts.c ****     my_reset_DWIC(); /* Target specific drive of RSTn line into DW IC low for a period. */
- 141              		.loc 1 280 5 view .LVU20
+ 253:Core/Src/ds_twr_initiator_sts.c **** 
+ 254:Core/Src/ds_twr_initiator_sts.c ****     /* Reset DW IC */
+ 255:Core/Src/ds_twr_initiator_sts.c ****     my_reset_DWIC(); /* Target specific drive of RSTn line into DW IC low for a period. */
+ 141              		.loc 1 255 5 view .LVU20
  142 000c FFF7FEFF 		bl	my_reset_DWIC
  143              	.LVL8:
- 281:Core/Src/ds_twr_initiator_sts.c **** 
- 282:Core/Src/ds_twr_initiator_sts.c ****     while (!dwt_checkidlerc()) /* Need to make sure DW IC is in IDLE_RC before proceeding */
- 144              		.loc 1 282 5 view .LVU21
+ 256:Core/Src/ds_twr_initiator_sts.c **** 
+ 257:Core/Src/ds_twr_initiator_sts.c ****     while (!dwt_checkidlerc()) /* Need to make sure DW IC is in IDLE_RC before proceeding */
+ 144              		.loc 1 257 5 view .LVU21
  145              	.L7:
- 283:Core/Src/ds_twr_initiator_sts.c ****     { };
- 146              		.loc 1 283 7 discriminator 1 view .LVU22
- 282:Core/Src/ds_twr_initiator_sts.c ****     { };
- 147              		.loc 1 282 11 discriminator 1 view .LVU23
- 282:Core/Src/ds_twr_initiator_sts.c ****     { };
- 148              		.loc 1 282 13 is_stmt 0 discriminator 1 view .LVU24
+ 258:Core/Src/ds_twr_initiator_sts.c ****     { };
+ 146              		.loc 1 258 7 discriminator 1 view .LVU22
+ 257:Core/Src/ds_twr_initiator_sts.c ****     { };
+ 147              		.loc 1 257 11 discriminator 1 view .LVU23
+ 257:Core/Src/ds_twr_initiator_sts.c ****     { };
+ 148              		.loc 1 257 13 is_stmt 0 discriminator 1 view .LVU24
  149 0010 FFF7FEFF 		bl	dwt_checkidlerc
  150              	.LVL9:
- 282:Core/Src/ds_twr_initiator_sts.c ****     { };
- 151              		.loc 1 282 11 discriminator 1 view .LVU25
+ 257:Core/Src/ds_twr_initiator_sts.c ****     { };
+ 151              		.loc 1 257 11 discriminator 1 view .LVU25
  152 0014 0028     		cmp	r0, #0
  153 0016 FBD0     		beq	.L7
- 154              		.loc 1 283 8 is_stmt 1 view .LVU26
-ARM GAS  /tmp/cc7sAMpK.s 			page 9
-
-
- 284:Core/Src/ds_twr_initiator_sts.c **** 
- 285:Core/Src/ds_twr_initiator_sts.c ****     /* ====> Start timer from STM <==== */
- 286:Core/Src/ds_twr_initiator_sts.c ****     //HAL_TIM_Base_Start(&htim2);
- 287:Core/Src/ds_twr_initiator_sts.c **** 
- 288:Core/Src/ds_twr_initiator_sts.c ****     if (dwt_initialise(DWT_DW_IDLE) == DWT_ERROR)
- 155              		.loc 1 288 5 view .LVU27
- 156              		.loc 1 288 9 is_stmt 0 view .LVU28
+ 154              		.loc 1 258 8 is_stmt 1 view .LVU26
+ 259:Core/Src/ds_twr_initiator_sts.c **** 
+ 260:Core/Src/ds_twr_initiator_sts.c ****     /* ====> Start timer from STM <==== */
+ 261:Core/Src/ds_twr_initiator_sts.c ****     //HAL_TIM_Base_Start(&htim2);
+ 262:Core/Src/ds_twr_initiator_sts.c **** 
+ 263:Core/Src/ds_twr_initiator_sts.c ****     if (dwt_initialise(DWT_DW_IDLE) == DWT_ERROR)
+ 155              		.loc 1 263 5 view .LVU27
+ 156              		.loc 1 263 9 is_stmt 0 view .LVU28
  157 0018 0120     		movs	r0, #1
  158 001a FFF7FEFF 		bl	dwt_initialise
  159              	.LVL10:
- 160              		.loc 1 288 8 view .LVU29
+ 160              		.loc 1 263 8 view .LVU29
  161 001e B0F1FF3F 		cmp	r0, #-1
- 162 0022 32D0     		beq	.L33
- 289:Core/Src/ds_twr_initiator_sts.c ****     {
- 290:Core/Src/ds_twr_initiator_sts.c ****         test_run_info((unsigned char *)"INIT FAILED     ");
- 291:Core/Src/ds_twr_initiator_sts.c ****         while (1)
- 292:Core/Src/ds_twr_initiator_sts.c ****         { };
- 163              		.loc 1 292 12 is_stmt 1 view .LVU30
- 293:Core/Src/ds_twr_initiator_sts.c ****     }
- 294:Core/Src/ds_twr_initiator_sts.c **** 
- 295:Core/Src/ds_twr_initiator_sts.c ****     /* ====>  Enable TX/RX led's for visual diagnostic <==== */
- 296:Core/Src/ds_twr_initiator_sts.c **** 	/* Next can enable TX/RX states output on GPIOs 5 and 6 to help diagnostics, and also TX/RX LEDs *
- 297:Core/Src/ds_twr_initiator_sts.c **** 	//dwt_setlnapamode(DWT_LNA_ENABLE | DWT_PA_ENABLE);
- 298:Core/Src/ds_twr_initiator_sts.c **** 
- 299:Core/Src/ds_twr_initiator_sts.c **** 	/* Enabling LEDs here for debug so that for each TX the D1 LED will flash on DW3000 red eval-shiel
- 300:Core/Src/ds_twr_initiator_sts.c **** 	 * Note, in real low power applications the LEDs should not be used. */
- 301:Core/Src/ds_twr_initiator_sts.c **** 	//dwt_setleds(DWT_LEDS_ENABLE | DWT_LEDS_INIT_BLINK);
- 302:Core/Src/ds_twr_initiator_sts.c **** 
- 303:Core/Src/ds_twr_initiator_sts.c ****     /* Configure DW IC. See NOTE 15 below. */
- 304:Core/Src/ds_twr_initiator_sts.c ****     if(dwt_configure(&config_options)) /* if the dwt_configure returns DWT_ERROR either the PLL or 
- 164              		.loc 1 304 5 view .LVU31
- 165              		.loc 1 304 8 is_stmt 0 view .LVU32
- 166 0024 A948     		ldr	r0, .L36+4
+ 162 0022 32D0     		beq	.L31
+ 264:Core/Src/ds_twr_initiator_sts.c ****     {
+ 265:Core/Src/ds_twr_initiator_sts.c ****         test_run_info((unsigned char *)"INIT FAILED     ");
+ 266:Core/Src/ds_twr_initiator_sts.c ****         while (1)
+ 267:Core/Src/ds_twr_initiator_sts.c ****         { };
+ 163              		.loc 1 267 12 is_stmt 1 view .LVU30
+ 268:Core/Src/ds_twr_initiator_sts.c ****     }
+ 269:Core/Src/ds_twr_initiator_sts.c **** 
+ 270:Core/Src/ds_twr_initiator_sts.c ****     /* ====>  Enable TX/RX led's for visual diagnostic <==== */
+ 271:Core/Src/ds_twr_initiator_sts.c **** 	/* Next can enable TX/RX states output on GPIOs 5 and 6 to help diagnostics, and also TX/RX LEDs *
+ 272:Core/Src/ds_twr_initiator_sts.c **** 	//dwt_setlnapamode(DWT_LNA_ENABLE | DWT_PA_ENABLE);
+ 273:Core/Src/ds_twr_initiator_sts.c **** 
+ 274:Core/Src/ds_twr_initiator_sts.c **** 	/* Enabling LEDs here for debug so that for each TX the D1 LED will flash on DW3000 red eval-shiel
+ARM GAS  /tmp/ccVmoTNI.s 			page 9
+
+
+ 275:Core/Src/ds_twr_initiator_sts.c **** 	 * Note, in real low power applications the LEDs should not be used. */
+ 276:Core/Src/ds_twr_initiator_sts.c **** 	//dwt_setleds(DWT_LEDS_ENABLE | DWT_LEDS_INIT_BLINK);
+ 277:Core/Src/ds_twr_initiator_sts.c **** 
+ 278:Core/Src/ds_twr_initiator_sts.c ****     /* Configure DW IC. See NOTE 15 below. */
+ 279:Core/Src/ds_twr_initiator_sts.c ****     if(dwt_configure(&config_options)) /* if the dwt_configure returns DWT_ERROR either the PLL or 
+ 164              		.loc 1 279 5 view .LVU31
+ 165              		.loc 1 279 8 is_stmt 0 view .LVU32
+ 166 0024 BA48     		ldr	r0, .L34+4
  167 0026 FFF7FEFF 		bl	dwt_configure
  168              	.LVL11:
- 169              		.loc 1 304 7 view .LVU33
- 170 002a 90BB     		cbnz	r0, .L34
- 305:Core/Src/ds_twr_initiator_sts.c ****     {
- 306:Core/Src/ds_twr_initiator_sts.c ****         test_run_info((unsigned char *)"CONFIG FAILED     ");
- 307:Core/Src/ds_twr_initiator_sts.c ****         while (1)
- 308:Core/Src/ds_twr_initiator_sts.c ****         { };
- 171              		.loc 1 308 12 is_stmt 1 view .LVU34
- 309:Core/Src/ds_twr_initiator_sts.c ****     }
- 310:Core/Src/ds_twr_initiator_sts.c **** 
- 311:Core/Src/ds_twr_initiator_sts.c ****     /* Configure the TX spectrum parameters (power, PG delay and PG count) */
- 312:Core/Src/ds_twr_initiator_sts.c ****     if(config_options.chan == 5)
- 172              		.loc 1 312 5 view .LVU35
- 173              		.loc 1 312 22 is_stmt 0 view .LVU36
- 174 002c A74B     		ldr	r3, .L36+4
+ 169              		.loc 1 279 7 view .LVU33
+ 170 002a 90BB     		cbnz	r0, .L32
+ 280:Core/Src/ds_twr_initiator_sts.c ****     {
+ 281:Core/Src/ds_twr_initiator_sts.c ****         test_run_info((unsigned char *)"CONFIG FAILED     ");
+ 282:Core/Src/ds_twr_initiator_sts.c ****         while (1)
+ 283:Core/Src/ds_twr_initiator_sts.c ****         { };
+ 171              		.loc 1 283 12 is_stmt 1 view .LVU34
+ 284:Core/Src/ds_twr_initiator_sts.c ****     }
+ 285:Core/Src/ds_twr_initiator_sts.c **** 
+ 286:Core/Src/ds_twr_initiator_sts.c ****     /* Configure the TX spectrum parameters (power, PG delay and PG count) */
+ 287:Core/Src/ds_twr_initiator_sts.c ****     if(config_options.chan == 5)
+ 172              		.loc 1 287 5 view .LVU35
+ 173              		.loc 1 287 22 is_stmt 0 view .LVU36
+ 174 002c B84B     		ldr	r3, .L34+4
  175 002e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
- 176              		.loc 1 312 7 view .LVU37
+ 176              		.loc 1 287 7 view .LVU37
  177 0030 052B     		cmp	r3, #5
- 178 0032 32D0     		beq	.L35
- 313:Core/Src/ds_twr_initiator_sts.c ****     {
- 314:Core/Src/ds_twr_initiator_sts.c ****         dwt_configuretxrf(&txconfig_options);
- 315:Core/Src/ds_twr_initiator_sts.c ****     }
- 316:Core/Src/ds_twr_initiator_sts.c ****     else
-ARM GAS  /tmp/cc7sAMpK.s 			page 10
-
-
- 317:Core/Src/ds_twr_initiator_sts.c ****     {
- 318:Core/Src/ds_twr_initiator_sts.c ****         dwt_configuretxrf(&txconfig_options_ch9);
- 179              		.loc 1 318 9 is_stmt 1 view .LVU38
- 180 0034 A648     		ldr	r0, .L36+8
+ 178 0032 32D0     		beq	.L33
+ 288:Core/Src/ds_twr_initiator_sts.c ****     {
+ 289:Core/Src/ds_twr_initiator_sts.c ****         dwt_configuretxrf(&txconfig_options);
+ 290:Core/Src/ds_twr_initiator_sts.c ****     }
+ 291:Core/Src/ds_twr_initiator_sts.c ****     else
+ 292:Core/Src/ds_twr_initiator_sts.c ****     {
+ 293:Core/Src/ds_twr_initiator_sts.c ****         dwt_configuretxrf(&txconfig_options_ch9);
+ 179              		.loc 1 293 9 is_stmt 1 view .LVU38
+ 180 0034 B748     		ldr	r0, .L34+8
  181 0036 FFF7FEFF 		bl	dwt_configuretxrf
  182              	.LVL12:
  183              	.L13:
- 319:Core/Src/ds_twr_initiator_sts.c ****     }
- 320:Core/Src/ds_twr_initiator_sts.c **** 
- 321:Core/Src/ds_twr_initiator_sts.c ****     /* ====> Enable frame filtering <==== */
- 322:Core/Src/ds_twr_initiator_sts.c **** #if INITIATOR_TYPE == 'E'
- 323:Core/Src/ds_twr_initiator_sts.c **** 	dwt_configureframefilter(DWT_FF_ENABLE_802_15_4, DWT_FF_DATA_EN);
- 324:Core/Src/ds_twr_initiator_sts.c **** 	dwt_setpanid(0xDECA);
- 325:Core/Src/ds_twr_initiator_sts.c **** 	dwt_setaddress16(0x4556);
- 326:Core/Src/ds_twr_initiator_sts.c **** #elif INITIATOR_TYPE == 'F'
- 327:Core/Src/ds_twr_initiator_sts.c **** 	dwt_configureframefilter(DWT_FF_ENABLE_802_15_4, DWT_FF_DATA_EN);
- 328:Core/Src/ds_twr_initiator_sts.c ****    	dwt_setpanid(0xDECA);
- 329:Core/Src/ds_twr_initiator_sts.c ****    	dwt_setaddress16(0x4656);
- 330:Core/Src/ds_twr_initiator_sts.c **** #elif  INITIATOR_TYPE == 'G'
- 331:Core/Src/ds_twr_initiator_sts.c **** 	dwt_configureframefilter(DWT_FF_ENABLE_802_15_4, DWT_FF_DATA_EN);
- 184              		.loc 1 331 2 view .LVU39
+ 294:Core/Src/ds_twr_initiator_sts.c ****     }
+ 295:Core/Src/ds_twr_initiator_sts.c **** 
+ 296:Core/Src/ds_twr_initiator_sts.c ****     /* ====> Enable frame filtering <==== */
+ 297:Core/Src/ds_twr_initiator_sts.c **** #if INITIATOR_TYPE == 'E'
+ 298:Core/Src/ds_twr_initiator_sts.c **** 	dwt_configureframefilter(DWT_FF_ENABLE_802_15_4, DWT_FF_DATA_EN);
+ 299:Core/Src/ds_twr_initiator_sts.c **** 	dwt_setpanid(0xDECA);
+ 300:Core/Src/ds_twr_initiator_sts.c **** 	dwt_setaddress16(0x4556);
+ 301:Core/Src/ds_twr_initiator_sts.c **** #elif INITIATOR_TYPE == 'F'
+ 302:Core/Src/ds_twr_initiator_sts.c **** 	dwt_configureframefilter(DWT_FF_ENABLE_802_15_4, DWT_FF_DATA_EN);
+ 303:Core/Src/ds_twr_initiator_sts.c ****    	dwt_setpanid(0xDECA);
+ 304:Core/Src/ds_twr_initiator_sts.c ****    	dwt_setaddress16(0x4656);
+ 305:Core/Src/ds_twr_initiator_sts.c **** #elif  INITIATOR_TYPE == 'G'
+ 306:Core/Src/ds_twr_initiator_sts.c **** 	dwt_configureframefilter(DWT_FF_ENABLE_802_15_4, DWT_FF_DATA_EN);
+ 184              		.loc 1 306 2 view .LVU39
  185 003a 0221     		movs	r1, #2
  186 003c 0846     		mov	r0, r1
  187 003e FFF7FEFF 		bl	dwt_configureframefilter
  188              	.LVL13:
- 332:Core/Src/ds_twr_initiator_sts.c **** 	dwt_setpanid(0xDECA);
- 189              		.loc 1 332 2 view .LVU40
+ARM GAS  /tmp/ccVmoTNI.s 			page 10
+
+
+ 307:Core/Src/ds_twr_initiator_sts.c **** 	dwt_setpanid(0xDECA);
+ 189              		.loc 1 307 2 view .LVU40
  190 0042 4DF6CA60 		movw	r0, #57034
  191 0046 FFF7FEFF 		bl	dwt_setpanid
  192              	.LVL14:
- 333:Core/Src/ds_twr_initiator_sts.c **** 	dwt_setaddress16(0x4756);
- 193              		.loc 1 333 2 view .LVU41
+ 308:Core/Src/ds_twr_initiator_sts.c **** 	dwt_setaddress16(0x4756);
+ 193              		.loc 1 308 2 view .LVU41
  194 004a 44F25670 		movw	r0, #18262
  195 004e FFF7FEFF 		bl	dwt_setaddress16
  196              	.LVL15:
- 334:Core/Src/ds_twr_initiator_sts.c **** #endif
- 335:Core/Src/ds_twr_initiator_sts.c **** 
- 336:Core/Src/ds_twr_initiator_sts.c ****     /* Apply default antenna delay value. See NOTE 2 below. */
- 337:Core/Src/ds_twr_initiator_sts.c ****     dwt_setrxantennadelay(RX_ANT_DLY);
- 197              		.loc 1 337 5 view .LVU42
+ 309:Core/Src/ds_twr_initiator_sts.c **** #endif
+ 310:Core/Src/ds_twr_initiator_sts.c **** 
+ 311:Core/Src/ds_twr_initiator_sts.c ****     /* Apply default antenna delay value. See NOTE 2 below. */
+ 312:Core/Src/ds_twr_initiator_sts.c ****     dwt_setrxantennadelay(RX_ANT_DLY);
+ 197              		.loc 1 312 5 view .LVU42
  198 0052 44F28D00 		movw	r0, #16525
  199 0056 FFF7FEFF 		bl	dwt_setrxantennadelay
  200              	.LVL16:
- 338:Core/Src/ds_twr_initiator_sts.c ****     dwt_settxantennadelay(TX_ANT_DLY);
- 201              		.loc 1 338 5 view .LVU43
+ 313:Core/Src/ds_twr_initiator_sts.c ****     dwt_settxantennadelay(TX_ANT_DLY);
+ 201              		.loc 1 313 5 view .LVU43
  202 005a 44F28D00 		movw	r0, #16525
  203 005e FFF7FEFF 		bl	dwt_settxantennadelay
  204              	.LVL17:
- 339:Core/Src/ds_twr_initiator_sts.c **** 
- 340:Core/Src/ds_twr_initiator_sts.c ****     /* Set expected response's delay and timeout. See NOTE 14, 17 and 18 below.
- 341:Core/Src/ds_twr_initiator_sts.c ****      * As this example only handles one incoming frame with always the same delay and timeout, thos
- 342:Core/Src/ds_twr_initiator_sts.c ****     dwt_setrxaftertxdelay(POLL_TX_TO_RESP_RX_DLY_UUS);
- 205              		.loc 1 342 5 view .LVU44
+ 314:Core/Src/ds_twr_initiator_sts.c **** 
+ 315:Core/Src/ds_twr_initiator_sts.c ****     /* Set expected response's delay and timeout. See NOTE 14, 17 and 18 below.
+ 316:Core/Src/ds_twr_initiator_sts.c ****      * As this example only handles one incoming frame with always the same delay and timeout, thos
+ 317:Core/Src/ds_twr_initiator_sts.c ****     dwt_setrxaftertxdelay(POLL_TX_TO_RESP_RX_DLY_UUS);
+ 205              		.loc 1 317 5 view .LVU44
  206 0062 40F2B130 		movw	r0, #945
  207 0066 FFF7FEFF 		bl	dwt_setrxaftertxdelay
  208              	.LVL18:
- 343:Core/Src/ds_twr_initiator_sts.c ****     dwt_setrxtimeout(RESP_RX_TIMEOUT_UUS);
-ARM GAS  /tmp/cc7sAMpK.s 			page 11
-
-
- 209              		.loc 1 343 5 view .LVU45
+ 318:Core/Src/ds_twr_initiator_sts.c ****     dwt_setrxtimeout(RESP_RX_TIMEOUT_UUS);
+ 209              		.loc 1 318 5 view .LVU45
  210 006a 4FF49670 		mov	r0, #300
  211 006e FFF7FEFF 		bl	dwt_setrxtimeout
  212              	.LVL19:
- 344:Core/Src/ds_twr_initiator_sts.c **** 
- 345:Core/Src/ds_twr_initiator_sts.c ****     /* Set expected response's timeout. See NOTE 1 and 5 below.
- 346:Core/Src/ds_twr_initiator_sts.c ****      * As this example only handles one incoming frame with always the same delay, this value can b
- 347:Core/Src/ds_twr_initiator_sts.c ****     set_resp_rx_timeout(RESP_RX_TIMEOUT_UUS, &config_options);
- 213              		.loc 1 347 5 view .LVU46
- 214 0072 9649     		ldr	r1, .L36+4
+ 319:Core/Src/ds_twr_initiator_sts.c **** 
+ 320:Core/Src/ds_twr_initiator_sts.c ****     /* Set expected response's timeout. See NOTE 1 and 5 below.
+ 321:Core/Src/ds_twr_initiator_sts.c ****      * As this example only handles one incoming frame with always the same delay, this value can b
+ 322:Core/Src/ds_twr_initiator_sts.c ****     set_resp_rx_timeout(RESP_RX_TIMEOUT_UUS, &config_options);
+ 213              		.loc 1 322 5 view .LVU46
+ 214 0072 A749     		ldr	r1, .L34+4
  215 0074 4FF49670 		mov	r0, #300
  216 0078 FFF7FEFF 		bl	set_resp_rx_timeout
  217              	.LVL20:
- 348:Core/Src/ds_twr_initiator_sts.c **** 
- 349:Core/Src/ds_twr_initiator_sts.c ****     // for random
- 350:Core/Src/ds_twr_initiator_sts.c ****     srand(time(NULL));
- 218              		.loc 1 350 5 view .LVU47
- 219              		.loc 1 350 11 is_stmt 0 view .LVU48
+ 323:Core/Src/ds_twr_initiator_sts.c **** 
+ 324:Core/Src/ds_twr_initiator_sts.c ****     // for random
+ 325:Core/Src/ds_twr_initiator_sts.c ****     srand(time(NULL));
+ 218              		.loc 1 325 5 view .LVU47
+ 219              		.loc 1 325 11 is_stmt 0 view .LVU48
  220 007c 0020     		movs	r0, #0
  221 007e FFF7FEFF 		bl	time
  222              	.LVL21:
- 223              		.loc 1 350 5 view .LVU49
+ 223              		.loc 1 325 5 view .LVU49
  224 0082 FFF7FEFF 		bl	srand
  225              	.LVL22:
- 274:Core/Src/ds_twr_initiator_sts.c **** 
- 226              		.loc 1 274 13 view .LVU50
+ 249:Core/Src/ds_twr_initiator_sts.c **** 
+ARM GAS  /tmp/ccVmoTNI.s 			page 11
+
+
+ 226              		.loc 1 249 13 view .LVU50
  227 0086 0024     		movs	r4, #0
- 228 0088 67E1     		b	.L31
- 229              	.L33:
- 290:Core/Src/ds_twr_initiator_sts.c ****         while (1)
- 230              		.loc 1 290 9 is_stmt 1 view .LVU51
- 231 008a 9248     		ldr	r0, .L36+12
+ 228 0088 25E1     		b	.L29
+ 229              	.L31:
+ 265:Core/Src/ds_twr_initiator_sts.c ****         while (1)
+ 230              		.loc 1 265 9 is_stmt 1 view .LVU51
+ 231 008a A348     		ldr	r0, .L34+12
  232 008c FFF7FEFF 		bl	test_run_info
  233              	.LVL23:
  234              	.L9:
- 291:Core/Src/ds_twr_initiator_sts.c ****         { };
- 235              		.loc 1 291 9 discriminator 1 view .LVU52
- 292:Core/Src/ds_twr_initiator_sts.c ****     }
- 236              		.loc 1 292 11 discriminator 1 view .LVU53
- 291:Core/Src/ds_twr_initiator_sts.c ****         { };
- 237              		.loc 1 291 15 discriminator 1 view .LVU54
+ 266:Core/Src/ds_twr_initiator_sts.c ****         { };
+ 235              		.loc 1 266 9 discriminator 1 view .LVU52
+ 267:Core/Src/ds_twr_initiator_sts.c ****     }
+ 236              		.loc 1 267 11 discriminator 1 view .LVU53
+ 266:Core/Src/ds_twr_initiator_sts.c ****         { };
+ 237              		.loc 1 266 15 discriminator 1 view .LVU54
  238 0090 FEE7     		b	.L9
- 239              	.L34:
- 306:Core/Src/ds_twr_initiator_sts.c ****         while (1)
- 240              		.loc 1 306 9 view .LVU55
- 241 0092 9148     		ldr	r0, .L36+16
+ 239              	.L32:
+ 281:Core/Src/ds_twr_initiator_sts.c ****         while (1)
+ 240              		.loc 1 281 9 view .LVU55
+ 241 0092 A248     		ldr	r0, .L34+16
  242 0094 FFF7FEFF 		bl	test_run_info
  243              	.LVL24:
  244              	.L11:
- 307:Core/Src/ds_twr_initiator_sts.c ****         { };
- 245              		.loc 1 307 9 discriminator 2 view .LVU56
- 308:Core/Src/ds_twr_initiator_sts.c ****     }
- 246              		.loc 1 308 11 discriminator 2 view .LVU57
- 307:Core/Src/ds_twr_initiator_sts.c ****         { };
- 247              		.loc 1 307 15 discriminator 2 view .LVU58
+ 282:Core/Src/ds_twr_initiator_sts.c ****         { };
+ 245              		.loc 1 282 9 discriminator 2 view .LVU56
+ 283:Core/Src/ds_twr_initiator_sts.c ****     }
+ 246              		.loc 1 283 11 discriminator 2 view .LVU57
+ 282:Core/Src/ds_twr_initiator_sts.c ****         { };
+ 247              		.loc 1 282 15 discriminator 2 view .LVU58
  248 0098 FEE7     		b	.L11
- 249              	.L35:
-ARM GAS  /tmp/cc7sAMpK.s 			page 12
-
-
- 314:Core/Src/ds_twr_initiator_sts.c ****     }
- 250              		.loc 1 314 9 view .LVU59
- 251 009a 9048     		ldr	r0, .L36+20
+ 249              	.L33:
+ 289:Core/Src/ds_twr_initiator_sts.c ****     }
+ 250              		.loc 1 289 9 view .LVU59
+ 251 009a A148     		ldr	r0, .L34+20
  252 009c FFF7FEFF 		bl	dwt_configuretxrf
  253              	.LVL25:
  254 00a0 CBE7     		b	.L13
  255              	.LVL26:
  256              	.L14:
- 351:Core/Src/ds_twr_initiator_sts.c **** 
- 352:Core/Src/ds_twr_initiator_sts.c ****     /* Loop for user defined number of ranges. */
- 353:Core/Src/ds_twr_initiator_sts.c ****     while (1)
- 354:Core/Src/ds_twr_initiator_sts.c ****     {
- 355:Core/Src/ds_twr_initiator_sts.c ****         /*
- 356:Core/Src/ds_twr_initiator_sts.c ****          * Set STS encryption key and IV (nonce).
- 357:Core/Src/ds_twr_initiator_sts.c ****          * See NOTE 16 below.
- 358:Core/Src/ds_twr_initiator_sts.c ****          */
- 359:Core/Src/ds_twr_initiator_sts.c ****         if (!firstLoopFlag)
- 360:Core/Src/ds_twr_initiator_sts.c ****         {
- 361:Core/Src/ds_twr_initiator_sts.c ****             /*
- 362:Core/Src/ds_twr_initiator_sts.c ****              * On first loop, configure the STS key & IV, then load them.
- 363:Core/Src/ds_twr_initiator_sts.c ****              */
- 364:Core/Src/ds_twr_initiator_sts.c ****             dwt_configurestskey(&cp_key);
- 365:Core/Src/ds_twr_initiator_sts.c ****             dwt_configurestsiv(&cp_iv);
- 366:Core/Src/ds_twr_initiator_sts.c ****             dwt_configurestsloadiv();
- 367:Core/Src/ds_twr_initiator_sts.c ****             firstLoopFlag = 1;
- 368:Core/Src/ds_twr_initiator_sts.c ****         }
- 369:Core/Src/ds_twr_initiator_sts.c ****         else
- 370:Core/Src/ds_twr_initiator_sts.c ****         {
- 371:Core/Src/ds_twr_initiator_sts.c ****             /*
- 372:Core/Src/ds_twr_initiator_sts.c ****              * On subsequent loops, we only need to reload the lower 32 bits of STS IV.
- 373:Core/Src/ds_twr_initiator_sts.c ****              */
- 374:Core/Src/ds_twr_initiator_sts.c ****             dwt_writetodevice(STS_IV0_ID, 0, 4, (uint8_t *)&cp_iv);
- 257              		.loc 1 374 13 view .LVU60
- 258 00a2 8F4B     		ldr	r3, .L36+24
+ 326:Core/Src/ds_twr_initiator_sts.c **** 
+ 327:Core/Src/ds_twr_initiator_sts.c ****     /* Loop for user defined number of ranges. */
+ 328:Core/Src/ds_twr_initiator_sts.c ****     while (1)
+ 329:Core/Src/ds_twr_initiator_sts.c ****     {
+ 330:Core/Src/ds_twr_initiator_sts.c ****         /*
+ 331:Core/Src/ds_twr_initiator_sts.c ****          * Set STS encryption key and IV (nonce).
+ 332:Core/Src/ds_twr_initiator_sts.c ****          * See NOTE 16 below.
+ 333:Core/Src/ds_twr_initiator_sts.c ****          */
+ 334:Core/Src/ds_twr_initiator_sts.c ****         if (!firstLoopFlag)
+ 335:Core/Src/ds_twr_initiator_sts.c ****         {
+ 336:Core/Src/ds_twr_initiator_sts.c ****             /*
+ 337:Core/Src/ds_twr_initiator_sts.c ****              * On first loop, configure the STS key & IV, then load them.
+ 338:Core/Src/ds_twr_initiator_sts.c ****              */
+ 339:Core/Src/ds_twr_initiator_sts.c ****             dwt_configurestskey(&cp_key);
+ 340:Core/Src/ds_twr_initiator_sts.c ****             dwt_configurestsiv(&cp_iv);
+ 341:Core/Src/ds_twr_initiator_sts.c ****             dwt_configurestsloadiv();
+ 342:Core/Src/ds_twr_initiator_sts.c ****             firstLoopFlag = 1;
+ARM GAS  /tmp/ccVmoTNI.s 			page 12
+
+
+ 343:Core/Src/ds_twr_initiator_sts.c ****         }
+ 344:Core/Src/ds_twr_initiator_sts.c ****         else
+ 345:Core/Src/ds_twr_initiator_sts.c ****         {
+ 346:Core/Src/ds_twr_initiator_sts.c ****             /*
+ 347:Core/Src/ds_twr_initiator_sts.c ****              * On subsequent loops, we only need to reload the lower 32 bits of STS IV.
+ 348:Core/Src/ds_twr_initiator_sts.c ****              */
+ 349:Core/Src/ds_twr_initiator_sts.c ****             dwt_writetodevice(STS_IV0_ID, 0, 4, (uint8_t *)&cp_iv);
+ 257              		.loc 1 349 13 view .LVU60
+ 258 00a2 A04B     		ldr	r3, .L34+24
  259 00a4 0422     		movs	r2, #4
  260 00a6 0021     		movs	r1, #0
- 261 00a8 8E48     		ldr	r0, .L36+28
+ 261 00a8 9F48     		ldr	r0, .L34+28
  262 00aa FFF7FEFF 		bl	dwt_writetodevice
  263              	.LVL27:
- 375:Core/Src/ds_twr_initiator_sts.c ****             dwt_configurestsloadiv();
- 264              		.loc 1 375 13 view .LVU61
+ 350:Core/Src/ds_twr_initiator_sts.c ****             dwt_configurestsloadiv();
+ 264              		.loc 1 350 13 view .LVU61
  265 00ae FFF7FEFF 		bl	dwt_configurestsloadiv
  266              	.LVL28:
- 267 00b2 5EE1     		b	.L15
- 268              	.L22:
- 376:Core/Src/ds_twr_initiator_sts.c ****         }
- 377:Core/Src/ds_twr_initiator_sts.c **** 
- 378:Core/Src/ds_twr_initiator_sts.c ****         /* ====> Check current number of anchor and put destination address <==== */
- 379:Core/Src/ds_twr_initiator_sts.c ****         switch (current_anchor)
- 380:Core/Src/ds_twr_initiator_sts.c ****         {
- 381:Core/Src/ds_twr_initiator_sts.c **** 			case 1: // anchor 1 A
- 382:Core/Src/ds_twr_initiator_sts.c **** 			{
- 383:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX] = address_of_A[0];
- 269              		.loc 1 383 5 view .LVU62
- 270              		.loc 1 383 42 is_stmt 0 view .LVU63
- 271 00b4 8C49     		ldr	r1, .L36+32
+ 267 00b2 1CE1     		b	.L15
+ 268              	.L20:
+ 351:Core/Src/ds_twr_initiator_sts.c ****         }
+ 352:Core/Src/ds_twr_initiator_sts.c **** 
+ 353:Core/Src/ds_twr_initiator_sts.c ****         /* ====> Check current number of anchor and put destination address <==== */
+ 354:Core/Src/ds_twr_initiator_sts.c ****         switch (current_anchor)
+ 355:Core/Src/ds_twr_initiator_sts.c ****         {
+ 356:Core/Src/ds_twr_initiator_sts.c **** 			case 1: // anchor 1 A
+ 357:Core/Src/ds_twr_initiator_sts.c **** 			{
+ 358:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX] = address_of_A[0];
+ 269              		.loc 1 358 5 view .LVU62
+ 270              		.loc 1 358 42 is_stmt 0 view .LVU63
+ 271 00b4 9D49     		ldr	r1, .L34+32
  272 00b6 4122     		movs	r2, #65
-ARM GAS  /tmp/cc7sAMpK.s 			page 13
-
-
  273 00b8 4A71     		strb	r2, [r1, #5]
- 384:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_A[1];
- 274              		.loc 1 384 5 is_stmt 1 view .LVU64
- 275              		.loc 1 384 46 is_stmt 0 view .LVU65
+ 359:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_A[1];
+ 274              		.loc 1 359 5 is_stmt 1 view .LVU64
+ 275              		.loc 1 359 46 is_stmt 0 view .LVU65
  276 00ba 0123     		movs	r3, #1
  277 00bc 8B71     		strb	r3, [r1, #6]
- 385:Core/Src/ds_twr_initiator_sts.c **** 
- 386:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX] = address_of_A[0];
- 278              		.loc 1 386 5 is_stmt 1 view .LVU66
- 279              		.loc 1 386 37 is_stmt 0 view .LVU67
- 280 00be 8B49     		ldr	r1, .L36+36
+ 360:Core/Src/ds_twr_initiator_sts.c **** 
+ 361:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX] = address_of_A[0];
+ 278              		.loc 1 361 5 is_stmt 1 view .LVU66
+ 279              		.loc 1 361 37 is_stmt 0 view .LVU67
+ 280 00be 9C49     		ldr	r1, .L34+36
  281 00c0 CA71     		strb	r2, [r1, #7]
- 387:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_A[1];
- 282              		.loc 1 387 5 is_stmt 1 view .LVU68
- 283              		.loc 1 387 41 is_stmt 0 view .LVU69
+ 362:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_A[1];
+ 282              		.loc 1 362 5 is_stmt 1 view .LVU68
+ 283              		.loc 1 362 41 is_stmt 0 view .LVU69
  284 00c2 0B72     		strb	r3, [r1, #8]
- 388:Core/Src/ds_twr_initiator_sts.c **** 
- 389:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX] = address_of_A[0];
- 285              		.loc 1 389 5 is_stmt 1 view .LVU70
- 286              		.loc 1 389 43 is_stmt 0 view .LVU71
- 287 00c4 8A49     		ldr	r1, .L36+40
+ 363:Core/Src/ds_twr_initiator_sts.c **** 
+ 364:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX] = address_of_A[0];
+ 285              		.loc 1 364 5 is_stmt 1 view .LVU70
+ 286              		.loc 1 364 43 is_stmt 0 view .LVU71
+ 287 00c4 9B49     		ldr	r1, .L34+40
  288 00c6 4A71     		strb	r2, [r1, #5]
- 390:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_A[1];
- 289              		.loc 1 390 5 is_stmt 1 view .LVU72
- 290              		.loc 1 390 47 is_stmt 0 view .LVU73
+ 365:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_A[1];
+ 289              		.loc 1 365 5 is_stmt 1 view .LVU72
+ 290              		.loc 1 365 47 is_stmt 0 view .LVU73
+ARM GAS  /tmp/ccVmoTNI.s 			page 13
+
+
  291 00c8 8B71     		strb	r3, [r1, #6]
- 391:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: A");
- 392:Core/Src/ds_twr_initiator_sts.c **** 				break;
- 292              		.loc 1 392 5 is_stmt 1 view .LVU74
- 293              	.L24:
- 393:Core/Src/ds_twr_initiator_sts.c **** 			}
- 394:Core/Src/ds_twr_initiator_sts.c **** 
- 395:Core/Src/ds_twr_initiator_sts.c **** 			case 2: // anchor 2 B
- 396:Core/Src/ds_twr_initiator_sts.c **** 			{
- 397:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX] = address_of_B[0];
- 398:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_B[1];
- 399:Core/Src/ds_twr_initiator_sts.c **** 
- 400:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX] = address_of_B[0];
- 401:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_B[1];
- 402:Core/Src/ds_twr_initiator_sts.c **** 
- 403:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX] = address_of_B[0];
- 404:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_B[1];
- 405:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: B");
- 406:Core/Src/ds_twr_initiator_sts.c **** 				break;
- 407:Core/Src/ds_twr_initiator_sts.c **** 			}
+ 366:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: A");
+ 367:Core/Src/ds_twr_initiator_sts.c **** 				break;
+ 292              		.loc 1 367 5 is_stmt 1 view .LVU74
+ 293              	.L22:
+ 368:Core/Src/ds_twr_initiator_sts.c **** 			}
+ 369:Core/Src/ds_twr_initiator_sts.c **** 
+ 370:Core/Src/ds_twr_initiator_sts.c **** 			case 2: // anchor 2 B
+ 371:Core/Src/ds_twr_initiator_sts.c **** 			{
+ 372:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX] = address_of_B[0];
+ 373:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_B[1];
+ 374:Core/Src/ds_twr_initiator_sts.c **** 
+ 375:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX] = address_of_B[0];
+ 376:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_B[1];
+ 377:Core/Src/ds_twr_initiator_sts.c **** 
+ 378:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX] = address_of_B[0];
+ 379:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_B[1];
+ 380:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: B");
+ 381:Core/Src/ds_twr_initiator_sts.c **** 				break;
+ 382:Core/Src/ds_twr_initiator_sts.c **** 			}
+ 383:Core/Src/ds_twr_initiator_sts.c **** 
+ 384:Core/Src/ds_twr_initiator_sts.c **** 			case 3: //anchor 3 C
+ 385:Core/Src/ds_twr_initiator_sts.c **** 			{
+ 386:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX] = address_of_C[0];
+ 387:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_C[1];
+ 388:Core/Src/ds_twr_initiator_sts.c **** 
+ 389:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX] = address_of_C[0];
+ 390:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_C[1];
+ 391:Core/Src/ds_twr_initiator_sts.c **** 
+ 392:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX] = address_of_C[0];
+ 393:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_C[1];
+ 394:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: C");
+ 395:Core/Src/ds_twr_initiator_sts.c **** 				break;
+ 396:Core/Src/ds_twr_initiator_sts.c **** 			}
+ 397:Core/Src/ds_twr_initiator_sts.c **** #if NUMBER_OF_ANCHORS == 4
+ 398:Core/Src/ds_twr_initiator_sts.c **** 			case 0: // anchor 4 D
+ 399:Core/Src/ds_twr_initiator_sts.c **** #elif NUMBER_OF_ANCHORS == 6
+ 400:Core/Src/ds_twr_initiator_sts.c **** 			case 4:
+ 401:Core/Src/ds_twr_initiator_sts.c **** #endif
+ 402:Core/Src/ds_twr_initiator_sts.c **** 			{
+ 403:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX] = address_of_D[0];
+ 404:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_D[1];
+ 405:Core/Src/ds_twr_initiator_sts.c **** 
+ 406:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX] = address_of_D[0];
+ 407:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_D[1];
  408:Core/Src/ds_twr_initiator_sts.c **** 
- 409:Core/Src/ds_twr_initiator_sts.c **** 			case 3: //anchor 3 C
- 410:Core/Src/ds_twr_initiator_sts.c **** 			{
- 411:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX] = address_of_C[0];
- 412:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_C[1];
- 413:Core/Src/ds_twr_initiator_sts.c **** 
- 414:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX] = address_of_C[0];
- 415:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_C[1];
- 416:Core/Src/ds_twr_initiator_sts.c **** 
- 417:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX] = address_of_C[0];
- 418:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_C[1];
- 419:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: C");
-ARM GAS  /tmp/cc7sAMpK.s 			page 14
+ 409:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX] = address_of_D[0];
+ 410:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_D[1];
+ 411:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: D");
+ 412:Core/Src/ds_twr_initiator_sts.c **** 				break;
+ 413:Core/Src/ds_twr_initiator_sts.c **** 			}
+ 414:Core/Src/ds_twr_initiator_sts.c **** #if NUMBER_OF_ANCHORS == 6
+ 415:Core/Src/ds_twr_initiator_sts.c **** 			case 5:
+ 416:Core/Src/ds_twr_initiator_sts.c **** 			{
+ 417:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX] = address_of_E[0];
+ 418:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_E[1];
+ 419:Core/Src/ds_twr_initiator_sts.c **** 
+ARM GAS  /tmp/ccVmoTNI.s 			page 14
 
 
- 420:Core/Src/ds_twr_initiator_sts.c **** 				break;
- 421:Core/Src/ds_twr_initiator_sts.c **** 			}
- 422:Core/Src/ds_twr_initiator_sts.c **** #if NUMBER_OF_ANCHORS == 4
- 423:Core/Src/ds_twr_initiator_sts.c **** 			case 0: // anchor 4 D
- 424:Core/Src/ds_twr_initiator_sts.c **** #elif NUMBER_OF_ANCHORS == 6
- 425:Core/Src/ds_twr_initiator_sts.c **** 			case 4:
- 426:Core/Src/ds_twr_initiator_sts.c **** #endif
- 427:Core/Src/ds_twr_initiator_sts.c **** 			{
- 428:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX] = address_of_D[0];
- 429:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_D[1];
- 430:Core/Src/ds_twr_initiator_sts.c **** 
- 431:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX] = address_of_D[0];
- 432:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_D[1];
- 433:Core/Src/ds_twr_initiator_sts.c **** 
- 434:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX] = address_of_D[0];
- 435:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_D[1];
- 436:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: D");
- 437:Core/Src/ds_twr_initiator_sts.c **** 				break;
- 438:Core/Src/ds_twr_initiator_sts.c **** 			}
- 439:Core/Src/ds_twr_initiator_sts.c **** #if NUMBER_OF_ANCHORS == 6
- 440:Core/Src/ds_twr_initiator_sts.c **** 			case 5:
- 441:Core/Src/ds_twr_initiator_sts.c **** 			{
- 442:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX] = address_of_E[0];
- 443:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_E[1];
- 444:Core/Src/ds_twr_initiator_sts.c **** 
- 445:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX] = address_of_E[0];
- 446:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_E[1];
- 447:Core/Src/ds_twr_initiator_sts.c **** 
- 448:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX] = address_of_E[0];
- 449:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_E[1];
- 450:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: D");
- 451:Core/Src/ds_twr_initiator_sts.c **** 				break;
- 452:Core/Src/ds_twr_initiator_sts.c **** 			}
- 453:Core/Src/ds_twr_initiator_sts.c **** 			case 0: // anchor 6 F
- 454:Core/Src/ds_twr_initiator_sts.c **** 			{
- 455:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX] = address_of_F[0];
- 456:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_F[1];
- 457:Core/Src/ds_twr_initiator_sts.c **** 
- 458:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX] = address_of_F[0];
- 459:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_F[1];
- 460:Core/Src/ds_twr_initiator_sts.c **** 
- 461:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX] = address_of_F[0];
- 462:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_F[1];
- 463:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: D");
- 464:Core/Src/ds_twr_initiator_sts.c **** 				break;
- 465:Core/Src/ds_twr_initiator_sts.c **** 			}
- 466:Core/Src/ds_twr_initiator_sts.c **** #endif
- 467:Core/Src/ds_twr_initiator_sts.c **** 
- 468:Core/Src/ds_twr_initiator_sts.c **** 			default:
- 469:Core/Src/ds_twr_initiator_sts.c **** 			{
- 470:Core/Src/ds_twr_initiator_sts.c **** 				test_run_info((unsigned char *)"Wrong number of Anchor");
- 471:Core/Src/ds_twr_initiator_sts.c **** 				break;
- 472:Core/Src/ds_twr_initiator_sts.c **** 			}
- 473:Core/Src/ds_twr_initiator_sts.c **** 
- 474:Core/Src/ds_twr_initiator_sts.c **** 		}
- 475:Core/Src/ds_twr_initiator_sts.c **** 
- 476:Core/Src/ds_twr_initiator_sts.c ****         /*
-ARM GAS  /tmp/cc7sAMpK.s 			page 15
-
-
- 477:Core/Src/ds_twr_initiator_sts.c ****          * Send the poll message to the responder.
- 478:Core/Src/ds_twr_initiator_sts.c ****          */
- 479:Core/Src/ds_twr_initiator_sts.c ****         send_tx_poll_msg();
- 294              		.loc 1 479 9 view .LVU75
+ 420:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX] = address_of_E[0];
+ 421:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_E[1];
+ 422:Core/Src/ds_twr_initiator_sts.c **** 
+ 423:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX] = address_of_E[0];
+ 424:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_E[1];
+ 425:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: D");
+ 426:Core/Src/ds_twr_initiator_sts.c **** 				break;
+ 427:Core/Src/ds_twr_initiator_sts.c **** 			}
+ 428:Core/Src/ds_twr_initiator_sts.c **** 			case 0: // anchor 6 F
+ 429:Core/Src/ds_twr_initiator_sts.c **** 			{
+ 430:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX] = address_of_F[0];
+ 431:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_F[1];
+ 432:Core/Src/ds_twr_initiator_sts.c **** 
+ 433:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX] = address_of_F[0];
+ 434:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_F[1];
+ 435:Core/Src/ds_twr_initiator_sts.c **** 
+ 436:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX] = address_of_F[0];
+ 437:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_F[1];
+ 438:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: D");
+ 439:Core/Src/ds_twr_initiator_sts.c **** 				break;
+ 440:Core/Src/ds_twr_initiator_sts.c **** 			}
+ 441:Core/Src/ds_twr_initiator_sts.c **** #endif
+ 442:Core/Src/ds_twr_initiator_sts.c **** 
+ 443:Core/Src/ds_twr_initiator_sts.c **** 			default:
+ 444:Core/Src/ds_twr_initiator_sts.c **** 			{
+ 445:Core/Src/ds_twr_initiator_sts.c **** 				test_run_info((unsigned char *)"Wrong number of Anchor");
+ 446:Core/Src/ds_twr_initiator_sts.c **** 				break;
+ 447:Core/Src/ds_twr_initiator_sts.c **** 			}
+ 448:Core/Src/ds_twr_initiator_sts.c **** 
+ 449:Core/Src/ds_twr_initiator_sts.c **** 		}
+ 450:Core/Src/ds_twr_initiator_sts.c **** 
+ 451:Core/Src/ds_twr_initiator_sts.c ****         /*
+ 452:Core/Src/ds_twr_initiator_sts.c ****          * Send the poll message to the responder.
+ 453:Core/Src/ds_twr_initiator_sts.c ****          */
+ 454:Core/Src/ds_twr_initiator_sts.c ****         send_tx_poll_msg();
+ 294              		.loc 1 454 9 view .LVU75
  295 00ca FFF7FEFF 		bl	send_tx_poll_msg
  296              	.LVL29:
- 480:Core/Src/ds_twr_initiator_sts.c **** 
- 481:Core/Src/ds_twr_initiator_sts.c ****         /* We assume that the transmission is achieved correctly, poll for reception of a frame or 
- 482:Core/Src/ds_twr_initiator_sts.c ****         while (!((status_reg = dwt_read32bitreg(SYS_STATUS_ID)) & (SYS_STATUS_RXFCG_BIT_MASK | SYS_
- 297              		.loc 1 482 9 view .LVU76
- 298              	.L25:
- 483:Core/Src/ds_twr_initiator_sts.c ****         { };
- 299              		.loc 1 483 11 discriminator 1 view .LVU77
- 482:Core/Src/ds_twr_initiator_sts.c ****         { };
- 300              		.loc 1 482 15 discriminator 1 view .LVU78
- 482:Core/Src/ds_twr_initiator_sts.c ****         { };
- 301              		.loc 1 482 32 is_stmt 0 discriminator 1 view .LVU79
+ 455:Core/Src/ds_twr_initiator_sts.c **** 
+ 456:Core/Src/ds_twr_initiator_sts.c ****         /* We assume that the transmission is achieved correctly, poll for reception of a frame or 
+ 457:Core/Src/ds_twr_initiator_sts.c ****         while (!((status_reg = dwt_read32bitreg(SYS_STATUS_ID)) & (SYS_STATUS_RXFCG_BIT_MASK | SYS_
+ 297              		.loc 1 457 9 view .LVU76
+ 298              	.L23:
+ 458:Core/Src/ds_twr_initiator_sts.c ****         { };
+ 299              		.loc 1 458 11 discriminator 1 view .LVU77
+ 457:Core/Src/ds_twr_initiator_sts.c ****         { };
+ 300              		.loc 1 457 15 discriminator 1 view .LVU78
+ 457:Core/Src/ds_twr_initiator_sts.c ****         { };
+ 301              		.loc 1 457 32 is_stmt 0 discriminator 1 view .LVU79
  302 00ce 0021     		movs	r1, #0
  303 00d0 4420     		movs	r0, #68
  304 00d2 FFF7FEFF 		bl	dwt_read32bitoffsetreg
  305              	.LVL30:
- 482:Core/Src/ds_twr_initiator_sts.c ****         { };
- 306              		.loc 1 482 30 discriminator 1 view .LVU80
- 307 00d6 874B     		ldr	r3, .L36+44
+ 457:Core/Src/ds_twr_initiator_sts.c ****         { };
+ 306              		.loc 1 457 30 discriminator 1 view .LVU80
+ 307 00d6 984B     		ldr	r3, .L34+44
  308 00d8 1860     		str	r0, [r3]
- 482:Core/Src/ds_twr_initiator_sts.c ****         { };
- 309              		.loc 1 482 65 discriminator 1 view .LVU81
- 310 00da 874B     		ldr	r3, .L36+48
+ARM GAS  /tmp/ccVmoTNI.s 			page 15
+
+
+ 457:Core/Src/ds_twr_initiator_sts.c ****         { };
+ 309              		.loc 1 457 65 discriminator 1 view .LVU81
+ 310 00da 984B     		ldr	r3, .L34+48
  311 00dc 0340     		ands	r3, r3, r0
- 482:Core/Src/ds_twr_initiator_sts.c ****         { };
- 312              		.loc 1 482 15 discriminator 1 view .LVU82
+ 457:Core/Src/ds_twr_initiator_sts.c ****         { };
+ 312              		.loc 1 457 15 discriminator 1 view .LVU82
  313 00de 002B     		cmp	r3, #0
- 314 00e0 F5D0     		beq	.L25
- 315              		.loc 1 483 12 is_stmt 1 view .LVU83
- 484:Core/Src/ds_twr_initiator_sts.c **** 
- 485:Core/Src/ds_twr_initiator_sts.c ****         /* ====> Take first tic of timer <==== */
- 486:Core/Src/ds_twr_initiator_sts.c ****         //timtick_1 = __HAL_TIM_GET_COUNTER(&htim2);
- 487:Core/Src/ds_twr_initiator_sts.c **** 
- 488:Core/Src/ds_twr_initiator_sts.c ****         /*
- 489:Core/Src/ds_twr_initiator_sts.c ****          * Need to check the STS has been received and is good.
- 490:Core/Src/ds_twr_initiator_sts.c ****          */
- 491:Core/Src/ds_twr_initiator_sts.c ****         goodSts = dwt_readstsquality(&stsQual);
- 316              		.loc 1 491 9 view .LVU84
- 317              		.loc 1 491 19 is_stmt 0 view .LVU85
+ 314 00e0 F5D0     		beq	.L23
+ 315              		.loc 1 458 12 is_stmt 1 view .LVU83
+ 459:Core/Src/ds_twr_initiator_sts.c **** 
+ 460:Core/Src/ds_twr_initiator_sts.c ****         /* ====> Take first tic of timer <==== */
+ 461:Core/Src/ds_twr_initiator_sts.c ****         //timtick_1 = __HAL_TIM_GET_COUNTER(&htim2);
+ 462:Core/Src/ds_twr_initiator_sts.c **** 
+ 463:Core/Src/ds_twr_initiator_sts.c ****         /*
+ 464:Core/Src/ds_twr_initiator_sts.c ****          * Need to check the STS has been received and is good.
+ 465:Core/Src/ds_twr_initiator_sts.c ****          */
+ 466:Core/Src/ds_twr_initiator_sts.c ****         goodSts = dwt_readstsquality(&stsQual);
+ 316              		.loc 1 466 9 view .LVU84
+ 317              		.loc 1 466 19 is_stmt 0 view .LVU85
  318 00e2 0DF10E00 		add	r0, sp, #14
  319 00e6 FFF7FEFF 		bl	dwt_readstsquality
  320              	.LVL31:
- 492:Core/Src/ds_twr_initiator_sts.c **** 
- 493:Core/Src/ds_twr_initiator_sts.c ****         /* Increment frame sequence number after transmission of the poll message (modulo 256). */
- 494:Core/Src/ds_twr_initiator_sts.c ****         frame_seq_nb++;
- 321              		.loc 1 494 9 is_stmt 1 view .LVU86
- 322              		.loc 1 494 21 is_stmt 0 view .LVU87
- 323 00ea 844A     		ldr	r2, .L36+52
+ 467:Core/Src/ds_twr_initiator_sts.c **** 
+ 468:Core/Src/ds_twr_initiator_sts.c ****         /* Increment frame sequence number after transmission of the poll message (modulo 256). */
+ 469:Core/Src/ds_twr_initiator_sts.c ****         frame_seq_nb++;
+ 321              		.loc 1 469 9 is_stmt 1 view .LVU86
+ 322              		.loc 1 469 21 is_stmt 0 view .LVU87
+ 323 00ea 954A     		ldr	r2, .L34+52
  324 00ec 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
  325 00ee 0133     		adds	r3, r3, #1
  326 00f0 1370     		strb	r3, [r2]
- 495:Core/Src/ds_twr_initiator_sts.c **** 
-ARM GAS  /tmp/cc7sAMpK.s 			page 16
-
-
- 496:Core/Src/ds_twr_initiator_sts.c ****         /*
- 497:Core/Src/ds_twr_initiator_sts.c ****          * Here we are checking for a good frame and good STS quality.
- 498:Core/Src/ds_twr_initiator_sts.c ****          */
- 499:Core/Src/ds_twr_initiator_sts.c ****         if ((status_reg & SYS_STATUS_RXFCG_BIT_MASK) && (goodSts >= 0))
- 327              		.loc 1 499 9 is_stmt 1 view .LVU88
- 328              		.loc 1 499 25 is_stmt 0 view .LVU89
- 329 00f2 804B     		ldr	r3, .L36+44
+ 470:Core/Src/ds_twr_initiator_sts.c **** 
+ 471:Core/Src/ds_twr_initiator_sts.c ****         /*
+ 472:Core/Src/ds_twr_initiator_sts.c ****          * Here we are checking for a good frame and good STS quality.
+ 473:Core/Src/ds_twr_initiator_sts.c ****          */
+ 474:Core/Src/ds_twr_initiator_sts.c ****         if ((status_reg & SYS_STATUS_RXFCG_BIT_MASK) && (goodSts >= 0))
+ 327              		.loc 1 474 9 is_stmt 1 view .LVU88
+ 328              		.loc 1 474 25 is_stmt 0 view .LVU89
+ 329 00f2 914B     		ldr	r3, .L34+44
  330 00f4 1B68     		ldr	r3, [r3]
- 331              		.loc 1 499 12 view .LVU90
+ 331              		.loc 1 474 12 view .LVU90
  332 00f6 13F4804F 		tst	r3, #16384
- 333 00fa 00F00D81 		beq	.L26
- 334              		.loc 1 499 54 discriminator 1 view .LVU91
+ 333 00fa 00F0CB80 		beq	.L24
+ 334              		.loc 1 474 54 discriminator 1 view .LVU91
  335 00fe 0028     		cmp	r0, #0
- 336 0100 C0F20A81 		blt	.L26
+ 336 0100 C0F2C880 		blt	.L24
  337              	.LBB2:
- 500:Core/Src/ds_twr_initiator_sts.c ****         {
- 501:Core/Src/ds_twr_initiator_sts.c ****             uint32_t frame_len;
- 338              		.loc 1 501 13 is_stmt 1 view .LVU92
- 502:Core/Src/ds_twr_initiator_sts.c **** 
- 503:Core/Src/ds_twr_initiator_sts.c ****             /* Clear good RX frame event in the DW IC status register. */
- 504:Core/Src/ds_twr_initiator_sts.c ****             dwt_write32bitreg(SYS_STATUS_ID, SYS_STATUS_ALL_RX_GOOD);
- 339              		.loc 1 504 13 view .LVU93
+ 475:Core/Src/ds_twr_initiator_sts.c ****         {
+ 476:Core/Src/ds_twr_initiator_sts.c ****             uint32_t frame_len;
+ 338              		.loc 1 476 13 is_stmt 1 view .LVU92
+ 477:Core/Src/ds_twr_initiator_sts.c **** 
+ 478:Core/Src/ds_twr_initiator_sts.c ****             /* Clear good RX frame event in the DW IC status register. */
+ 479:Core/Src/ds_twr_initiator_sts.c ****             dwt_write32bitreg(SYS_STATUS_ID, SYS_STATUS_ALL_RX_GOOD);
+ 339              		.loc 1 479 13 view .LVU93
  340 0104 4FF4DE42 		mov	r2, #28416
  341 0108 0021     		movs	r1, #0
  342 010a 4420     		movs	r0, #68
+ARM GAS  /tmp/ccVmoTNI.s 			page 16
+
+
  343              	.LVL32:
- 344              		.loc 1 504 13 is_stmt 0 view .LVU94
+ 344              		.loc 1 479 13 is_stmt 0 view .LVU94
  345 010c FFF7FEFF 		bl	dwt_write32bitoffsetreg
  346              	.LVL33:
- 505:Core/Src/ds_twr_initiator_sts.c **** 
- 506:Core/Src/ds_twr_initiator_sts.c ****             /* A frame has been received, read it into the local buffer. */
- 507:Core/Src/ds_twr_initiator_sts.c ****             frame_len = dwt_read32bitreg(RX_FINFO_ID) & RXFLEN_MASK;
- 347              		.loc 1 507 13 is_stmt 1 view .LVU95
- 348              		.loc 1 507 25 is_stmt 0 view .LVU96
+ 480:Core/Src/ds_twr_initiator_sts.c **** 
+ 481:Core/Src/ds_twr_initiator_sts.c ****             /* A frame has been received, read it into the local buffer. */
+ 482:Core/Src/ds_twr_initiator_sts.c ****             frame_len = dwt_read32bitreg(RX_FINFO_ID) & RXFLEN_MASK;
+ 347              		.loc 1 482 13 is_stmt 1 view .LVU95
+ 348              		.loc 1 482 25 is_stmt 0 view .LVU96
  349 0110 0021     		movs	r1, #0
  350 0112 4C20     		movs	r0, #76
  351 0114 FFF7FEFF 		bl	dwt_read32bitoffsetreg
  352              	.LVL34:
- 353              		.loc 1 507 23 view .LVU97
+ 353              		.loc 1 482 23 view .LVU97
  354 0118 00F07F01 		and	r1, r0, #127
  355              	.LVL35:
- 508:Core/Src/ds_twr_initiator_sts.c ****             if (frame_len <= sizeof(rx_buffer))
- 356              		.loc 1 508 13 is_stmt 1 view .LVU98
- 357              		.loc 1 508 16 is_stmt 0 view .LVU99
+ 483:Core/Src/ds_twr_initiator_sts.c ****             if (frame_len <= sizeof(rx_buffer))
+ 356              		.loc 1 483 13 is_stmt 1 view .LVU98
+ 357              		.loc 1 483 16 is_stmt 0 view .LVU99
  358 011c 1829     		cmp	r1, #24
- 359 011e 00F2C280 		bhi	.L27
- 509:Core/Src/ds_twr_initiator_sts.c ****             {
- 510:Core/Src/ds_twr_initiator_sts.c ****                 dwt_readrxdata(rx_buffer, frame_len, 0);
- 360              		.loc 1 510 17 is_stmt 1 view .LVU100
- 361 0122 774D     		ldr	r5, .L36+56
+ 359 011e 00F2A980 		bhi	.L25
+ 484:Core/Src/ds_twr_initiator_sts.c ****             {
+ 485:Core/Src/ds_twr_initiator_sts.c ****                 dwt_readrxdata(rx_buffer, frame_len, 0);
+ 360              		.loc 1 485 17 is_stmt 1 view .LVU100
+ 361 0122 884D     		ldr	r5, .L34+56
  362 0124 0022     		movs	r2, #0
  363 0126 2846     		mov	r0, r5
  364 0128 FFF7FEFF 		bl	dwt_readrxdata
  365              	.LVL36:
- 511:Core/Src/ds_twr_initiator_sts.c **** 
- 512:Core/Src/ds_twr_initiator_sts.c ****                 /* Check that the frame is the expected response from the companion "DS TWR respond
- 513:Core/Src/ds_twr_initiator_sts.c ****                  * As the sequence number field of the frame is not relevant, it is cleared to simp
-ARM GAS  /tmp/cc7sAMpK.s 			page 17
-
-
- 514:Core/Src/ds_twr_initiator_sts.c ****                 rx_buffer[ALL_MSG_SN_IDX] = 0;
- 366              		.loc 1 514 17 view .LVU101
- 367              		.loc 1 514 43 is_stmt 0 view .LVU102
+ 486:Core/Src/ds_twr_initiator_sts.c **** 
+ 487:Core/Src/ds_twr_initiator_sts.c ****                 /* Check that the frame is the expected response from the companion "DS TWR respond
+ 488:Core/Src/ds_twr_initiator_sts.c ****                  * As the sequence number field of the frame is not relevant, it is cleared to simp
+ 489:Core/Src/ds_twr_initiator_sts.c ****                 rx_buffer[ALL_MSG_SN_IDX] = 0;
+ 366              		.loc 1 489 17 view .LVU101
+ 367              		.loc 1 489 43 is_stmt 0 view .LVU102
  368 012c 0023     		movs	r3, #0
  369 012e AB70     		strb	r3, [r5, #2]
- 515:Core/Src/ds_twr_initiator_sts.c ****                 if (memcmp(rx_buffer, rx_resp_msg, ALL_MSG_COMMON_LEN) == 0)
- 370              		.loc 1 515 17 is_stmt 1 view .LVU103
- 371              		.loc 1 515 21 is_stmt 0 view .LVU104
+ 490:Core/Src/ds_twr_initiator_sts.c ****                 if (memcmp(rx_buffer, rx_resp_msg, ALL_MSG_COMMON_LEN) == 0)
+ 370              		.loc 1 490 17 is_stmt 1 view .LVU103
+ 371              		.loc 1 490 21 is_stmt 0 view .LVU104
  372 0130 0A22     		movs	r2, #10
- 373 0132 6E49     		ldr	r1, .L36+36
+ 373 0132 7F49     		ldr	r1, .L34+36
  374 0134 2846     		mov	r0, r5
  375 0136 FFF7FEFF 		bl	memcmp
  376              	.LVL37:
- 377              		.loc 1 515 20 view .LVU105
+ 377              		.loc 1 490 20 view .LVU105
  378 013a 0028     		cmp	r0, #0
- 379 013c 40F0A380 		bne	.L28
+ 379 013c 40F08A80 		bne	.L26
  380              	.LBB3:
- 516:Core/Src/ds_twr_initiator_sts.c ****                 {
- 517:Core/Src/ds_twr_initiator_sts.c ****                     uint32_t final_tx_time;
- 381              		.loc 1 517 21 is_stmt 1 view .LVU106
- 518:Core/Src/ds_twr_initiator_sts.c ****                     uint64_t poll_tx_ts, resp_rx_ts, final_tx_ts;
- 382              		.loc 1 518 21 view .LVU107
- 519:Core/Src/ds_twr_initiator_sts.c ****                     int ret = DWT_ERROR;
- 383              		.loc 1 519 21 view .LVU108
+ 491:Core/Src/ds_twr_initiator_sts.c ****                 {
+ 492:Core/Src/ds_twr_initiator_sts.c ****                     uint32_t final_tx_time;
+ 381              		.loc 1 492 21 is_stmt 1 view .LVU106
+ 493:Core/Src/ds_twr_initiator_sts.c ****                     uint64_t poll_tx_ts, resp_rx_ts, final_tx_ts;
+ 382              		.loc 1 493 21 view .LVU107
+ 494:Core/Src/ds_twr_initiator_sts.c ****                     int ret = DWT_ERROR;
+ 383              		.loc 1 494 21 view .LVU108
  384              	.LVL38:
- 520:Core/Src/ds_twr_initiator_sts.c **** 
- 521:Core/Src/ds_twr_initiator_sts.c ****                     /* Retrieve poll transmission and response reception timestamps. See NOTE 9 bel
- 522:Core/Src/ds_twr_initiator_sts.c ****                     poll_tx_ts = get_tx_timestamp_u64();
- 385              		.loc 1 522 21 view .LVU109
- 386              		.loc 1 522 34 is_stmt 0 view .LVU110
+ARM GAS  /tmp/ccVmoTNI.s 			page 17
+
+
+ 495:Core/Src/ds_twr_initiator_sts.c **** 
+ 496:Core/Src/ds_twr_initiator_sts.c ****                     /* Retrieve poll transmission and response reception timestamps. See NOTE 9 bel
+ 497:Core/Src/ds_twr_initiator_sts.c ****                     poll_tx_ts = get_tx_timestamp_u64();
+ 385              		.loc 1 497 21 view .LVU109
+ 386              		.loc 1 497 34 is_stmt 0 view .LVU110
  387 0140 FFF7FEFF 		bl	get_tx_timestamp_u64
  388              	.LVL39:
  389 0144 8246     		mov	r10, r0
  390 0146 0191     		str	r1, [sp, #4]
  391              	.LVL40:
- 523:Core/Src/ds_twr_initiator_sts.c ****                     resp_rx_ts = get_rx_timestamp_u64();
- 392              		.loc 1 523 21 is_stmt 1 view .LVU111
- 393              		.loc 1 523 34 is_stmt 0 view .LVU112
+ 498:Core/Src/ds_twr_initiator_sts.c ****                     resp_rx_ts = get_rx_timestamp_u64();
+ 392              		.loc 1 498 21 is_stmt 1 view .LVU111
+ 393              		.loc 1 498 34 is_stmt 0 view .LVU112
  394 0148 FFF7FEFF 		bl	get_rx_timestamp_u64
  395              	.LVL41:
- 396              		.loc 1 523 34 view .LVU113
+ 396              		.loc 1 498 34 view .LVU113
  397 014c 0746     		mov	r7, r0
  398 014e 8946     		mov	r9, r1
  399              	.LVL42:
- 524:Core/Src/ds_twr_initiator_sts.c **** 
- 525:Core/Src/ds_twr_initiator_sts.c ****                     /* Compute final message transmission time. See NOTE 19 below. */
- 526:Core/Src/ds_twr_initiator_sts.c ****                     final_tx_time = (resp_rx_ts + (RESP_RX_TO_FINAL_TX_DLY_UUS * UUS_TO_DWT_TIME)) 
- 400              		.loc 1 526 21 is_stmt 1 view .LVU114
- 401              		.loc 1 526 49 is_stmt 0 view .LVU115
- 402 0150 6C4B     		ldr	r3, .L36+60
+ 499:Core/Src/ds_twr_initiator_sts.c **** 
+ 500:Core/Src/ds_twr_initiator_sts.c ****                     /* Compute final message transmission time. See NOTE 19 below. */
+ 501:Core/Src/ds_twr_initiator_sts.c ****                     final_tx_time = (resp_rx_ts + (RESP_RX_TO_FINAL_TX_DLY_UUS * UUS_TO_DWT_TIME)) 
+ 400              		.loc 1 501 21 is_stmt 1 view .LVU114
+ 401              		.loc 1 501 49 is_stmt 0 view .LVU115
+ 402 0150 7D4B     		ldr	r3, .L34+60
  403 0152 C318     		adds	r3, r0, r3
  404 0154 41F10002 		adc	r2, r1, #0
- 405              		.loc 1 526 100 view .LVU116
+ 405              		.loc 1 501 100 view .LVU116
  406 0158 1D0A     		lsrs	r5, r3, #8
  407 015a 45EA0265 		orr	r5, r5, r2, lsl #24
  408              	.LVL43:
- 527:Core/Src/ds_twr_initiator_sts.c ****                     dwt_setdelayedtrxtime(final_tx_time);
-ARM GAS  /tmp/cc7sAMpK.s 			page 18
-
-
- 409              		.loc 1 527 21 is_stmt 1 view .LVU117
+ 502:Core/Src/ds_twr_initiator_sts.c ****                     dwt_setdelayedtrxtime(final_tx_time);
+ 409              		.loc 1 502 21 is_stmt 1 view .LVU117
  410 015e 2846     		mov	r0, r5
  411              	.LVL44:
- 412              		.loc 1 527 21 is_stmt 0 view .LVU118
+ 412              		.loc 1 502 21 is_stmt 0 view .LVU118
  413 0160 FFF7FEFF 		bl	dwt_setdelayedtrxtime
  414              	.LVL45:
- 528:Core/Src/ds_twr_initiator_sts.c **** 
- 529:Core/Src/ds_twr_initiator_sts.c ****                     final_tx_ts = (((uint64_t)(final_tx_time & 0xFFFFFFFEUL)) << 8) + TX_ANT_DLY;
- 415              		.loc 1 529 21 is_stmt 1 view .LVU119
- 416              		.loc 1 529 79 is_stmt 0 view .LVU120
+ 503:Core/Src/ds_twr_initiator_sts.c **** 
+ 504:Core/Src/ds_twr_initiator_sts.c ****                     final_tx_ts = (((uint64_t)(final_tx_time & 0xFFFFFFFEUL)) << 8) + TX_ANT_DLY;
+ 415              		.loc 1 504 21 is_stmt 1 view .LVU119
+ 416              		.loc 1 504 79 is_stmt 0 view .LVU120
  417 0164 4FF0000B 		mov	fp, #0
  418 0168 2E02     		lsls	r6, r5, #8
  419 016a 26F4FF76 		bic	r6, r6, #510
  420 016e 26F00106 		bic	r6, r6, #1
  421 0172 2D0E     		lsrs	r5, r5, #24
  422              	.LVL46:
- 423              		.loc 1 529 33 view .LVU121
+ 423              		.loc 1 504 33 view .LVU121
  424 0174 44F28D03 		movw	r3, #16525
  425 0178 F618     		adds	r6, r6, r3
  426 017a 45F10005 		adc	r5, r5, #0
  427              	.LVL47:
- 530:Core/Src/ds_twr_initiator_sts.c **** 
- 531:Core/Src/ds_twr_initiator_sts.c ****                     /* Write all timestamps in the final message. See NOTE 19 below. */
- 532:Core/Src/ds_twr_initiator_sts.c ****                     final_msg_set_ts(&tx_final_msg[FINAL_MSG_POLL_TX_TS_IDX], poll_tx_ts);
- 428              		.loc 1 532 21 is_stmt 1 view .LVU122
- 429 017e DFF87081 		ldr	r8, .L36+40
+ 505:Core/Src/ds_twr_initiator_sts.c **** 
+ 506:Core/Src/ds_twr_initiator_sts.c ****                     /* Write all timestamps in the final message. See NOTE 19 below. */
+ 507:Core/Src/ds_twr_initiator_sts.c ****                     final_msg_set_ts(&tx_final_msg[FINAL_MSG_POLL_TX_TS_IDX], poll_tx_ts);
+ 428              		.loc 1 507 21 is_stmt 1 view .LVU122
+ARM GAS  /tmp/ccVmoTNI.s 			page 18
+
+
+ 429 017e DFF8B481 		ldr	r8, .L34+40
  430 0182 5246     		mov	r2, r10
  431 0184 019B     		ldr	r3, [sp, #4]
  432 0186 08F10A00 		add	r0, r8, #10
  433 018a FFF7FEFF 		bl	final_msg_set_ts
  434              	.LVL48:
- 533:Core/Src/ds_twr_initiator_sts.c ****                     final_msg_set_ts(&tx_final_msg[FINAL_MSG_RESP_RX_TS_IDX], resp_rx_ts);
- 435              		.loc 1 533 21 view .LVU123
+ 508:Core/Src/ds_twr_initiator_sts.c ****                     final_msg_set_ts(&tx_final_msg[FINAL_MSG_RESP_RX_TS_IDX], resp_rx_ts);
+ 435              		.loc 1 508 21 view .LVU123
  436 018e 3A46     		mov	r2, r7
  437 0190 4B46     		mov	r3, r9
  438 0192 08F10E00 		add	r0, r8, #14
  439 0196 FFF7FEFF 		bl	final_msg_set_ts
  440              	.LVL49:
- 534:Core/Src/ds_twr_initiator_sts.c ****                     final_msg_set_ts(&tx_final_msg[FINAL_MSG_FINAL_TX_TS_IDX], final_tx_ts);
- 441              		.loc 1 534 21 view .LVU124
+ 509:Core/Src/ds_twr_initiator_sts.c ****                     final_msg_set_ts(&tx_final_msg[FINAL_MSG_FINAL_TX_TS_IDX], final_tx_ts);
+ 441              		.loc 1 509 21 view .LVU124
  442 019a 3246     		mov	r2, r6
  443 019c 2B46     		mov	r3, r5
  444 019e 08F11200 		add	r0, r8, #18
  445 01a2 FFF7FEFF 		bl	final_msg_set_ts
  446              	.LVL50:
- 535:Core/Src/ds_twr_initiator_sts.c **** 
- 536:Core/Src/ds_twr_initiator_sts.c ****                     /* Write and send final message. See NOTE 7 below. */
- 537:Core/Src/ds_twr_initiator_sts.c ****                     tx_final_msg[ALL_MSG_SN_IDX] = frame_seq_nb;
- 447              		.loc 1 537 21 view .LVU125
- 448              		.loc 1 537 50 is_stmt 0 view .LVU126
- 449 01a6 554B     		ldr	r3, .L36+52
+ 510:Core/Src/ds_twr_initiator_sts.c **** 
+ 511:Core/Src/ds_twr_initiator_sts.c ****                     /* Write and send final message. See NOTE 7 below. */
+ 512:Core/Src/ds_twr_initiator_sts.c ****                     tx_final_msg[ALL_MSG_SN_IDX] = frame_seq_nb;
+ 447              		.loc 1 512 21 view .LVU125
+ 448              		.loc 1 512 50 is_stmt 0 view .LVU126
+ 449 01a6 664B     		ldr	r3, .L34+52
  450 01a8 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
  451 01aa 88F80230 		strb	r3, [r8, #2]
- 538:Core/Src/ds_twr_initiator_sts.c ****                     dwt_writetxdata(sizeof(tx_final_msg), tx_final_msg, 0); /* Zero offset in TX bu
- 452              		.loc 1 538 21 is_stmt 1 view .LVU127
+ 513:Core/Src/ds_twr_initiator_sts.c ****                     dwt_writetxdata(sizeof(tx_final_msg), tx_final_msg, 0); /* Zero offset in TX bu
+ 452              		.loc 1 513 21 is_stmt 1 view .LVU127
  453 01ae 5A46     		mov	r2, fp
  454 01b0 4146     		mov	r1, r8
-ARM GAS  /tmp/cc7sAMpK.s 			page 19
-
-
  455 01b2 1820     		movs	r0, #24
  456 01b4 FFF7FEFF 		bl	dwt_writetxdata
  457              	.LVL51:
- 539:Core/Src/ds_twr_initiator_sts.c ****                     dwt_writetxfctrl(sizeof(tx_final_msg), 0, 1); /* Zero offset in TX buffer, rang
- 458              		.loc 1 539 21 view .LVU128
+ 514:Core/Src/ds_twr_initiator_sts.c ****                     dwt_writetxfctrl(sizeof(tx_final_msg), 0, 1); /* Zero offset in TX buffer, rang
+ 458              		.loc 1 514 21 view .LVU128
  459 01b8 0122     		movs	r2, #1
  460 01ba 5946     		mov	r1, fp
  461 01bc 1820     		movs	r0, #24
  462 01be FFF7FEFF 		bl	dwt_writetxfctrl
  463              	.LVL52:
- 540:Core/Src/ds_twr_initiator_sts.c **** 
- 541:Core/Src/ds_twr_initiator_sts.c ****                     ret = dwt_starttx(DWT_START_TX_DELAYED);
- 464              		.loc 1 541 21 view .LVU129
- 465              		.loc 1 541 27 is_stmt 0 view .LVU130
+ 515:Core/Src/ds_twr_initiator_sts.c **** 
+ 516:Core/Src/ds_twr_initiator_sts.c ****                     ret = dwt_starttx(DWT_START_TX_DELAYED);
+ 464              		.loc 1 516 21 view .LVU129
+ 465              		.loc 1 516 27 is_stmt 0 view .LVU130
  466 01c2 0120     		movs	r0, #1
  467 01c4 FFF7FEFF 		bl	dwt_starttx
  468              	.LVL53:
- 542:Core/Src/ds_twr_initiator_sts.c **** 
- 543:Core/Src/ds_twr_initiator_sts.c ****                     /* ====> Take second tic of timer <==== */
- 544:Core/Src/ds_twr_initiator_sts.c ****                     //timtick_2 = __HAL_TIM_GET_COUNTER(&htim2);
- 545:Core/Src/ds_twr_initiator_sts.c ****                     /* ====> Take difference  <==== */
- 546:Core/Src/ds_twr_initiator_sts.c ****                     //diff = timtick_2 - timtick_1;
- 547:Core/Src/ds_twr_initiator_sts.c **** 
- 548:Core/Src/ds_twr_initiator_sts.c ****                     /* If dwt_starttx() returns an error, abandon this ranging exchange and proceed
- 549:Core/Src/ds_twr_initiator_sts.c ****                     if (ret == DWT_SUCCESS)
- 469              		.loc 1 549 21 is_stmt 1 view .LVU131
- 470              		.loc 1 549 24 is_stmt 0 view .LVU132
+ 517:Core/Src/ds_twr_initiator_sts.c **** 
+ 518:Core/Src/ds_twr_initiator_sts.c ****                     /* ====> Take second tic of timer <==== */
+ 519:Core/Src/ds_twr_initiator_sts.c ****                     //timtick_2 = __HAL_TIM_GET_COUNTER(&htim2);
+ 520:Core/Src/ds_twr_initiator_sts.c ****                     /* ====> Take difference  <==== */
+ 521:Core/Src/ds_twr_initiator_sts.c ****                     //diff = timtick_2 - timtick_1;
+ 522:Core/Src/ds_twr_initiator_sts.c **** 
+ 523:Core/Src/ds_twr_initiator_sts.c ****                     /* If dwt_starttx() returns an error, abandon this ranging exchange and proceed
+ 524:Core/Src/ds_twr_initiator_sts.c ****                     if (ret == DWT_SUCCESS)
+ARM GAS  /tmp/ccVmoTNI.s 			page 19
+
+
+ 469              		.loc 1 524 21 is_stmt 1 view .LVU131
+ 470              		.loc 1 524 24 is_stmt 0 view .LVU132
  471 01c8 0028     		cmp	r0, #0
- 472 01ca 40F0B080 		bne	.L29
+ 472 01ca 6ED1     		bne	.L27
  473              	.LVL54:
- 474              	.L30:
- 550:Core/Src/ds_twr_initiator_sts.c ****                     {
- 551:Core/Src/ds_twr_initiator_sts.c ****                        /* Poll DW IC until TX frame sent event set. See NOTE 8 below. */
- 552:Core/Src/ds_twr_initiator_sts.c ****                        while (!(dwt_read32bitreg(SYS_STATUS_ID) & SYS_STATUS_TXFRS_BIT_MASK))
- 553:Core/Src/ds_twr_initiator_sts.c ****                        { };
- 475              		.loc 1 553 26 is_stmt 1 discriminator 1 view .LVU133
- 552:Core/Src/ds_twr_initiator_sts.c ****                        { };
- 476              		.loc 1 552 30 discriminator 1 view .LVU134
- 552:Core/Src/ds_twr_initiator_sts.c ****                        { };
- 477              		.loc 1 552 33 is_stmt 0 discriminator 1 view .LVU135
- 478 01ce 0021     		movs	r1, #0
- 479 01d0 4420     		movs	r0, #68
- 480 01d2 FFF7FEFF 		bl	dwt_read32bitoffsetreg
+ 474              	.L28:
+ 525:Core/Src/ds_twr_initiator_sts.c ****                     {
+ 526:Core/Src/ds_twr_initiator_sts.c ****                        /* Poll DW IC until TX frame sent event set. See NOTE 8 below. */
+ 527:Core/Src/ds_twr_initiator_sts.c ****                        while (!(dwt_read32bitreg(SYS_STATUS_ID) & SYS_STATUS_TXFRS_BIT_MASK))
+ 528:Core/Src/ds_twr_initiator_sts.c ****                        { };
+ 475              		.loc 1 528 26 is_stmt 1 discriminator 1 view .LVU133
+ 527:Core/Src/ds_twr_initiator_sts.c ****                        { };
+ 476              		.loc 1 527 30 discriminator 1 view .LVU134
+ 527:Core/Src/ds_twr_initiator_sts.c ****                        { };
+ 477              		.loc 1 527 33 is_stmt 0 discriminator 1 view .LVU135
+ 478 01cc 0021     		movs	r1, #0
+ 479 01ce 4420     		movs	r0, #68
+ 480 01d0 FFF7FEFF 		bl	dwt_read32bitoffsetreg
  481              	.LVL55:
- 552:Core/Src/ds_twr_initiator_sts.c ****                        { };
- 482              		.loc 1 552 30 discriminator 1 view .LVU136
- 483 01d6 10F0800F 		tst	r0, #128
- 484 01da F8D0     		beq	.L30
- 485              		.loc 1 553 27 is_stmt 1 view .LVU137
- 554:Core/Src/ds_twr_initiator_sts.c **** 
- 555:Core/Src/ds_twr_initiator_sts.c ****                        /* Clear TXFRS event. */
- 556:Core/Src/ds_twr_initiator_sts.c ****                        dwt_write32bitreg(SYS_STATUS_ID, SYS_STATUS_TXFRS_BIT_MASK);
- 486              		.loc 1 556 24 view .LVU138
- 487 01dc 8022     		movs	r2, #128
- 488 01de 0021     		movs	r1, #0
- 489 01e0 4420     		movs	r0, #68
- 490 01e2 FFF7FEFF 		bl	dwt_write32bitoffsetreg
-ARM GAS  /tmp/cc7sAMpK.s 			page 20
-
-
+ 527:Core/Src/ds_twr_initiator_sts.c ****                        { };
+ 482              		.loc 1 527 30 discriminator 1 view .LVU136
+ 483 01d4 10F0800F 		tst	r0, #128
+ 484 01d8 F8D0     		beq	.L28
+ 485              		.loc 1 528 27 is_stmt 1 view .LVU137
+ 529:Core/Src/ds_twr_initiator_sts.c **** 
+ 530:Core/Src/ds_twr_initiator_sts.c ****                        /* Clear TXFRS event. */
+ 531:Core/Src/ds_twr_initiator_sts.c ****                        dwt_write32bitreg(SYS_STATUS_ID, SYS_STATUS_TXFRS_BIT_MASK);
+ 486              		.loc 1 531 24 view .LVU138
+ 487 01da 8022     		movs	r2, #128
+ 488 01dc 0021     		movs	r1, #0
+ 489 01de 4420     		movs	r0, #68
+ 490 01e0 FFF7FEFF 		bl	dwt_write32bitoffsetreg
  491              	.LVL56:
+ 532:Core/Src/ds_twr_initiator_sts.c **** 
+ 533:Core/Src/ds_twr_initiator_sts.c ****                        /* Increment frame sequence number after transmission of the final message (
+ 534:Core/Src/ds_twr_initiator_sts.c ****                        frame_seq_nb++;
+ 492              		.loc 1 534 24 view .LVU139
+ 493              		.loc 1 534 36 is_stmt 0 view .LVU140
+ 494 01e4 564A     		ldr	r2, .L34+52
+ 495 01e6 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 496 01e8 0133     		adds	r3, r3, #1
+ 497 01ea 1370     		strb	r3, [r2]
+ 535:Core/Src/ds_twr_initiator_sts.c ****                        /* Increase a current anchor number */
+ 536:Core/Src/ds_twr_initiator_sts.c ****                        current_anchor = (current_anchor + 1 ) % NUMBER_OF_ANCHORS;
+ 498              		.loc 1 536 24 is_stmt 1 view .LVU141
+ 499              		.loc 1 536 57 is_stmt 0 view .LVU142
+ 500 01ec 5749     		ldr	r1, .L34+64
+ 501 01ee 0B78     		ldrb	r3, [r1]	@ zero_extendqisi2
+ 502 01f0 0133     		adds	r3, r3, #1
+ 503              		.loc 1 536 63 view .LVU143
+ 504 01f2 5A42     		rsbs	r2, r3, #0
+ 505 01f4 03F00303 		and	r3, r3, #3
+ 506 01f8 02F00302 		and	r2, r2, #3
+ 507 01fc 58BF     		it	pl
+ 508 01fe 5342     		rsbpl	r3, r2, #0
+ 509              		.loc 1 536 39 view .LVU144
+ 510 0200 0B70     		strb	r3, [r1]
+ARM GAS  /tmp/ccVmoTNI.s 			page 20
+
+
+ 511 0202 52E0     		b	.L27
+ 512              	.LVL57:
+ 513              	.L19:
+ 514              		.loc 1 536 39 view .LVU145
+ 515              	.LBE3:
+ 516              	.LBE2:
+ 372:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_B[1];
+ 517              		.loc 1 372 5 is_stmt 1 view .LVU146
+ 372:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_B[1];
+ 518              		.loc 1 372 42 is_stmt 0 view .LVU147
+ 519 0204 4949     		ldr	r1, .L34+32
+ 520 0206 4222     		movs	r2, #66
+ 521 0208 4A71     		strb	r2, [r1, #5]
+ 373:Core/Src/ds_twr_initiator_sts.c **** 
+ 522              		.loc 1 373 5 is_stmt 1 view .LVU148
+ 373:Core/Src/ds_twr_initiator_sts.c **** 
+ 523              		.loc 1 373 46 is_stmt 0 view .LVU149
+ 524 020a 0223     		movs	r3, #2
+ 525 020c 8B71     		strb	r3, [r1, #6]
+ 375:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_B[1];
+ 526              		.loc 1 375 5 is_stmt 1 view .LVU150
+ 375:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_B[1];
+ 527              		.loc 1 375 37 is_stmt 0 view .LVU151
+ 528 020e 4849     		ldr	r1, .L34+36
+ 529 0210 CA71     		strb	r2, [r1, #7]
+ 376:Core/Src/ds_twr_initiator_sts.c **** 
+ 530              		.loc 1 376 5 is_stmt 1 view .LVU152
+ 376:Core/Src/ds_twr_initiator_sts.c **** 
+ 531              		.loc 1 376 41 is_stmt 0 view .LVU153
+ 532 0212 0B72     		strb	r3, [r1, #8]
+ 378:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_B[1];
+ 533              		.loc 1 378 5 is_stmt 1 view .LVU154
+ 378:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_B[1];
+ 534              		.loc 1 378 43 is_stmt 0 view .LVU155
+ 535 0214 4749     		ldr	r1, .L34+40
+ 536 0216 4A71     		strb	r2, [r1, #5]
+ 379:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: B");
+ 537              		.loc 1 379 5 is_stmt 1 view .LVU156
+ 379:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: B");
+ 538              		.loc 1 379 47 is_stmt 0 view .LVU157
+ 539 0218 8B71     		strb	r3, [r1, #6]
+ 381:Core/Src/ds_twr_initiator_sts.c **** 			}
+ 540              		.loc 1 381 5 is_stmt 1 view .LVU158
+ 541 021a 56E7     		b	.L22
+ 542              	.L17:
+ 386:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_C[1];
+ 543              		.loc 1 386 5 view .LVU159
+ 386:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_C[1];
+ 544              		.loc 1 386 42 is_stmt 0 view .LVU160
+ 545 021c 4349     		ldr	r1, .L34+32
+ 546 021e 4322     		movs	r2, #67
+ 547 0220 4A71     		strb	r2, [r1, #5]
+ 387:Core/Src/ds_twr_initiator_sts.c **** 
+ 548              		.loc 1 387 5 is_stmt 1 view .LVU161
+ 387:Core/Src/ds_twr_initiator_sts.c **** 
+ 549              		.loc 1 387 46 is_stmt 0 view .LVU162
+ 550 0222 0323     		movs	r3, #3
+ARM GAS  /tmp/ccVmoTNI.s 			page 21
+
+
+ 551 0224 8B71     		strb	r3, [r1, #6]
+ 389:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_C[1];
+ 552              		.loc 1 389 5 is_stmt 1 view .LVU163
+ 389:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_C[1];
+ 553              		.loc 1 389 37 is_stmt 0 view .LVU164
+ 554 0226 4249     		ldr	r1, .L34+36
+ 555 0228 CA71     		strb	r2, [r1, #7]
+ 390:Core/Src/ds_twr_initiator_sts.c **** 
+ 556              		.loc 1 390 5 is_stmt 1 view .LVU165
+ 390:Core/Src/ds_twr_initiator_sts.c **** 
+ 557              		.loc 1 390 41 is_stmt 0 view .LVU166
+ 558 022a 0B72     		strb	r3, [r1, #8]
+ 392:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_C[1];
+ 559              		.loc 1 392 5 is_stmt 1 view .LVU167
+ 392:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_C[1];
+ 560              		.loc 1 392 43 is_stmt 0 view .LVU168
+ 561 022c 4149     		ldr	r1, .L34+40
+ 562 022e 4A71     		strb	r2, [r1, #5]
+ 393:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: C");
+ 563              		.loc 1 393 5 is_stmt 1 view .LVU169
+ 393:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: C");
+ 564              		.loc 1 393 47 is_stmt 0 view .LVU170
+ 565 0230 8B71     		strb	r3, [r1, #6]
+ 395:Core/Src/ds_twr_initiator_sts.c **** 			}
+ 566              		.loc 1 395 5 is_stmt 1 view .LVU171
+ 567 0232 4AE7     		b	.L22
+ 568              	.L21:
+ 403:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_D[1];
+ 569              		.loc 1 403 5 view .LVU172
+ 403:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_D[1];
+ 570              		.loc 1 403 42 is_stmt 0 view .LVU173
+ 571 0234 3D49     		ldr	r1, .L34+32
+ 572 0236 4422     		movs	r2, #68
+ 573 0238 4A71     		strb	r2, [r1, #5]
+ 404:Core/Src/ds_twr_initiator_sts.c **** 
+ 574              		.loc 1 404 5 is_stmt 1 view .LVU174
+ 404:Core/Src/ds_twr_initiator_sts.c **** 
+ 575              		.loc 1 404 46 is_stmt 0 view .LVU175
+ 576 023a 0423     		movs	r3, #4
+ 577 023c 8B71     		strb	r3, [r1, #6]
+ 406:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_D[1];
+ 578              		.loc 1 406 5 is_stmt 1 view .LVU176
+ 406:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_D[1];
+ 579              		.loc 1 406 37 is_stmt 0 view .LVU177
+ 580 023e 3C49     		ldr	r1, .L34+36
+ 581 0240 CA71     		strb	r2, [r1, #7]
+ 407:Core/Src/ds_twr_initiator_sts.c **** 
+ 582              		.loc 1 407 5 is_stmt 1 view .LVU178
+ 407:Core/Src/ds_twr_initiator_sts.c **** 
+ 583              		.loc 1 407 41 is_stmt 0 view .LVU179
+ 584 0242 0B72     		strb	r3, [r1, #8]
+ 409:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_D[1];
+ 585              		.loc 1 409 5 is_stmt 1 view .LVU180
+ 409:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_D[1];
+ 586              		.loc 1 409 43 is_stmt 0 view .LVU181
+ 587 0244 3B49     		ldr	r1, .L34+40
+ 588 0246 4A71     		strb	r2, [r1, #5]
+ARM GAS  /tmp/ccVmoTNI.s 			page 22
+
+
+ 410:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: D");
+ 589              		.loc 1 410 5 is_stmt 1 view .LVU182
+ 410:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: D");
+ 590              		.loc 1 410 47 is_stmt 0 view .LVU183
+ 591 0248 8B71     		strb	r3, [r1, #6]
+ 412:Core/Src/ds_twr_initiator_sts.c **** 			}
+ 592              		.loc 1 412 5 is_stmt 1 view .LVU184
+ 593 024a 3EE7     		b	.L22
+ 594              	.L16:
+ 445:Core/Src/ds_twr_initiator_sts.c **** 				break;
+ 595              		.loc 1 445 5 view .LVU185
+ 596 024c 4048     		ldr	r0, .L34+68
+ 597 024e FFF7FEFF 		bl	test_run_info
+ 598              	.LVL58:
+ 446:Core/Src/ds_twr_initiator_sts.c **** 			}
+ 599              		.loc 1 446 5 view .LVU186
+ 600 0252 3AE7     		b	.L22
+ 601              	.L26:
+ 602              	.LBB4:
+ 537:Core/Src/ds_twr_initiator_sts.c ****                     }
+ 538:Core/Src/ds_twr_initiator_sts.c ****                 }
+ 539:Core/Src/ds_twr_initiator_sts.c ****                 else
+ 540:Core/Src/ds_twr_initiator_sts.c ****                 {
+ 541:Core/Src/ds_twr_initiator_sts.c ****                     errors[BAD_FRAME_ERR_IDX] += 1;
+ 603              		.loc 1 541 21 view .LVU187
+ 604              		.loc 1 541 47 is_stmt 0 view .LVU188
+ 605 0254 3F4A     		ldr	r2, .L34+72
+ 606 0256 936A     		ldr	r3, [r2, #40]
+ 607 0258 0133     		adds	r3, r3, #1
+ 608 025a 9362     		str	r3, [r2, #40]
+ 542:Core/Src/ds_twr_initiator_sts.c ****                     /* Increase a current anchor number */
+ 543:Core/Src/ds_twr_initiator_sts.c ****                     current_anchor = (current_anchor + 1 ) % NUMBER_OF_ANCHORS;
+ 609              		.loc 1 543 21 is_stmt 1 view .LVU189
+ 610              		.loc 1 543 54 is_stmt 0 view .LVU190
+ 611 025c 3B49     		ldr	r1, .L34+64
+ 612 025e 0B78     		ldrb	r3, [r1]	@ zero_extendqisi2
+ 613 0260 0133     		adds	r3, r3, #1
+ 614              		.loc 1 543 60 view .LVU191
+ 615 0262 5A42     		rsbs	r2, r3, #0
+ 616 0264 03F00303 		and	r3, r3, #3
+ 617 0268 02F00302 		and	r2, r2, #3
+ 618 026c 58BF     		it	pl
+ 619 026e 5342     		rsbpl	r3, r2, #0
+ 620              		.loc 1 543 36 view .LVU192
+ 621 0270 0B70     		strb	r3, [r1]
+ 622 0272 1AE0     		b	.L27
+ 623              	.LVL59:
+ 624              	.L25:
+ 544:Core/Src/ds_twr_initiator_sts.c ****                 }
+ 545:Core/Src/ds_twr_initiator_sts.c ****             }
+ 546:Core/Src/ds_twr_initiator_sts.c ****             else
+ 547:Core/Src/ds_twr_initiator_sts.c ****             {
+ 548:Core/Src/ds_twr_initiator_sts.c ****                 errors[RTO_ERR_IDX] += 1;
+ 625              		.loc 1 548 17 is_stmt 1 view .LVU193
+ 626              		.loc 1 548 37 is_stmt 0 view .LVU194
+ 627 0274 374A     		ldr	r2, .L34+72
+ 628 0276 5369     		ldr	r3, [r2, #20]
+ARM GAS  /tmp/ccVmoTNI.s 			page 23
+
+
+ 629 0278 0133     		adds	r3, r3, #1
+ 630 027a 5361     		str	r3, [r2, #20]
+ 549:Core/Src/ds_twr_initiator_sts.c ****                 /* Increase a current anchor number */
+ 550:Core/Src/ds_twr_initiator_sts.c ****                 current_anchor = (current_anchor + 1 ) % NUMBER_OF_ANCHORS;
+ 631              		.loc 1 550 17 is_stmt 1 view .LVU195
+ 632              		.loc 1 550 50 is_stmt 0 view .LVU196
+ 633 027c 3349     		ldr	r1, .L34+64
+ 634              	.LVL60:
+ 635              		.loc 1 550 50 view .LVU197
+ 636 027e 0B78     		ldrb	r3, [r1]	@ zero_extendqisi2
+ 637 0280 0133     		adds	r3, r3, #1
+ 638              		.loc 1 550 56 view .LVU198
+ 639 0282 5A42     		rsbs	r2, r3, #0
+ 640 0284 03F00303 		and	r3, r3, #3
+ 641 0288 02F00302 		and	r2, r2, #3
+ 642 028c 58BF     		it	pl
+ 643 028e 5342     		rsbpl	r3, r2, #0
+ 644              		.loc 1 550 32 view .LVU199
+ 645 0290 0B70     		strb	r3, [r1]
+ 646 0292 0AE0     		b	.L27
+ 647              	.LVL61:
+ 648              	.L24:
+ 649              		.loc 1 550 32 view .LVU200
+ 650              	.LBE4:
+ 551:Core/Src/ds_twr_initiator_sts.c ****             }
+ 552:Core/Src/ds_twr_initiator_sts.c ****         }
+ 553:Core/Src/ds_twr_initiator_sts.c ****         else
+ 554:Core/Src/ds_twr_initiator_sts.c ****         {
+ 555:Core/Src/ds_twr_initiator_sts.c **** #if 0
+ 556:Core/Src/ds_twr_initiator_sts.c ****             check_for_status_errors(status_reg, errors);
  557:Core/Src/ds_twr_initiator_sts.c **** 
- 558:Core/Src/ds_twr_initiator_sts.c ****                        /* Increment frame sequence number after transmission of the final message (
- 559:Core/Src/ds_twr_initiator_sts.c ****                        frame_seq_nb++;
- 492              		.loc 1 559 24 view .LVU139
- 493              		.loc 1 559 36 is_stmt 0 view .LVU140
- 494 01e6 454A     		ldr	r2, .L36+52
- 495 01e8 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
- 496 01ea 0133     		adds	r3, r3, #1
- 497 01ec 1370     		strb	r3, [r2]
- 560:Core/Src/ds_twr_initiator_sts.c ****                        /* Increase a current anchor number */
- 561:Core/Src/ds_twr_initiator_sts.c ****                        current_anchor = (current_anchor + 1 ) % NUMBER_OF_ANCHORS;
- 498              		.loc 1 561 24 is_stmt 1 view .LVU141
- 499              		.loc 1 561 57 is_stmt 0 view .LVU142
- 500 01ee 4649     		ldr	r1, .L36+64
- 501 01f0 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
- 502 01f2 0132     		adds	r2, r2, #1
- 503              		.loc 1 561 63 view .LVU143
- 504 01f4 454B     		ldr	r3, .L36+68
- 505 01f6 83FB0203 		smull	r0, r3, r3, r2
- 506 01fa 03EB4303 		add	r3, r3, r3, lsl #1
- 507 01fe A2EB4303 		sub	r3, r2, r3, lsl #1
- 508              		.loc 1 561 39 view .LVU144
- 509 0202 0B70     		strb	r3, [r1]
- 510 0204 93E0     		b	.L29
- 511              	.LVL57:
- 512              	.L21:
- 513              		.loc 1 561 39 view .LVU145
- 514              	.LBE3:
- 515              	.LBE2:
- 397:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_B[1];
- 516              		.loc 1 397 5 is_stmt 1 view .LVU146
- 397:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_B[1];
- 517              		.loc 1 397 42 is_stmt 0 view .LVU147
- 518 0206 3849     		ldr	r1, .L36+32
- 519 0208 4222     		movs	r2, #66
- 520 020a 4A71     		strb	r2, [r1, #5]
- 398:Core/Src/ds_twr_initiator_sts.c **** 
- 521              		.loc 1 398 5 is_stmt 1 view .LVU148
- 398:Core/Src/ds_twr_initiator_sts.c **** 
- 522              		.loc 1 398 46 is_stmt 0 view .LVU149
- 523 020c 0223     		movs	r3, #2
- 524 020e 8B71     		strb	r3, [r1, #6]
- 400:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_B[1];
- 525              		.loc 1 400 5 is_stmt 1 view .LVU150
- 400:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_B[1];
- 526              		.loc 1 400 37 is_stmt 0 view .LVU151
- 527 0210 3649     		ldr	r1, .L36+36
- 528 0212 CA71     		strb	r2, [r1, #7]
- 401:Core/Src/ds_twr_initiator_sts.c **** 
- 529              		.loc 1 401 5 is_stmt 1 view .LVU152
- 401:Core/Src/ds_twr_initiator_sts.c **** 
- 530              		.loc 1 401 41 is_stmt 0 view .LVU153
- 531 0214 0B72     		strb	r3, [r1, #8]
- 403:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_B[1];
- 532              		.loc 1 403 5 is_stmt 1 view .LVU154
- 403:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_B[1];
-ARM GAS  /tmp/cc7sAMpK.s 			page 21
+ 558:Core/Src/ds_twr_initiator_sts.c ****             if (!(status_reg & SYS_STATUS_RXFCG_BIT_MASK))
+ 559:Core/Src/ds_twr_initiator_sts.c ****             {
+ 560:Core/Src/ds_twr_initiator_sts.c ****                 errors[BAD_FRAME_ERR_IDX] += 1;
+ 561:Core/Src/ds_twr_initiator_sts.c ****             }
+ 562:Core/Src/ds_twr_initiator_sts.c ****             if (goodSts < 0)
+ 563:Core/Src/ds_twr_initiator_sts.c ****             {
+ 564:Core/Src/ds_twr_initiator_sts.c ****                 errors[PREAMBLE_COUNT_ERR_IDX] += 1;
+ 565:Core/Src/ds_twr_initiator_sts.c ****             }
+ 566:Core/Src/ds_twr_initiator_sts.c ****             if (stsQual <= 0)
+ 567:Core/Src/ds_twr_initiator_sts.c ****             {
+ 568:Core/Src/ds_twr_initiator_sts.c ****                 errors[CP_QUAL_ERR_IDX] += 1;
+ 569:Core/Src/ds_twr_initiator_sts.c ****             }
+ 570:Core/Src/ds_twr_initiator_sts.c **** #endif
+ 571:Core/Src/ds_twr_initiator_sts.c ****             /* Increase a current anchor number */
+ 572:Core/Src/ds_twr_initiator_sts.c ****             current_anchor = (current_anchor + 1 ) % NUMBER_OF_ANCHORS;
+ 651              		.loc 1 572 13 is_stmt 1 view .LVU201
+ 652              		.loc 1 572 46 is_stmt 0 view .LVU202
+ 653 0294 2D49     		ldr	r1, .L34+64
+ 654 0296 0B78     		ldrb	r3, [r1]	@ zero_extendqisi2
+ 655 0298 0133     		adds	r3, r3, #1
+ 656              		.loc 1 572 52 view .LVU203
+ 657 029a 5A42     		rsbs	r2, r3, #0
+ 658 029c 03F00303 		and	r3, r3, #3
+ 659 02a0 02F00302 		and	r2, r2, #3
+ 660 02a4 58BF     		it	pl
+ 661 02a6 5342     		rsbpl	r3, r2, #0
+ARM GAS  /tmp/ccVmoTNI.s 			page 24
 
 
- 533              		.loc 1 403 43 is_stmt 0 view .LVU155
- 534 0216 3649     		ldr	r1, .L36+40
- 535 0218 4A71     		strb	r2, [r1, #5]
- 404:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: B");
- 536              		.loc 1 404 5 is_stmt 1 view .LVU156
- 404:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: B");
- 537              		.loc 1 404 47 is_stmt 0 view .LVU157
- 538 021a 8B71     		strb	r3, [r1, #6]
- 406:Core/Src/ds_twr_initiator_sts.c **** 			}
- 539              		.loc 1 406 5 is_stmt 1 view .LVU158
- 540 021c 55E7     		b	.L24
- 541              	.L20:
- 411:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_C[1];
- 542              		.loc 1 411 5 view .LVU159
- 411:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_C[1];
- 543              		.loc 1 411 42 is_stmt 0 view .LVU160
- 544 021e 3249     		ldr	r1, .L36+32
- 545 0220 4322     		movs	r2, #67
- 546 0222 4A71     		strb	r2, [r1, #5]
- 412:Core/Src/ds_twr_initiator_sts.c **** 
- 547              		.loc 1 412 5 is_stmt 1 view .LVU161
- 412:Core/Src/ds_twr_initiator_sts.c **** 
- 548              		.loc 1 412 46 is_stmt 0 view .LVU162
- 549 0224 0323     		movs	r3, #3
- 550 0226 8B71     		strb	r3, [r1, #6]
- 414:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_C[1];
- 551              		.loc 1 414 5 is_stmt 1 view .LVU163
- 414:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_C[1];
- 552              		.loc 1 414 37 is_stmt 0 view .LVU164
- 553 0228 3049     		ldr	r1, .L36+36
- 554 022a CA71     		strb	r2, [r1, #7]
- 415:Core/Src/ds_twr_initiator_sts.c **** 
- 555              		.loc 1 415 5 is_stmt 1 view .LVU165
- 415:Core/Src/ds_twr_initiator_sts.c **** 
- 556              		.loc 1 415 41 is_stmt 0 view .LVU166
- 557 022c 0B72     		strb	r3, [r1, #8]
- 417:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_C[1];
- 558              		.loc 1 417 5 is_stmt 1 view .LVU167
- 417:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_C[1];
- 559              		.loc 1 417 43 is_stmt 0 view .LVU168
- 560 022e 3049     		ldr	r1, .L36+40
- 561 0230 4A71     		strb	r2, [r1, #5]
- 418:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: C");
- 562              		.loc 1 418 5 is_stmt 1 view .LVU169
- 418:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: C");
- 563              		.loc 1 418 47 is_stmt 0 view .LVU170
- 564 0232 8B71     		strb	r3, [r1, #6]
- 420:Core/Src/ds_twr_initiator_sts.c **** 			}
- 565              		.loc 1 420 5 is_stmt 1 view .LVU171
- 566 0234 49E7     		b	.L24
- 567              	.L19:
- 428:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_D[1];
- 568              		.loc 1 428 5 view .LVU172
- 428:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_D[1];
- 569              		.loc 1 428 42 is_stmt 0 view .LVU173
- 570 0236 2C49     		ldr	r1, .L36+32
- 571 0238 4422     		movs	r2, #68
-ARM GAS  /tmp/cc7sAMpK.s 			page 22
+ 662              		.loc 1 572 28 view .LVU204
+ 663 02a8 0B70     		strb	r3, [r1]
+ 664              	.LVL62:
+ 665              	.L27:
+ 573:Core/Src/ds_twr_initiator_sts.c ****         }
+ 574:Core/Src/ds_twr_initiator_sts.c **** 
+ 575:Core/Src/ds_twr_initiator_sts.c ****         /* Clear RX error/timeout events in the DW IC status register. */
+ 576:Core/Src/ds_twr_initiator_sts.c ****         dwt_write32bitreg(SYS_STATUS_ID, SYS_STATUS_ALL_RX_GOOD | SYS_STATUS_ALL_RX_TO | SYS_STATUS
+ 666              		.loc 1 576 9 is_stmt 1 view .LVU205
+ 667 02aa 2B4A     		ldr	r2, .L34+76
+ 668 02ac 0021     		movs	r1, #0
+ 669 02ae 4420     		movs	r0, #68
+ 670 02b0 FFF7FEFF 		bl	dwt_write32bitoffsetreg
+ 671              	.LVL63:
+ 577:Core/Src/ds_twr_initiator_sts.c **** 
+ 578:Core/Src/ds_twr_initiator_sts.c ****         /* Execute a delay between ranging exchanges. */
+ 579:Core/Src/ds_twr_initiator_sts.c ****         /* ====> Take second tic of timer to check all time <==== */
+ 580:Core/Src/ds_twr_initiator_sts.c **** 		//timtick_2 = __HAL_TIM_GET_COUNTER(&htim2);
+ 581:Core/Src/ds_twr_initiator_sts.c **** 		/* ====> Take difference  <==== */
+ 582:Core/Src/ds_twr_initiator_sts.c **** 		//diff = timtick_2 - timtick_1;
+ 583:Core/Src/ds_twr_initiator_sts.c ****         randomDelay = rand() % 5;
+ 672              		.loc 1 583 9 view .LVU206
+ 673              		.loc 1 583 23 is_stmt 0 view .LVU207
+ 674 02b4 FFF7FEFF 		bl	rand
+ 675              	.LVL64:
+ 676              		.loc 1 583 30 view .LVU208
+ 677 02b8 284A     		ldr	r2, .L34+80
+ 678 02ba 82FB0032 		smull	r3, r2, r2, r0
+ 679 02be C317     		asrs	r3, r0, #31
+ 680 02c0 C3EB6203 		rsb	r3, r3, r2, asr #1
+ 681 02c4 03EB8303 		add	r3, r3, r3, lsl #2
+ 682 02c8 C31A     		subs	r3, r0, r3
+ 683              		.loc 1 583 21 view .LVU209
+ 684 02ca D8B2     		uxtb	r0, r3
+ 685 02cc 244B     		ldr	r3, .L34+84
+ 686 02ce 1870     		strb	r0, [r3]
+ 584:Core/Src/ds_twr_initiator_sts.c ****         Sleep(RNG_DELAY_MS + randomDelay);
+ 687              		.loc 1 584 9 is_stmt 1 view .LVU210
+ 688 02d0 0130     		adds	r0, r0, #1
+ 689 02d2 FFF7FEFF 		bl	Sleep
+ 690              	.LVL65:
+ 328:Core/Src/ds_twr_initiator_sts.c ****     {
+ 691              		.loc 1 328 11 view .LVU211
+ 692              	.L29:
+ 328:Core/Src/ds_twr_initiator_sts.c ****     {
+ 693              		.loc 1 328 5 view .LVU212
+ 334:Core/Src/ds_twr_initiator_sts.c ****         {
+ 694              		.loc 1 334 9 view .LVU213
+ 334:Core/Src/ds_twr_initiator_sts.c ****         {
+ 695              		.loc 1 334 12 is_stmt 0 view .LVU214
+ 696 02d6 002C     		cmp	r4, #0
+ 697 02d8 7FF4E3AE 		bne	.L14
+ 339:Core/Src/ds_twr_initiator_sts.c ****             dwt_configurestsiv(&cp_iv);
+ 698              		.loc 1 339 13 is_stmt 1 view .LVU215
+ 699 02dc 2148     		ldr	r0, .L34+88
+ 700 02de FFF7FEFF 		bl	dwt_configurestskey
+ 701              	.LVL66:
+ARM GAS  /tmp/ccVmoTNI.s 			page 25
 
 
- 572 023a 4A71     		strb	r2, [r1, #5]
- 429:Core/Src/ds_twr_initiator_sts.c **** 
- 573              		.loc 1 429 5 is_stmt 1 view .LVU174
- 429:Core/Src/ds_twr_initiator_sts.c **** 
- 574              		.loc 1 429 46 is_stmt 0 view .LVU175
- 575 023c 0423     		movs	r3, #4
- 576 023e 8B71     		strb	r3, [r1, #6]
- 431:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_D[1];
- 577              		.loc 1 431 5 is_stmt 1 view .LVU176
- 431:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_D[1];
- 578              		.loc 1 431 37 is_stmt 0 view .LVU177
- 579 0240 2A49     		ldr	r1, .L36+36
- 580 0242 CA71     		strb	r2, [r1, #7]
- 432:Core/Src/ds_twr_initiator_sts.c **** 
- 581              		.loc 1 432 5 is_stmt 1 view .LVU178
- 432:Core/Src/ds_twr_initiator_sts.c **** 
- 582              		.loc 1 432 41 is_stmt 0 view .LVU179
- 583 0244 0B72     		strb	r3, [r1, #8]
- 434:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_D[1];
- 584              		.loc 1 434 5 is_stmt 1 view .LVU180
- 434:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_D[1];
- 585              		.loc 1 434 43 is_stmt 0 view .LVU181
- 586 0246 2A49     		ldr	r1, .L36+40
- 587 0248 4A71     		strb	r2, [r1, #5]
- 435:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: D");
- 588              		.loc 1 435 5 is_stmt 1 view .LVU182
- 435:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: D");
- 589              		.loc 1 435 47 is_stmt 0 view .LVU183
- 590 024a 8B71     		strb	r3, [r1, #6]
- 437:Core/Src/ds_twr_initiator_sts.c **** 			}
- 591              		.loc 1 437 5 is_stmt 1 view .LVU184
- 592 024c 3DE7     		b	.L24
- 593              	.L17:
- 442:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_E[1];
- 594              		.loc 1 442 5 view .LVU185
- 442:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_E[1];
- 595              		.loc 1 442 42 is_stmt 0 view .LVU186
- 596 024e 2649     		ldr	r1, .L36+32
- 597 0250 4522     		movs	r2, #69
- 598 0252 4A71     		strb	r2, [r1, #5]
- 443:Core/Src/ds_twr_initiator_sts.c **** 
- 599              		.loc 1 443 5 is_stmt 1 view .LVU187
- 443:Core/Src/ds_twr_initiator_sts.c **** 
- 600              		.loc 1 443 46 is_stmt 0 view .LVU188
- 601 0254 0523     		movs	r3, #5
- 602 0256 8B71     		strb	r3, [r1, #6]
- 445:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_E[1];
- 603              		.loc 1 445 5 is_stmt 1 view .LVU189
- 445:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_E[1];
- 604              		.loc 1 445 37 is_stmt 0 view .LVU190
- 605 0258 2449     		ldr	r1, .L36+36
- 606 025a CA71     		strb	r2, [r1, #7]
- 446:Core/Src/ds_twr_initiator_sts.c **** 
- 607              		.loc 1 446 5 is_stmt 1 view .LVU191
- 446:Core/Src/ds_twr_initiator_sts.c **** 
- 608              		.loc 1 446 41 is_stmt 0 view .LVU192
- 609 025c 0B72     		strb	r3, [r1, #8]
-ARM GAS  /tmp/cc7sAMpK.s 			page 23
+ 340:Core/Src/ds_twr_initiator_sts.c ****             dwt_configurestsloadiv();
+ 702              		.loc 1 340 13 view .LVU216
+ 703 02e2 1048     		ldr	r0, .L34+24
+ 704 02e4 FFF7FEFF 		bl	dwt_configurestsiv
+ 705              	.LVL67:
+ 341:Core/Src/ds_twr_initiator_sts.c ****             firstLoopFlag = 1;
+ 706              		.loc 1 341 13 view .LVU217
+ 707 02e8 FFF7FEFF 		bl	dwt_configurestsloadiv
+ 708              	.LVL68:
+ 342:Core/Src/ds_twr_initiator_sts.c ****         }
+ 709              		.loc 1 342 13 view .LVU218
+ 342:Core/Src/ds_twr_initiator_sts.c ****         }
+ 710              		.loc 1 342 27 is_stmt 0 view .LVU219
+ 711 02ec 0124     		movs	r4, #1
+ 712              	.LVL69:
+ 713              	.L15:
+ 354:Core/Src/ds_twr_initiator_sts.c ****         {
+ 714              		.loc 1 354 9 is_stmt 1 view .LVU220
+ 715 02ee 174B     		ldr	r3, .L34+64
+ 716 02f0 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 717 02f2 032B     		cmp	r3, #3
+ 718 02f4 AAD8     		bhi	.L16
+ 719 02f6 01A2     		adr	r2, .L18
+ 720 02f8 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 721              		.p2align 2
+ 722              	.L18:
+ 723 02fc 35020000 		.word	.L21+1
+ 724 0300 B5000000 		.word	.L20+1
+ 725 0304 05020000 		.word	.L19+1
+ 726 0308 1D020000 		.word	.L17+1
+ 727              		.p2align 1
+ 728              	.L35:
+ 729              		.align	2
+ 730              	.L34:
+ 731 030c 00000000 		.word	.LC0
+ 732 0310 00000000 		.word	config_options
+ 733 0314 00000000 		.word	txconfig_options_ch9
+ 734 0318 14000000 		.word	.LC1
+ 735 031c 28000000 		.word	.LC2
+ 736 0320 00000000 		.word	txconfig_options
+ 737 0324 00000000 		.word	.LANCHOR3
+ 738 0328 1C000200 		.word	131100
+ 739 032c 00000000 		.word	.LANCHOR0
+ 740 0330 00000000 		.word	.LANCHOR5
+ 741 0334 00000000 		.word	.LANCHOR6
+ 742 0338 00000000 		.word	.LANCHOR7
+ 743 033c 00D02724 		.word	606588928
+ 744 0340 00000000 		.word	.LANCHOR1
+ 745 0344 00000000 		.word	.LANCHOR8
+ 746 0348 AC411304 		.word	68370860
+ 747 034c 00000000 		.word	.LANCHOR4
+ 748 0350 3C000000 		.word	.LC3
+ 749 0354 00000000 		.word	.LANCHOR9
+ 750 0358 00FF2724 		.word	606600960
+ 751 035c 67666666 		.word	1717986919
+ 752 0360 00000000 		.word	.LANCHOR10
+ 753 0364 00000000 		.word	.LANCHOR2
+ARM GAS  /tmp/ccVmoTNI.s 			page 26
 
 
- 448:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_E[1];
- 610              		.loc 1 448 5 is_stmt 1 view .LVU193
- 448:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_E[1];
- 611              		.loc 1 448 43 is_stmt 0 view .LVU194
- 612 025e 2449     		ldr	r1, .L36+40
- 613 0260 4A71     		strb	r2, [r1, #5]
- 449:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: D");
- 614              		.loc 1 449 5 is_stmt 1 view .LVU195
- 449:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: D");
- 615              		.loc 1 449 47 is_stmt 0 view .LVU196
- 616 0262 8B71     		strb	r3, [r1, #6]
- 451:Core/Src/ds_twr_initiator_sts.c **** 			}
- 617              		.loc 1 451 5 is_stmt 1 view .LVU197
- 618 0264 31E7     		b	.L24
- 619              	.L23:
- 455:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_F[1];
- 620              		.loc 1 455 5 view .LVU198
- 455:Core/Src/ds_twr_initiator_sts.c **** 				tx_poll_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_F[1];
- 621              		.loc 1 455 42 is_stmt 0 view .LVU199
- 622 0266 2049     		ldr	r1, .L36+32
- 623 0268 4622     		movs	r2, #70
- 624 026a 4A71     		strb	r2, [r1, #5]
- 456:Core/Src/ds_twr_initiator_sts.c **** 
- 625              		.loc 1 456 5 is_stmt 1 view .LVU200
- 456:Core/Src/ds_twr_initiator_sts.c **** 
- 626              		.loc 1 456 46 is_stmt 0 view .LVU201
- 627 026c 0623     		movs	r3, #6
- 628 026e 8B71     		strb	r3, [r1, #6]
- 458:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_F[1];
- 629              		.loc 1 458 5 is_stmt 1 view .LVU202
- 458:Core/Src/ds_twr_initiator_sts.c **** 				rx_resp_msg[SOURCE_ADDRESS_IDX + 1] = address_of_F[1];
- 630              		.loc 1 458 37 is_stmt 0 view .LVU203
- 631 0270 1E49     		ldr	r1, .L36+36
- 632 0272 CA71     		strb	r2, [r1, #7]
- 459:Core/Src/ds_twr_initiator_sts.c **** 
- 633              		.loc 1 459 5 is_stmt 1 view .LVU204
- 459:Core/Src/ds_twr_initiator_sts.c **** 
- 634              		.loc 1 459 41 is_stmt 0 view .LVU205
- 635 0274 0B72     		strb	r3, [r1, #8]
- 461:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_F[1];
- 636              		.loc 1 461 5 is_stmt 1 view .LVU206
- 461:Core/Src/ds_twr_initiator_sts.c **** 				tx_final_msg[DESTINATION_ADDRESS_IDX + 1] = address_of_F[1];
- 637              		.loc 1 461 43 is_stmt 0 view .LVU207
- 638 0276 1E49     		ldr	r1, .L36+40
- 639 0278 4A71     		strb	r2, [r1, #5]
- 462:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: D");
- 640              		.loc 1 462 5 is_stmt 1 view .LVU208
- 462:Core/Src/ds_twr_initiator_sts.c **** 				//test_run_info((unsigned char *)"Anchor: D");
- 641              		.loc 1 462 47 is_stmt 0 view .LVU209
- 642 027a 8B71     		strb	r3, [r1, #6]
- 464:Core/Src/ds_twr_initiator_sts.c **** 			}
- 643              		.loc 1 464 5 is_stmt 1 view .LVU210
- 644 027c 25E7     		b	.L24
- 645              	.L16:
- 470:Core/Src/ds_twr_initiator_sts.c **** 				break;
- 646              		.loc 1 470 5 view .LVU211
- 647 027e 2448     		ldr	r0, .L36+72
-ARM GAS  /tmp/cc7sAMpK.s 			page 24
+ 754              		.cfi_endproc
+ 755              	.LFE134:
+ 757              		.global	randomDelay
+ 758              		.global	diff
+ 759              		.global	timtick_2
+ 760              		.global	timtick_1
+ 761              		.global	current_anchor
+ 762              		.section	.bss.diff,"aw",%nobits
+ 763              		.align	2
+ 766              	diff:
+ 767 0000 00000000 		.space	4
+ 768              		.section	.bss.errors,"aw",%nobits
+ 769              		.align	2
+ 770              		.set	.LANCHOR9,. + 0
+ 773              	errors:
+ 774 0000 00000000 		.space	92
+ 774      00000000 
+ 774      00000000 
+ 774      00000000 
+ 774      00000000 
+ 775              		.section	.bss.frame_seq_nb,"aw",%nobits
+ 776              		.set	.LANCHOR1,. + 0
+ 779              	frame_seq_nb:
+ 780 0000 00       		.space	1
+ 781              		.section	.bss.randomDelay,"aw",%nobits
+ 782              		.set	.LANCHOR10,. + 0
+ 785              	randomDelay:
+ 786 0000 00       		.space	1
+ 787              		.section	.bss.rx_buffer,"aw",%nobits
+ 788              		.align	2
+ 789              		.set	.LANCHOR8,. + 0
+ 792              	rx_buffer:
+ 793 0000 00000000 		.space	24
+ 793      00000000 
+ 793      00000000 
+ 793      00000000 
+ 793      00000000 
+ 794              		.section	.bss.status_reg,"aw",%nobits
+ 795              		.align	2
+ 796              		.set	.LANCHOR7,. + 0
+ 799              	status_reg:
+ 800 0000 00000000 		.space	4
+ 801              		.section	.bss.timtick_1,"aw",%nobits
+ 802              		.align	2
+ 805              	timtick_1:
+ 806 0000 00000000 		.space	4
+ 807              		.section	.bss.timtick_2,"aw",%nobits
+ 808              		.align	2
+ 811              	timtick_2:
+ 812 0000 00000000 		.space	4
+ 813              		.section	.data.cp_iv,"aw"
+ 814              		.align	2
+ 815              		.set	.LANCHOR3,. + 0
+ 818              	cp_iv:
+ 819 0000 E43D9A1F 		.word	530202084
+ 820 0004 CAC37ED3 		.word	-746667062
+ 821 0008 FBA84FC4 		.word	-1001412357
+ARM GAS  /tmp/ccVmoTNI.s 			page 27
 
 
- 648 0280 FFF7FEFF 		bl	test_run_info
- 649              	.LVL58:
- 471:Core/Src/ds_twr_initiator_sts.c **** 			}
- 650              		.loc 1 471 5 view .LVU212
- 651 0284 21E7     		b	.L24
- 652              	.L28:
- 653              	.LBB4:
- 562:Core/Src/ds_twr_initiator_sts.c ****                     }
- 563:Core/Src/ds_twr_initiator_sts.c ****                 }
- 564:Core/Src/ds_twr_initiator_sts.c ****                 else
- 565:Core/Src/ds_twr_initiator_sts.c ****                 {
- 566:Core/Src/ds_twr_initiator_sts.c ****                     errors[BAD_FRAME_ERR_IDX] += 1;
- 654              		.loc 1 566 21 view .LVU213
- 655              		.loc 1 566 47 is_stmt 0 view .LVU214
- 656 0286 234A     		ldr	r2, .L36+76
- 657 0288 936A     		ldr	r3, [r2, #40]
- 658 028a 0133     		adds	r3, r3, #1
- 659 028c 9362     		str	r3, [r2, #40]
- 567:Core/Src/ds_twr_initiator_sts.c ****                     /* Increase a current anchor number */
- 568:Core/Src/ds_twr_initiator_sts.c ****                     current_anchor = (current_anchor + 1 ) % NUMBER_OF_ANCHORS;
- 660              		.loc 1 568 21 is_stmt 1 view .LVU215
- 661              		.loc 1 568 54 is_stmt 0 view .LVU216
- 662 028e 1E49     		ldr	r1, .L36+64
- 663 0290 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
- 664 0292 0132     		adds	r2, r2, #1
- 665              		.loc 1 568 60 view .LVU217
- 666 0294 1D4B     		ldr	r3, .L36+68
- 667 0296 83FB0203 		smull	r0, r3, r3, r2
- 668 029a 03EB4303 		add	r3, r3, r3, lsl #1
- 669 029e A2EB4303 		sub	r3, r2, r3, lsl #1
- 670              		.loc 1 568 36 view .LVU218
- 671 02a2 0B70     		strb	r3, [r1]
- 672 02a4 43E0     		b	.L29
- 673              	.LVL59:
- 674              	.L27:
- 569:Core/Src/ds_twr_initiator_sts.c ****                 }
- 570:Core/Src/ds_twr_initiator_sts.c ****             }
- 571:Core/Src/ds_twr_initiator_sts.c ****             else
- 572:Core/Src/ds_twr_initiator_sts.c ****             {
- 573:Core/Src/ds_twr_initiator_sts.c ****                 errors[RTO_ERR_IDX] += 1;
- 675              		.loc 1 573 17 is_stmt 1 view .LVU219
- 676              		.loc 1 573 37 is_stmt 0 view .LVU220
- 677 02a6 1B4A     		ldr	r2, .L36+76
- 678 02a8 5369     		ldr	r3, [r2, #20]
- 679 02aa 0133     		adds	r3, r3, #1
- 680 02ac 5361     		str	r3, [r2, #20]
- 574:Core/Src/ds_twr_initiator_sts.c ****                 /* Increase a current anchor number */
- 575:Core/Src/ds_twr_initiator_sts.c ****                 current_anchor = (current_anchor + 1 ) % NUMBER_OF_ANCHORS;
- 681              		.loc 1 575 17 is_stmt 1 view .LVU221
- 682              		.loc 1 575 50 is_stmt 0 view .LVU222
- 683 02ae 1649     		ldr	r1, .L36+64
- 684              	.LVL60:
- 685              		.loc 1 575 50 view .LVU223
- 686 02b0 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
- 687 02b2 0132     		adds	r2, r2, #1
- 688              		.loc 1 575 56 view .LVU224
- 689 02b4 154B     		ldr	r3, .L36+68
-ARM GAS  /tmp/cc7sAMpK.s 			page 25
-
-
- 690 02b6 83FB0203 		smull	r0, r3, r3, r2
- 691              	.LVL61:
- 692              		.loc 1 575 56 view .LVU225
- 693 02ba 03EB4303 		add	r3, r3, r3, lsl #1
- 694 02be A2EB4303 		sub	r3, r2, r3, lsl #1
- 695              		.loc 1 575 32 view .LVU226
- 696 02c2 0B70     		strb	r3, [r1]
- 697 02c4 33E0     		b	.L29
- 698              	.L37:
- 699 02c6 00BF     		.align	2
- 700              	.L36:
- 701 02c8 00000000 		.word	.LC0
- 702 02cc 00000000 		.word	config_options
- 703 02d0 00000000 		.word	txconfig_options_ch9
- 704 02d4 14000000 		.word	.LC1
- 705 02d8 28000000 		.word	.LC2
- 706 02dc 00000000 		.word	txconfig_options
- 707 02e0 00000000 		.word	.LANCHOR3
- 708 02e4 1C000200 		.word	131100
- 709 02e8 00000000 		.word	.LANCHOR0
- 710 02ec 00000000 		.word	.LANCHOR5
- 711 02f0 00000000 		.word	.LANCHOR6
- 712 02f4 00000000 		.word	.LANCHOR7
- 713 02f8 00D02724 		.word	606588928
- 714 02fc 00000000 		.word	.LANCHOR1
- 715 0300 00000000 		.word	.LANCHOR8
- 716 0304 AC411304 		.word	68370860
- 717 0308 00000000 		.word	.LANCHOR4
- 718 030c ABAAAA2A 		.word	715827883
- 719 0310 3C000000 		.word	.LC3
- 720 0314 00000000 		.word	.LANCHOR9
- 721              	.LVL62:
- 722              	.L26:
- 723              		.loc 1 575 32 view .LVU227
- 724              	.LBE4:
- 576:Core/Src/ds_twr_initiator_sts.c ****             }
- 577:Core/Src/ds_twr_initiator_sts.c ****         }
- 578:Core/Src/ds_twr_initiator_sts.c ****         else
- 579:Core/Src/ds_twr_initiator_sts.c ****         {
- 580:Core/Src/ds_twr_initiator_sts.c **** #if 0
- 581:Core/Src/ds_twr_initiator_sts.c ****             check_for_status_errors(status_reg, errors);
- 582:Core/Src/ds_twr_initiator_sts.c **** 
- 583:Core/Src/ds_twr_initiator_sts.c ****             if (!(status_reg & SYS_STATUS_RXFCG_BIT_MASK))
- 584:Core/Src/ds_twr_initiator_sts.c ****             {
- 585:Core/Src/ds_twr_initiator_sts.c ****                 errors[BAD_FRAME_ERR_IDX] += 1;
- 586:Core/Src/ds_twr_initiator_sts.c ****             }
- 587:Core/Src/ds_twr_initiator_sts.c ****             if (goodSts < 0)
- 588:Core/Src/ds_twr_initiator_sts.c ****             {
- 589:Core/Src/ds_twr_initiator_sts.c ****                 errors[PREAMBLE_COUNT_ERR_IDX] += 1;
- 590:Core/Src/ds_twr_initiator_sts.c ****             }
- 591:Core/Src/ds_twr_initiator_sts.c ****             if (stsQual <= 0)
- 592:Core/Src/ds_twr_initiator_sts.c ****             {
- 593:Core/Src/ds_twr_initiator_sts.c ****                 errors[CP_QUAL_ERR_IDX] += 1;
- 594:Core/Src/ds_twr_initiator_sts.c ****             }
- 595:Core/Src/ds_twr_initiator_sts.c **** #endif
- 596:Core/Src/ds_twr_initiator_sts.c ****             /* Increase a current anchor number */
- 597:Core/Src/ds_twr_initiator_sts.c ****             current_anchor = (current_anchor + 1 ) % NUMBER_OF_ANCHORS;
-ARM GAS  /tmp/cc7sAMpK.s 			page 26
-
-
- 725              		.loc 1 597 13 is_stmt 1 view .LVU228
- 726              		.loc 1 597 46 is_stmt 0 view .LVU229
- 727 0318 1F49     		ldr	r1, .L38
- 728 031a 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
- 729 031c 0132     		adds	r2, r2, #1
- 730              		.loc 1 597 52 view .LVU230
- 731 031e 1F4B     		ldr	r3, .L38+4
- 732 0320 83FB0203 		smull	r0, r3, r3, r2
- 733              	.LVL63:
- 734              		.loc 1 597 52 view .LVU231
- 735 0324 03EB4303 		add	r3, r3, r3, lsl #1
- 736 0328 A2EB4303 		sub	r3, r2, r3, lsl #1
- 737              		.loc 1 597 28 view .LVU232
- 738 032c 0B70     		strb	r3, [r1]
- 739              	.L29:
- 598:Core/Src/ds_twr_initiator_sts.c ****         }
- 599:Core/Src/ds_twr_initiator_sts.c **** 
- 600:Core/Src/ds_twr_initiator_sts.c ****         /* Clear RX error/timeout events in the DW IC status register. */
- 601:Core/Src/ds_twr_initiator_sts.c ****         dwt_write32bitreg(SYS_STATUS_ID, SYS_STATUS_ALL_RX_GOOD | SYS_STATUS_ALL_RX_TO | SYS_STATUS
- 740              		.loc 1 601 9 is_stmt 1 view .LVU233
- 741 032e 1C4A     		ldr	r2, .L38+8
- 742 0330 0021     		movs	r1, #0
- 743 0332 4420     		movs	r0, #68
- 744 0334 FFF7FEFF 		bl	dwt_write32bitoffsetreg
- 745              	.LVL64:
- 602:Core/Src/ds_twr_initiator_sts.c **** 
- 603:Core/Src/ds_twr_initiator_sts.c ****         /* Execute a delay between ranging exchanges. */
- 604:Core/Src/ds_twr_initiator_sts.c ****         /* ====> Take second tic of timer to check all time <==== */
- 605:Core/Src/ds_twr_initiator_sts.c **** 		//timtick_2 = __HAL_TIM_GET_COUNTER(&htim2);
- 606:Core/Src/ds_twr_initiator_sts.c **** 		/* ====> Take difference  <==== */
- 607:Core/Src/ds_twr_initiator_sts.c **** 		//diff = timtick_2 - timtick_1;
- 608:Core/Src/ds_twr_initiator_sts.c ****         randomDelay = rand() % 5;
- 746              		.loc 1 608 9 view .LVU234
- 747              		.loc 1 608 23 is_stmt 0 view .LVU235
- 748 0338 FFF7FEFF 		bl	rand
- 749              	.LVL65:
- 750              		.loc 1 608 30 view .LVU236
- 751 033c 194A     		ldr	r2, .L38+12
- 752 033e 82FB0032 		smull	r3, r2, r2, r0
- 753 0342 C317     		asrs	r3, r0, #31
- 754 0344 C3EB6203 		rsb	r3, r3, r2, asr #1
- 755 0348 03EB8303 		add	r3, r3, r3, lsl #2
- 756 034c C31A     		subs	r3, r0, r3
- 757              		.loc 1 608 21 view .LVU237
- 758 034e D8B2     		uxtb	r0, r3
- 759 0350 154B     		ldr	r3, .L38+16
- 760 0352 1870     		strb	r0, [r3]
- 609:Core/Src/ds_twr_initiator_sts.c ****         Sleep(RNG_DELAY_MS + randomDelay);
- 761              		.loc 1 609 9 is_stmt 1 view .LVU238
- 762 0354 0130     		adds	r0, r0, #1
- 763 0356 FFF7FEFF 		bl	Sleep
- 764              	.LVL66:
- 353:Core/Src/ds_twr_initiator_sts.c ****     {
- 765              		.loc 1 353 11 view .LVU239
- 766              	.L31:
- 353:Core/Src/ds_twr_initiator_sts.c ****     {
- 767              		.loc 1 353 5 view .LVU240
-ARM GAS  /tmp/cc7sAMpK.s 			page 27
-
-
- 359:Core/Src/ds_twr_initiator_sts.c ****         {
- 768              		.loc 1 359 9 view .LVU241
- 359:Core/Src/ds_twr_initiator_sts.c ****         {
- 769              		.loc 1 359 12 is_stmt 0 view .LVU242
- 770 035a 002C     		cmp	r4, #0
- 771 035c 7FF4A1AE 		bne	.L14
- 364:Core/Src/ds_twr_initiator_sts.c ****             dwt_configurestsiv(&cp_iv);
- 772              		.loc 1 364 13 is_stmt 1 view .LVU243
- 773 0360 1248     		ldr	r0, .L38+20
- 774 0362 FFF7FEFF 		bl	dwt_configurestskey
- 775              	.LVL67:
- 365:Core/Src/ds_twr_initiator_sts.c ****             dwt_configurestsloadiv();
- 776              		.loc 1 365 13 view .LVU244
- 777 0366 1248     		ldr	r0, .L38+24
- 778 0368 FFF7FEFF 		bl	dwt_configurestsiv
- 779              	.LVL68:
- 366:Core/Src/ds_twr_initiator_sts.c ****             firstLoopFlag = 1;
- 780              		.loc 1 366 13 view .LVU245
- 781 036c FFF7FEFF 		bl	dwt_configurestsloadiv
- 782              	.LVL69:
- 367:Core/Src/ds_twr_initiator_sts.c ****         }
- 783              		.loc 1 367 13 view .LVU246
- 367:Core/Src/ds_twr_initiator_sts.c ****         }
- 784              		.loc 1 367 27 is_stmt 0 view .LVU247
- 785 0370 0124     		movs	r4, #1
- 786              	.LVL70:
- 787              	.L15:
- 379:Core/Src/ds_twr_initiator_sts.c ****         {
- 788              		.loc 1 379 9 is_stmt 1 view .LVU248
- 789 0372 094B     		ldr	r3, .L38
- 790 0374 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
- 791 0376 052B     		cmp	r3, #5
- 792 0378 81D8     		bhi	.L16
- 793 037a 01A2     		adr	r2, .L18
- 794 037c 52F823F0 		ldr	pc, [r2, r3, lsl #2]
- 795              		.p2align 2
- 796              	.L18:
- 797 0380 67020000 		.word	.L23+1
- 798 0384 B5000000 		.word	.L22+1
- 799 0388 07020000 		.word	.L21+1
- 800 038c 1F020000 		.word	.L20+1
- 801 0390 37020000 		.word	.L19+1
- 802 0394 4F020000 		.word	.L17+1
- 803              		.p2align 1
- 804              	.L39:
- 805              		.align	2
- 806              	.L38:
- 807 0398 00000000 		.word	.LANCHOR4
- 808 039c ABAAAA2A 		.word	715827883
- 809 03a0 00FF2724 		.word	606600960
- 810 03a4 67666666 		.word	1717986919
- 811 03a8 00000000 		.word	.LANCHOR10
- 812 03ac 00000000 		.word	.LANCHOR2
- 813 03b0 00000000 		.word	.LANCHOR3
- 814              		.cfi_endproc
- 815              	.LFE134:
- 817              		.global	randomDelay
-ARM GAS  /tmp/cc7sAMpK.s 			page 28
-
-
- 818              		.global	diff
- 819              		.global	timtick_2
- 820              		.global	timtick_1
- 821              		.global	current_anchor
- 822              		.section	.bss.diff,"aw",%nobits
- 823              		.align	2
- 826              	diff:
- 827 0000 00000000 		.space	4
- 828              		.section	.bss.errors,"aw",%nobits
- 829              		.align	2
- 830              		.set	.LANCHOR9,. + 0
- 833              	errors:
- 834 0000 00000000 		.space	92
- 834      00000000 
- 834      00000000 
- 834      00000000 
- 834      00000000 
- 835              		.section	.bss.frame_seq_nb,"aw",%nobits
- 836              		.set	.LANCHOR1,. + 0
- 839              	frame_seq_nb:
- 840 0000 00       		.space	1
- 841              		.section	.bss.randomDelay,"aw",%nobits
- 842              		.set	.LANCHOR10,. + 0
- 845              	randomDelay:
- 846 0000 00       		.space	1
- 847              		.section	.bss.rx_buffer,"aw",%nobits
- 848              		.align	2
- 849              		.set	.LANCHOR8,. + 0
- 852              	rx_buffer:
- 853 0000 00000000 		.space	24
- 853      00000000 
- 853      00000000 
- 853      00000000 
- 853      00000000 
- 854              		.section	.bss.status_reg,"aw",%nobits
+ 822 000c 34EB2E36 		.word	909044532
+ 823              		.section	.data.cp_key,"aw"
+ 824              		.align	2
+ 825              		.set	.LANCHOR2,. + 0
+ 828              	cp_key:
+ 829 0000 0F22EB14 		.word	350953999
+ 830 0004 A85060F8 		.word	-127905624
+ 831 0008 AA36D3D1 		.word	-774687062
+ 832 000c 74861414 		.word	336889460
+ 833              		.section	.data.current_anchor,"aw"
+ 834              		.set	.LANCHOR4,. + 0
+ 837              	current_anchor:
+ 838 0000 01       		.byte	1
+ 839              		.section	.data.rx_resp_msg,"aw"
+ 840              		.align	2
+ 841              		.set	.LANCHOR5,. + 0
+ 844              	rx_resp_msg:
+ 845 0000 418800CA 		.ascii	"A\210\000\312\336VGWA\341\000\000"
+ 845      DE564757 
+ 845      41E10000 
+ 846              		.section	.data.tx_final_msg,"aw"
+ 847              		.align	2
+ 848              		.set	.LANCHOR6,. + 0
+ 851              	tx_final_msg:
+ 852 0000 418800CA 		.ascii	"A\210\000\312\336WAVG\342\000\000\000\000\000\000\000"
+ 852      DE574156 
+ 852      47E20000 
+ 852      00000000 
+ 852      00
+ 853 0011 00000000 		.ascii	"\000\000\000\000\000\000\000"
+ 853      000000
+ 854              		.section	.data.tx_poll_msg,"aw"
  855              		.align	2
- 856              		.set	.LANCHOR7,. + 0
- 859              	status_reg:
- 860 0000 00000000 		.space	4
- 861              		.section	.bss.timtick_1,"aw",%nobits
- 862              		.align	2
- 865              	timtick_1:
- 866 0000 00000000 		.space	4
- 867              		.section	.bss.timtick_2,"aw",%nobits
- 868              		.align	2
- 871              	timtick_2:
- 872 0000 00000000 		.space	4
- 873              		.section	.data.cp_iv,"aw"
- 874              		.align	2
- 875              		.set	.LANCHOR3,. + 0
- 878              	cp_iv:
- 879 0000 E43D9A1F 		.word	530202084
- 880 0004 CAC37ED3 		.word	-746667062
- 881 0008 FBA84FC4 		.word	-1001412357
- 882 000c 34EB2E36 		.word	909044532
- 883              		.section	.data.cp_key,"aw"
- 884              		.align	2
-ARM GAS  /tmp/cc7sAMpK.s 			page 29
-
-
- 885              		.set	.LANCHOR2,. + 0
- 888              	cp_key:
- 889 0000 0F22EB14 		.word	350953999
- 890 0004 A85060F8 		.word	-127905624
- 891 0008 AA36D3D1 		.word	-774687062
- 892 000c 74861414 		.word	336889460
- 893              		.section	.data.current_anchor,"aw"
- 894              		.set	.LANCHOR4,. + 0
- 897              	current_anchor:
- 898 0000 01       		.byte	1
- 899              		.section	.data.rx_resp_msg,"aw"
- 900              		.align	2
- 901              		.set	.LANCHOR5,. + 0
- 904              	rx_resp_msg:
- 905 0000 418800CA 		.ascii	"A\210\000\312\336VGWA\341\000\000"
- 905      DE564757 
- 905      41E10000 
- 906              		.section	.data.tx_final_msg,"aw"
- 907              		.align	2
- 908              		.set	.LANCHOR6,. + 0
- 911              	tx_final_msg:
- 912 0000 418800CA 		.ascii	"A\210\000\312\336WAVG\342\000\000\000\000\000\000\000"
- 912      DE574156 
- 912      47E20000 
- 912      00000000 
- 912      00
- 913 0011 00000000 		.ascii	"\000\000\000\000\000\000\000"
- 913      000000
- 914              		.section	.data.tx_poll_msg,"aw"
- 915              		.align	2
- 916              		.set	.LANCHOR0,. + 0
- 919              	tx_poll_msg:
- 920 0000 418800CA 		.ascii	"A\210\000\312\336WAVG\340\000\000"
- 920      DE574156 
- 920      47E00000 
- 921              		.text
- 922              	.Letext0:
- 923              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
- 924              		.file 3 "Core/Inc/deca_device_api.h"
- 925              		.file 4 "Core/Inc/shared_functions.h"
- 926              		.file 5 "/usr/include/newlib/string.h"
- 927              		.file 6 "Core/Inc/port.h"
- 928              		.file 7 "/usr/include/newlib/time.h"
- 929              		.file 8 "/usr/include/newlib/stdlib.h"
-ARM GAS  /tmp/cc7sAMpK.s 			page 30
+ 856              		.set	.LANCHOR0,. + 0
+ 859              	tx_poll_msg:
+ 860 0000 418800CA 		.ascii	"A\210\000\312\336WAVG\340\000\000"
+ 860      DE574156 
+ 860      47E00000 
+ 861              		.text
+ 862              	.Letext0:
+ 863              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
+ 864              		.file 3 "Core/Inc/deca_device_api.h"
+ 865              		.file 4 "Core/Inc/shared_functions.h"
+ 866              		.file 5 "/usr/include/newlib/string.h"
+ 867              		.file 6 "Core/Inc/port.h"
+ 868              		.file 7 "/usr/include/newlib/time.h"
+ 869              		.file 8 "/usr/include/newlib/stdlib.h"
+ARM GAS  /tmp/ccVmoTNI.s 			page 28
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 ds_twr_initiator_sts.c
-     /tmp/cc7sAMpK.s:18     .text.send_tx_poll_msg:0000000000000000 $t
-     /tmp/cc7sAMpK.s:25     .text.send_tx_poll_msg:0000000000000000 send_tx_poll_msg
-     /tmp/cc7sAMpK.s:88     .text.send_tx_poll_msg:0000000000000048 $d
-     /tmp/cc7sAMpK.s:94     .rodata.ds_twr_initiator_sts.str1.4:0000000000000000 $d
-     /tmp/cc7sAMpK.s:107    .text.ds_twr_initiator_sts:0000000000000000 $t
-     /tmp/cc7sAMpK.s:114    .text.ds_twr_initiator_sts:0000000000000000 ds_twr_initiator_sts
-     /tmp/cc7sAMpK.s:701    .text.ds_twr_initiator_sts:00000000000002c8 $d
-     /tmp/cc7sAMpK.s:727    .text.ds_twr_initiator_sts:0000000000000318 $t
-     /tmp/cc7sAMpK.s:797    .text.ds_twr_initiator_sts:0000000000000380 $d
-     /tmp/cc7sAMpK.s:807    .text.ds_twr_initiator_sts:0000000000000398 $d
-     /tmp/cc7sAMpK.s:845    .bss.randomDelay:0000000000000000 randomDelay
-     /tmp/cc7sAMpK.s:826    .bss.diff:0000000000000000 diff
-     /tmp/cc7sAMpK.s:871    .bss.timtick_2:0000000000000000 timtick_2
-     /tmp/cc7sAMpK.s:865    .bss.timtick_1:0000000000000000 timtick_1
-     /tmp/cc7sAMpK.s:897    .data.current_anchor:0000000000000000 current_anchor
-     /tmp/cc7sAMpK.s:823    .bss.diff:0000000000000000 $d
-     /tmp/cc7sAMpK.s:829    .bss.errors:0000000000000000 $d
-     /tmp/cc7sAMpK.s:833    .bss.errors:0000000000000000 errors
-     /tmp/cc7sAMpK.s:839    .bss.frame_seq_nb:0000000000000000 frame_seq_nb
-     /tmp/cc7sAMpK.s:840    .bss.frame_seq_nb:0000000000000000 $d
-     /tmp/cc7sAMpK.s:846    .bss.randomDelay:0000000000000000 $d
-     /tmp/cc7sAMpK.s:848    .bss.rx_buffer:0000000000000000 $d
-     /tmp/cc7sAMpK.s:852    .bss.rx_buffer:0000000000000000 rx_buffer
-     /tmp/cc7sAMpK.s:855    .bss.status_reg:0000000000000000 $d
-     /tmp/cc7sAMpK.s:859    .bss.status_reg:0000000000000000 status_reg
-     /tmp/cc7sAMpK.s:862    .bss.timtick_1:0000000000000000 $d
-     /tmp/cc7sAMpK.s:868    .bss.timtick_2:0000000000000000 $d
-     /tmp/cc7sAMpK.s:874    .data.cp_iv:0000000000000000 $d
-     /tmp/cc7sAMpK.s:878    .data.cp_iv:0000000000000000 cp_iv
-     /tmp/cc7sAMpK.s:884    .data.cp_key:0000000000000000 $d
-     /tmp/cc7sAMpK.s:888    .data.cp_key:0000000000000000 cp_key
-     /tmp/cc7sAMpK.s:900    .data.rx_resp_msg:0000000000000000 $d
-     /tmp/cc7sAMpK.s:904    .data.rx_resp_msg:0000000000000000 rx_resp_msg
-     /tmp/cc7sAMpK.s:907    .data.tx_final_msg:0000000000000000 $d
-     /tmp/cc7sAMpK.s:911    .data.tx_final_msg:0000000000000000 tx_final_msg
-     /tmp/cc7sAMpK.s:915    .data.tx_poll_msg:0000000000000000 $d
-     /tmp/cc7sAMpK.s:919    .data.tx_poll_msg:0000000000000000 tx_poll_msg
+     /tmp/ccVmoTNI.s:18     .text.send_tx_poll_msg:0000000000000000 $t
+     /tmp/ccVmoTNI.s:25     .text.send_tx_poll_msg:0000000000000000 send_tx_poll_msg
+     /tmp/ccVmoTNI.s:88     .text.send_tx_poll_msg:0000000000000048 $d
+     /tmp/ccVmoTNI.s:94     .rodata.ds_twr_initiator_sts.str1.4:0000000000000000 $d
+     /tmp/ccVmoTNI.s:107    .text.ds_twr_initiator_sts:0000000000000000 $t
+     /tmp/ccVmoTNI.s:114    .text.ds_twr_initiator_sts:0000000000000000 ds_twr_initiator_sts
+     /tmp/ccVmoTNI.s:723    .text.ds_twr_initiator_sts:00000000000002fc $d
+     /tmp/ccVmoTNI.s:731    .text.ds_twr_initiator_sts:000000000000030c $d
+     /tmp/ccVmoTNI.s:785    .bss.randomDelay:0000000000000000 randomDelay
+     /tmp/ccVmoTNI.s:766    .bss.diff:0000000000000000 diff
+     /tmp/ccVmoTNI.s:811    .bss.timtick_2:0000000000000000 timtick_2
+     /tmp/ccVmoTNI.s:805    .bss.timtick_1:0000000000000000 timtick_1
+     /tmp/ccVmoTNI.s:837    .data.current_anchor:0000000000000000 current_anchor
+     /tmp/ccVmoTNI.s:763    .bss.diff:0000000000000000 $d
+     /tmp/ccVmoTNI.s:769    .bss.errors:0000000000000000 $d
+     /tmp/ccVmoTNI.s:773    .bss.errors:0000000000000000 errors
+     /tmp/ccVmoTNI.s:779    .bss.frame_seq_nb:0000000000000000 frame_seq_nb
+     /tmp/ccVmoTNI.s:780    .bss.frame_seq_nb:0000000000000000 $d
+     /tmp/ccVmoTNI.s:786    .bss.randomDelay:0000000000000000 $d
+     /tmp/ccVmoTNI.s:788    .bss.rx_buffer:0000000000000000 $d
+     /tmp/ccVmoTNI.s:792    .bss.rx_buffer:0000000000000000 rx_buffer
+     /tmp/ccVmoTNI.s:795    .bss.status_reg:0000000000000000 $d
+     /tmp/ccVmoTNI.s:799    .bss.status_reg:0000000000000000 status_reg
+     /tmp/ccVmoTNI.s:802    .bss.timtick_1:0000000000000000 $d
+     /tmp/ccVmoTNI.s:808    .bss.timtick_2:0000000000000000 $d
+     /tmp/ccVmoTNI.s:814    .data.cp_iv:0000000000000000 $d
+     /tmp/ccVmoTNI.s:818    .data.cp_iv:0000000000000000 cp_iv
+     /tmp/ccVmoTNI.s:824    .data.cp_key:0000000000000000 $d
+     /tmp/ccVmoTNI.s:828    .data.cp_key:0000000000000000 cp_key
+     /tmp/ccVmoTNI.s:840    .data.rx_resp_msg:0000000000000000 $d
+     /tmp/ccVmoTNI.s:844    .data.rx_resp_msg:0000000000000000 rx_resp_msg
+     /tmp/ccVmoTNI.s:847    .data.tx_final_msg:0000000000000000 $d
+     /tmp/ccVmoTNI.s:851    .data.tx_final_msg:0000000000000000 tx_final_msg
+     /tmp/ccVmoTNI.s:855    .data.tx_poll_msg:0000000000000000 $d
+     /tmp/ccVmoTNI.s:859    .data.tx_poll_msg:0000000000000000 tx_poll_msg
 
 UNDEFINED SYMBOLS
 dwt_write32bitoffsetreg
@@ -1785,11 +1666,11 @@ dwt_setpanid
 dwt_setaddress16
 dwt_setrxantennadelay
 dwt_settxantennadelay
-ARM GAS  /tmp/cc7sAMpK.s 			page 31
-
-
 dwt_setrxaftertxdelay
 dwt_setrxtimeout
+ARM GAS  /tmp/ccVmoTNI.s 			page 29
+
+
 set_resp_rx_timeout
 time
 srand
@@ -1802,10 +1683,10 @@ get_tx_timestamp_u64
 get_rx_timestamp_u64
 dwt_setdelayedtrxtime
 final_msg_set_ts
-config_options
-txconfig_options_ch9
-txconfig_options
 rand
 Sleep
 dwt_configurestskey
 dwt_configurestsiv
+config_options
+txconfig_options_ch9
+txconfig_options

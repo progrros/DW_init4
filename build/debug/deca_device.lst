@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccJEKt3H.s 			page 1
+ARM GAS  /tmp/ccsW6mUR.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
   29:Core/Src/deca_device.c **** To adjust the STS_MNTH following formula can be used: STS_MNTH = SQRT(X/Y)*default_STS_MNTH
   30:Core/Src/deca_device.c **** default_STS_MNTH is 0x10
   31:Core/Src/deca_device.c **** X is the length of the STS in units of 8 (i.e. 8 for 64 length, 16 for 128 length etc.)
-ARM GAS  /tmp/ccJEKt3H.s 			page 2
+ARM GAS  /tmp/ccsW6mUR.s 			page 2
 
 
   32:Core/Src/deca_device.c **** Y is either 8 or 16, 8 when no PDOA or PDOA mode 1 and 16 for PDOA mode 3
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
   86:Core/Src/deca_device.c **** 
   87:Core/Src/deca_device.c **** // Defines for enable_clocks function
   88:Core/Src/deca_device.c **** #define FORCE_CLK_SYS_TX        (1)
-ARM GAS  /tmp/ccJEKt3H.s 			page 3
+ARM GAS  /tmp/ccsW6mUR.s 			page 3
 
 
   89:Core/Src/deca_device.c **** #define FORCE_CLK_AUTO          (5)
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  143:Core/Src/deca_device.c **** static dwt_local_data_t *pdw3000local = &DW3000local[0];   // Local data structure pointer
  144:Core/Src/deca_device.c **** static uint8_t crcTable[256];
  145:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 4
+ARM GAS  /tmp/ccsW6mUR.s 			page 4
 
 
  146:Core/Src/deca_device.c **** /*! -----------------------------------------------------------------------------------------------
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  200:Core/Src/deca_device.c ****     const uint16_t    length,
  201:Core/Src/deca_device.c ****     uint8_t           *buffer,
  202:Core/Src/deca_device.c ****     const spi_modes_e mode
-ARM GAS  /tmp/ccJEKt3H.s 			page 5
+ARM GAS  /tmp/ccsW6mUR.s 			page 5
 
 
  203:Core/Src/deca_device.c **** )
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  257:Core/Src/deca_device.c ****     case    DW3000_SPI_AND_OR_32:
  258:Core/Src/deca_device.c ****     case    DW3000_SPI_WR_BIT:
  259:Core/Src/deca_device.c ****     {
-ARM GAS  /tmp/ccJEKt3H.s 			page 6
+ARM GAS  /tmp/ccsW6mUR.s 			page 6
 
 
  260:Core/Src/deca_device.c ****         uint8_t crc8 = 0;
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  314:Core/Src/deca_device.c ****  * input parameters:
  315:Core/Src/deca_device.c ****  * @param recordNumber  - ID of register file or buffer being accessed
  316:Core/Src/deca_device.c ****  * @param index         - byte index into register file or buffer being accessed
-ARM GAS  /tmp/ccJEKt3H.s 			page 7
+ARM GAS  /tmp/ccsW6mUR.s 			page 7
 
 
  317:Core/Src/deca_device.c ****  * @param length        - number of bytes being written
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  371:Core/Src/deca_device.c **** )
  372:Core/Src/deca_device.c **** {
  373:Core/Src/deca_device.c ****     dwt_xfer3000(regFileID, index, length, buffer, DW3000_SPI_RD_BIT);
-ARM GAS  /tmp/ccJEKt3H.s 			page 8
+ARM GAS  /tmp/ccsW6mUR.s 			page 8
 
 
  374:Core/Src/deca_device.c **** }
@@ -478,7 +478,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  428:Core/Src/deca_device.c ****  * @brief  this function is used to read an 8-bit value from the DW3000 device registers
  429:Core/Src/deca_device.c ****  *
  430:Core/Src/deca_device.c ****  * input parameters:
-ARM GAS  /tmp/ccJEKt3H.s 			page 9
+ARM GAS  /tmp/ccsW6mUR.s 			page 9
 
 
  431:Core/Src/deca_device.c ****  * @param regFileID - ID of register file or buffer being accessed
@@ -538,7 +538,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  485:Core/Src/deca_device.c **** void dwt_write16bitoffsetreg(int regFileID, int regOffset, uint16_t regval)
  486:Core/Src/deca_device.c **** {
  487:Core/Src/deca_device.c ****     uint8_t   buffer[2] ;
-ARM GAS  /tmp/ccJEKt3H.s 			page 10
+ARM GAS  /tmp/ccsW6mUR.s 			page 10
 
 
  488:Core/Src/deca_device.c **** 
@@ -598,7 +598,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  542:Core/Src/deca_device.c ****  * @param regFileID :   ID of register file or buffer being accessed
  543:Core/Src/deca_device.c ****  * @param regOffset :   the index into register file or buffer being accessed
  544:Core/Src/deca_device.c ****  * @param regval_and:   the value to AND to register
-ARM GAS  /tmp/ccJEKt3H.s 			page 11
+ARM GAS  /tmp/ccsW6mUR.s 			page 11
 
 
  545:Core/Src/deca_device.c ****  * @param regval_or :   the value to OR to register
@@ -658,7 +658,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
   41              	.LVL1:
   42              	.L4:
   43              	.LBB2:
-ARM GAS  /tmp/ccJEKt3H.s 			page 12
+ARM GAS  /tmp/ccsW6mUR.s 			page 12
 
 
  586:Core/Src/deca_device.c ****     {
@@ -718,7 +718,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
   69              	.LVL6:
  602:Core/Src/deca_device.c ****             }
   70              		.loc 1 602 46 view .LVU17
-ARM GAS  /tmp/ccJEKt3H.s 			page 13
+ARM GAS  /tmp/ccsW6mUR.s 			page 13
 
 
   71 0016 83F00703 		eor	r3, r3, #7
@@ -778,7 +778,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  106              	.L9:
  595:Core/Src/deca_device.c ****         {
  107              		.loc 1 595 9 view .LVU33
-ARM GAS  /tmp/ccJEKt3H.s 			page 14
+ARM GAS  /tmp/ccsW6mUR.s 			page 14
 
 
  108              	.LBE3:
@@ -838,7 +838,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  650:Core/Src/deca_device.c **** 
  651:Core/Src/deca_device.c **** /*! -----------------------------------------------------------------------------------------------
  652:Core/Src/deca_device.c **** * @brief This is used to enable SPI CRC check in DW3000
-ARM GAS  /tmp/ccJEKt3H.s 			page 15
+ARM GAS  /tmp/ccsW6mUR.s 			page 15
 
 
  653:Core/Src/deca_device.c **** *
@@ -898,7 +898,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  707:Core/Src/deca_device.c ****     /* Restore OPS table config and kick. */
  708:Core/Src/deca_device.c ****     /* Correct sleep mode should be set by dwt_configure() */
  709:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 16
+ARM GAS  /tmp/ccsW6mUR.s 			page 16
 
 
  710:Core/Src/deca_device.c ****     /* Using the mask of all available OPS table options, check for OPS table options in the sleep 
@@ -958,7 +958,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  764:Core/Src/deca_device.c ****  * input parameters
  765:Core/Src/deca_device.c ****  * @param mode - mask which defines which OTP values to read.
  766:Core/Src/deca_device.c ****  *
-ARM GAS  /tmp/ccJEKt3H.s 			page 17
+ARM GAS  /tmp/ccsW6mUR.s 			page 17
 
 
  767:Core/Src/deca_device.c ****  * output parameters
@@ -1018,7 +1018,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  821:Core/Src/deca_device.c ****     if (mode & DWT_READ_OTP_LID)
  822:Core/Src/deca_device.c ****         pdw3000local->lotID = _dwt_otpread(LOTID_ADDRESS);
  823:Core/Src/deca_device.c ****     if (mode & DWT_READ_OTP_BAT)
-ARM GAS  /tmp/ccJEKt3H.s 			page 18
+ARM GAS  /tmp/ccsW6mUR.s 			page 18
 
 
  824:Core/Src/deca_device.c ****         pdw3000local->vBatP = (uint8_t)_dwt_otpread(VBAT_ADDRESS);
@@ -1078,7 +1078,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  878:Core/Src/deca_device.c ****         dwt_modify32bitoffsetreg(SEQ_CTRL_ID, 0x0, (uint32_t) ~SEQ_CTRL_AINIT2IDLE_BIT_MASK, SEQ_CT
  879:Core/Src/deca_device.c ****         //clear force bits (device will stay in IDLE_RC)
  880:Core/Src/deca_device.c ****         dwt_and8bitoffsetreg(SEQ_CTRL_ID, 0x2, (uint8_t) ~(SEQ_CTRL_FORCE2INIT_BIT_MASK>>16));
-ARM GAS  /tmp/ccJEKt3H.s 			page 19
+ARM GAS  /tmp/ccsW6mUR.s 			page 19
 
 
  881:Core/Src/deca_device.c ****         //switch clock to auto
@@ -1138,7 +1138,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  935:Core/Src/deca_device.c **** {
  936:Core/Src/deca_device.c ****     if (enable)
  937:Core/Src/deca_device.c ****     {
-ARM GAS  /tmp/ccJEKt3H.s 			page 20
+ARM GAS  /tmp/ccsW6mUR.s 			page 20
 
 
  938:Core/Src/deca_device.c ****         dwt_write32bitoffsetreg(PWR_UP_TIMES_LO_ID, 2, PMSC_TXFINESEQ_ENABLE);
@@ -1198,7 +1198,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  992:Core/Src/deca_device.c **** {
  993:Core/Src/deca_device.c ****     return dwt_read8bitoffsetreg(TX_CTRL_HI_ID, 0);
  994:Core/Src/deca_device.c **** }
-ARM GAS  /tmp/ccJEKt3H.s 			page 21
+ARM GAS  /tmp/ccsW6mUR.s 			page 21
 
 
  995:Core/Src/deca_device.c **** 
@@ -1258,7 +1258,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1049:Core/Src/deca_device.c ****  * input parameters
 1050:Core/Src/deca_device.c ****  *
 1051:Core/Src/deca_device.c ****  * output parameters
-ARM GAS  /tmp/ccJEKt3H.s 			page 22
+ARM GAS  /tmp/ccsW6mUR.s 			page 22
 
 
 1052:Core/Src/deca_device.c ****  *
@@ -1318,7 +1318,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1106:Core/Src/deca_device.c **** 
 1107:Core/Src/deca_device.c **** /*! -----------------------------------------------------------------------------------------------
 1108:Core/Src/deca_device.c ****  * @brief This function configures the STS AES 128 bit key value.
-ARM GAS  /tmp/ccJEKt3H.s 			page 23
+ARM GAS  /tmp/ccsW6mUR.s 			page 23
 
 
 1109:Core/Src/deca_device.c ****  * the default value is [31:00]c9a375fa,
@@ -1378,7 +1378,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1163:Core/Src/deca_device.c **** {
  128              		.loc 1 1163 1 is_stmt 1 view -0
  129              		.cfi_startproc
-ARM GAS  /tmp/ccJEKt3H.s 			page 24
+ARM GAS  /tmp/ccsW6mUR.s 			page 24
 
 
  130              		@ args = 0, pretend = 0, frame = 0
@@ -1438,7 +1438,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  166 001a 80B2     		uxth	r0, r0
  167              	.LVL18:
  168              		.loc 1 1181 1 view .LVU53
-ARM GAS  /tmp/ccJEKt3H.s 			page 25
+ARM GAS  /tmp/ccsW6mUR.s 			page 25
 
 
  169 001c 7047     		bx	lr
@@ -1498,7 +1498,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  218              	dwt_setlocaldataptr:
  219              	.LVL23:
  220              	.LFB1:
-ARM GAS  /tmp/ccJEKt3H.s 			page 26
+ARM GAS  /tmp/ccsW6mUR.s 			page 26
 
 
  171:Core/Src/deca_device.c ****     // Check the index is within the array bounds
@@ -1558,7 +1558,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  266              		@ frame_needed = 0, uses_anonymous_args = 0
  267 0000 08B5     		push	{r3, lr}
  268              		.cfi_def_cfa_offset 8
-ARM GAS  /tmp/ccJEKt3H.s 			page 27
+ARM GAS  /tmp/ccsW6mUR.s 			page 27
 
 
  269              		.cfi_offset 3, -8
@@ -1618,7 +1618,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  313              		.loc 1 641 14 discriminator 3 view .LVU85
  314 000e 8CEA000C 		eor	ip, ip, r0
  315              	.LVL29:
-ARM GAS  /tmp/ccJEKt3H.s 			page 28
+ARM GAS  /tmp/ccsW6mUR.s 			page 28
 
 
  642:Core/Src/deca_device.c ****     }
@@ -1678,7 +1678,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  349      57333030 
  350 008e 305F5350 		.ascii	"0_SPI_AND_OR_16 || mode == DW3000_SPI_AND_OR_32\000"
  350      495F414E 
-ARM GAS  /tmp/ccJEKt3H.s 			page 29
+ARM GAS  /tmp/ccsW6mUR.s 			page 29
 
 
  350      445F4F52 
@@ -1738,7 +1738,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  209:Core/Src/deca_device.c **** 
  392              		.loc 1 209 5 is_stmt 1 view .LVU100
  209:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 30
+ARM GAS  /tmp/ccsW6mUR.s 			page 30
 
 
  393              		.loc 1 209 48 is_stmt 0 view .LVU101
@@ -1798,7 +1798,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  432              		.loc 1 224 5 is_stmt 1 view .LVU116
  224:Core/Src/deca_device.c ****     header[1] = (uint8_t)(addr | (mode & 0x03));// & 0xFF; //EAM: subaddr[5:0]+ R/W/AND_OR
  433              		.loc 1 224 17 is_stmt 0 view .LVU117
-ARM GAS  /tmp/ccJEKt3H.s 			page 31
+ARM GAS  /tmp/ccsW6mUR.s 			page 31
 
 
  434 0048 1143     		orrs	r1, r1, r2
@@ -1858,7 +1858,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  260:Core/Src/deca_device.c ****         if (pdw3000local->spicrc != DWT_SPI_CRC_MODE_NO)
  473              		.loc 1 260 9 view .LVU133
  474              	.LVL43:
-ARM GAS  /tmp/ccJEKt3H.s 			page 32
+ARM GAS  /tmp/ccsW6mUR.s 			page 32
 
 
  261:Core/Src/deca_device.c ****         {
@@ -1918,7 +1918,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  516              		.loc 1 213 5 discriminator 1 view .LVU146
  517 00ac 294A     		ldr	r2, .L48+8
  518 00ae D521     		movs	r1, #213
-ARM GAS  /tmp/ccJEKt3H.s 			page 33
+ARM GAS  /tmp/ccsW6mUR.s 			page 33
 
 
  519              	.LVL51:
@@ -1978,7 +1978,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  560              		.loc 1 250 13 is_stmt 0 view .LVU159
  561 00e0 0227     		movs	r7, #2
  562 00e2 C6E7     		b	.L35
-ARM GAS  /tmp/ccJEKt3H.s 			page 34
+ARM GAS  /tmp/ccsW6mUR.s 			page 34
 
 
  563              	.LVL58:
@@ -2038,7 +2038,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  608 0112 F0BD     		pop	{r4, r5, r6, r7, pc}
  609              	.LVL63:
  610              	.L47:
-ARM GAS  /tmp/ccJEKt3H.s 			page 35
+ARM GAS  /tmp/ccsW6mUR.s 			page 35
 
 
  611              		.cfi_restore_state
@@ -2098,7 +2098,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  651 0140 002B     		cmp	r3, #0
  652 0142 E5D0     		beq	.L30
  298:Core/Src/deca_device.c ****                 }
-ARM GAS  /tmp/ccJEKt3H.s 			page 36
+ARM GAS  /tmp/ccsW6mUR.s 			page 36
 
 
  653              		.loc 1 298 25 is_stmt 1 view .LVU183
@@ -2158,7 +2158,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  701 0004 4FF40044 		mov	r4, #32768
  702 0008 0094     		str	r4, [sp]
  703 000a FFF7FEFF 		bl	dwt_xfer3000
-ARM GAS  /tmp/ccJEKt3H.s 			page 37
+ARM GAS  /tmp/ccsW6mUR.s 			page 37
 
 
  704              	.LVL72:
@@ -2218,7 +2218,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  749              		.loc 1 467 9 is_stmt 1 discriminator 3 view .LVU202
  467:Core/Src/deca_device.c ****     }
  750              		.loc 1 467 16 is_stmt 0 discriminator 3 view .LVU203
-ARM GAS  /tmp/ccJEKt3H.s 			page 38
+ARM GAS  /tmp/ccsW6mUR.s 			page 38
 
 
  751 0012 120A     		lsrs	r2, r2, #8
@@ -2278,7 +2278,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1189:Core/Src/deca_device.c ****  * no return value
 1190:Core/Src/deca_device.c ****  */
 1191:Core/Src/deca_device.c **** void dwt_configmrxlut(int channel)
-ARM GAS  /tmp/ccJEKt3H.s 			page 39
+ARM GAS  /tmp/ccsW6mUR.s 			page 39
 
 
 1192:Core/Src/deca_device.c **** {
@@ -2338,7 +2338,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1246:Core/Src/deca_device.c ****      * Indirect access register B is configured to point to the "Double buffer diagnostic SET 2"*/
 1247:Core/Src/deca_device.c ****     dwt_write32bitreg(INDIRECT_ADDR_B_ID, (BUF1_RX_FINFO >> 16));
 1248:Core/Src/deca_device.c ****     dwt_write32bitreg(ADDR_OFFSET_B_ID, BUF1_RX_FINFO & 0xffff);
-ARM GAS  /tmp/ccJEKt3H.s 			page 40
+ARM GAS  /tmp/ccsW6mUR.s 			page 40
 
 
 1249:Core/Src/deca_device.c **** 
@@ -2398,7 +2398,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1303:Core/Src/deca_device.c ****     else
 1304:Core/Src/deca_device.c ****     {
 1305:Core/Src/deca_device.c ****         dwt_write32bitoffsetreg(DTUNE3_ID, 0, PD_THRESH_DEFAULT);
-ARM GAS  /tmp/ccJEKt3H.s 			page 41
+ARM GAS  /tmp/ccsW6mUR.s 			page 41
 
 
 1306:Core/Src/deca_device.c ****     }
@@ -2458,7 +2458,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1360:Core/Src/deca_device.c ****     case DWT_PLEN_64:
 1361:Core/Src/deca_device.c ****         preamble_len = 64;
 1362:Core/Src/deca_device.c ****         break;
-ARM GAS  /tmp/ccJEKt3H.s 			page 42
+ARM GAS  /tmp/ccsW6mUR.s 			page 42
 
 
 1363:Core/Src/deca_device.c ****     case DWT_PLEN_72:
@@ -2518,7 +2518,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1417:Core/Src/deca_device.c ****                 //In PDOA mode 3 number of accumulated symbols is half of the length of STS symbols
 1418:Core/Src/deca_device.c ****                 sts_mnth=get_sts_mnth(sts_length_factors[(uint8_t)(config->stsLength)], CIA_MANUALL
 1419:Core/Src/deca_device.c ****             }
-ARM GAS  /tmp/ccJEKt3H.s 			page 43
+ARM GAS  /tmp/ccsW6mUR.s 			page 43
 
 
 1420:Core/Src/deca_device.c **** 
@@ -2578,7 +2578,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1474:Core/Src/deca_device.c **** 
 1475:Core/Src/deca_device.c ****     dwt_write32bitoffsetreg(CHAN_CTRL_ID, 0, temp);
 1476:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 44
+ARM GAS  /tmp/ccsW6mUR.s 			page 44
 
 
 1477:Core/Src/deca_device.c ****     /////////////////////////////////////////////////////////////////////////
@@ -2638,7 +2638,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1531:Core/Src/deca_device.c ****     if (flag)
 1532:Core/Src/deca_device.c ****     {
 1533:Core/Src/deca_device.c ****         return  DWT_ERROR;
-ARM GAS  /tmp/ccJEKt3H.s 			page 45
+ARM GAS  /tmp/ccsW6mUR.s 			page 45
 
 
 1534:Core/Src/deca_device.c ****     }
@@ -2698,7 +2698,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1588:Core/Src/deca_device.c ****             LDO_CTRL_LDO_VDDMS1_EN_BIT_MASK));
 1589:Core/Src/deca_device.c ****     }
 1590:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 46
+ARM GAS  /tmp/ccsW6mUR.s 			page 46
 
 
 1591:Core/Src/deca_device.c ****     //Run PGF Cal
@@ -2758,7 +2758,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1645:Core/Src/deca_device.c ****         //PGF I Cal Fail
 1646:Core/Src/deca_device.c ****         result = DWT_ERROR;
 1647:Core/Src/deca_device.c ****     }
-ARM GAS  /tmp/ccJEKt3H.s 			page 47
+ARM GAS  /tmp/ccsW6mUR.s 			page 47
 
 
 1648:Core/Src/deca_device.c ****     val = dwt_read32bitoffsetreg(RX_CAL_RESQ_ID, 0x0);
@@ -2818,7 +2818,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1702:Core/Src/deca_device.c ****  *                         if > 127 is programmed, DWT_PHRMODE_EXT needs to be set in the phrMode c
 1703:Core/Src/deca_device.c ****  *                         see dwt_configure function
 1704:Core/Src/deca_device.c ****  * @param txDataBytes    - Pointer to the user�s buffer containing the data to send.
-ARM GAS  /tmp/ccJEKt3H.s 			page 48
+ARM GAS  /tmp/ccsW6mUR.s 			page 48
 
 
 1705:Core/Src/deca_device.c ****  * @param txBufferOffset - This specifies an offset in the DW IC�s TX Buffer at which to start wr
@@ -2878,7 +2878,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1759:Core/Src/deca_device.c **** #ifdef DWT_API_ERROR_CHECK
 1760:Core/Src/deca_device.c ****     assert((pdw3000local->longFrames && (txFrameLength <= EXT_FRAME_LEN)) ||\
 1761:Core/Src/deca_device.c ****            (txFrameLength <= STD_FRAME_LEN));
-ARM GAS  /tmp/ccJEKt3H.s 			page 49
+ARM GAS  /tmp/ccsW6mUR.s 			page 49
 
 
 1762:Core/Src/deca_device.c **** #endif
@@ -2938,7 +2938,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1816:Core/Src/deca_device.c ****     dwt_readfromdevice(SCRATCH_RAM_ID,rxBufferOffset,length,buffer);
 1817:Core/Src/deca_device.c **** }
 1818:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 50
+ARM GAS  /tmp/ccsW6mUR.s 			page 50
 
 
 1819:Core/Src/deca_device.c **** /*! -----------------------------------------------------------------------------------------------
@@ -2998,7 +2998,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1873:Core/Src/deca_device.c ****  * @param length - the length of data to read (in bytes)
 1874:Core/Src/deca_device.c ****  * @param accOffset - the offset in the acc buffer from which to read the data, this is a complex s
 1875:Core/Src/deca_device.c ****  *                    e.g. to read 10 samples starting at sample 100
-ARM GAS  /tmp/ccJEKt3H.s 			page 51
+ARM GAS  /tmp/ccsW6mUR.s 			page 51
 
 
 1876:Core/Src/deca_device.c ****  *                    buffer would need to be >= 10*6 + 1, length is 61 (1 is for dummy), accOffset
@@ -3058,7 +3058,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1930:Core/Src/deca_device.c ****         regval = dwt_read16bitoffsetreg(INDIRECT_POINTER_B_ID, (BUF1_CIA_DIAG_0-BUF1_RX_FINFO)) & C
 1931:Core/Src/deca_device.c ****         break;
 1932:Core/Src/deca_device.c ****     case DBL_BUFF_ACCESS_BUFFER_0:
-ARM GAS  /tmp/ccJEKt3H.s 			page 52
+ARM GAS  /tmp/ccsW6mUR.s 			page 52
 
 
 1933:Core/Src/deca_device.c ****         regval = dwt_read16bitoffsetreg(BUF0_CIA_DIAG_0, 0) & CIA_DIAG_0_COE_PPM_BIT_MASK;
@@ -3118,7 +3118,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1987:Core/Src/deca_device.c ****  *
 1988:Core/Src/deca_device.c ****  * output parameters
 1989:Core/Src/deca_device.c ****  * return value - >=0 for good and < 0 if bad STS quality.
-ARM GAS  /tmp/ccJEKt3H.s 			page 53
+ARM GAS  /tmp/ccsW6mUR.s 			page 53
 
 
 1990:Core/Src/deca_device.c ****  *
@@ -3178,7 +3178,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2044:Core/Src/deca_device.c **** 
 2045:Core/Src/deca_device.c ****     return ret;
 2046:Core/Src/deca_device.c **** }
-ARM GAS  /tmp/ccJEKt3H.s 			page 54
+ARM GAS  /tmp/ccsW6mUR.s 			page 54
 
 
 2047:Core/Src/deca_device.c **** /*! -----------------------------------------------------------------------------------------------
@@ -3238,7 +3238,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2101:Core/Src/deca_device.c ****             {
 2102:Core/Src/deca_device.c ****                 dwt_readfromdevice(INDIRECT_POINTER_B_ID, 0, DB_MID_DIAG_SIZE, temp);
 2103:Core/Src/deca_device.c ****             }
-ARM GAS  /tmp/ccJEKt3H.s 			page 55
+ARM GAS  /tmp/ccsW6mUR.s 			page 55
 
 
 2104:Core/Src/deca_device.c ****             else
@@ -3298,7 +3298,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2158:Core/Src/deca_device.c ****         diagnostics->ciaDiag1 = ((uint32_t)temp[BUF0_CIA_DIAG_1 - BUF0_RX_FINFO + 3] << 24 | (uint3
 2159:Core/Src/deca_device.c ****             | (uint32_t)temp[BUF0_CIA_DIAG_1 - BUF0_RX_FINFO + 1] << 8 | (uint32_t)temp[BUF0_CIA_DI
 2160:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 56
+ARM GAS  /tmp/ccsW6mUR.s 			page 56
 
 
 2161:Core/Src/deca_device.c ****                                                                                                    
@@ -3358,7 +3358,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2215:Core/Src/deca_device.c **** 
 2216:Core/Src/deca_device.c ****         for (i = 0; i < CIA_I_RX_TIME_LEN; i++)
 2217:Core/Src/deca_device.c ****         {
-ARM GAS  /tmp/ccJEKt3H.s 			page 57
+ARM GAS  /tmp/ccsW6mUR.s 			page 57
 
 
 2218:Core/Src/deca_device.c ****             diagnostics->ipatovRxTime[i] = temp[i];                                 // RX timestamp
@@ -3418,7 +3418,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2272:Core/Src/deca_device.c ****             | (uint32_t)temp[STS_DIAG_4_ID - STS_DIAG_4_ID + offset_0xd + 1] << 8 | (uint32_t)temp[
 2273:Core/Src/deca_device.c ****         diagnostics->stsFpIndex = ((uint16_t)temp[STS_DIAG_8_ID - STS_DIAG_4_ID + offset_0xd + 1] <
 2274:Core/Src/deca_device.c ****         diagnostics->stsAccumCount = ((uint16_t)temp[STS_DIAG_12_ID - STS_DIAG_4_ID + offset_0xd + 
-ARM GAS  /tmp/ccJEKt3H.s 			page 58
+ARM GAS  /tmp/ccsW6mUR.s 			page 58
 
 
 2275:Core/Src/deca_device.c **** 
@@ -3478,7 +3478,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2329:Core/Src/deca_device.c ****  */
 2330:Core/Src/deca_device.c **** uint32_t dwt_readtxtimestamplo32(void)
 2331:Core/Src/deca_device.c **** {
-ARM GAS  /tmp/ccJEKt3H.s 			page 59
+ARM GAS  /tmp/ccsW6mUR.s 			page 59
 
 
 2332:Core/Src/deca_device.c ****     return dwt_read32bitreg(TX_TIME_LO_ID); // Read TX TIME as a 32-bit register to get the 4 lower
@@ -3538,7 +3538,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2386:Core/Src/deca_device.c ****     tdoa[5] &= 0x01; // TDOA value is 41 bits long. You will need to read 6 bytes and mask the high
 2387:Core/Src/deca_device.c **** }
 2388:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 60
+ARM GAS  /tmp/ccsW6mUR.s 			page 60
 
 
 2389:Core/Src/deca_device.c **** /*! -----------------------------------------------------------------------------------------------
@@ -3598,7 +3598,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2443:Core/Src/deca_device.c **** {
 2444:Core/Src/deca_device.c ****     switch (pdw3000local->dblbuffon)    //check if in double buffer mode and if so which buffer hos
 2445:Core/Src/deca_device.c ****     {
-ARM GAS  /tmp/ccJEKt3H.s 			page 61
+ARM GAS  /tmp/ccsW6mUR.s 			page 61
 
 
 2446:Core/Src/deca_device.c ****     case DBL_BUFF_ACCESS_BUFFER_1:
@@ -3658,7 +3658,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2500:Core/Src/deca_device.c **** /*! -----------------------------------------------------------------------------------------------
 2501:Core/Src/deca_device.c ****  * @brief This is used to read the low 32-bits of the RX timestamp (adjusted with the programmed an
 2502:Core/Src/deca_device.c ****  *
-ARM GAS  /tmp/ccJEKt3H.s 			page 62
+ARM GAS  /tmp/ccsW6mUR.s 			page 62
 
 
 2503:Core/Src/deca_device.c ****  * input parameters
@@ -3718,7 +3718,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2557:Core/Src/deca_device.c ****  *       DWT_FF_RSVD_EN              0x010           // reserved frame types allowed
 2558:Core/Src/deca_device.c ****  *       DWT_FF_MULTI_EN             0x020           // multipurpose frames allowed
 2559:Core/Src/deca_device.c ****  *       DWT_FF_FRAG_EN              0x040           // fragmented frame types allowed
-ARM GAS  /tmp/ccJEKt3H.s 			page 63
+ARM GAS  /tmp/ccsW6mUR.s 			page 63
 
 
 2560:Core/Src/deca_device.c ****  *       DWT_FF_EXTEND_EN            0x080           // extended frame types allowed
@@ -3778,7 +3778,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2614:Core/Src/deca_device.c ****  */
 2615:Core/Src/deca_device.c **** void dwt_setaddress16(uint16_t shortAddress)
 2616:Core/Src/deca_device.c **** {
-ARM GAS  /tmp/ccJEKt3H.s 			page 64
+ARM GAS  /tmp/ccsW6mUR.s 			page 64
 
 
 2617:Core/Src/deca_device.c ****     // Short address into low 16 bits
@@ -3838,7 +3838,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2671:Core/Src/deca_device.c **** *
 2672:Core/Src/deca_device.c **** * @param aon_address - this is the address of the memory location to write
 2673:Core/Src/deca_device.c **** * @param aon_write_data - this is the data to write
-ARM GAS  /tmp/ccJEKt3H.s 			page 65
+ARM GAS  /tmp/ccsW6mUR.s 			page 65
 
 
 2674:Core/Src/deca_device.c **** *
@@ -3898,7 +3898,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2728:Core/Src/deca_device.c ****     // Set manual access mode
 2729:Core/Src/deca_device.c ****     dwt_write16bitoffsetreg(OTP_CFG_ID, 0, 0x0001);
 2730:Core/Src/deca_device.c ****     // set the address
-ARM GAS  /tmp/ccJEKt3H.s 			page 66
+ARM GAS  /tmp/ccsW6mUR.s 			page 66
 
 
 2731:Core/Src/deca_device.c ****     dwt_write16bitoffsetreg(OTP_ADDR_ID, 0, address);
@@ -3958,7 +3958,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2785:Core/Src/deca_device.c ****     __dwt_otp_write_wdata_id_reg(0x0002);
 2786:Core/Src/deca_device.c ****     __dwt_otp_write_wdata_id_reg(0x01fc);
 2787:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 67
+ARM GAS  /tmp/ccsW6mUR.s 			page 67
 
 
 2788:Core/Src/deca_device.c ****     // Now sending the OTP address data (2 bytes)
@@ -4018,7 +4018,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2842:Core/Src/deca_device.c ****     */
 2843:Core/Src/deca_device.c **** 
 2844:Core/Src/deca_device.c ****     /*uint16_t	i;
-ARM GAS  /tmp/ccJEKt3H.s 			page 68
+ARM GAS  /tmp/ccsW6mUR.s 			page 68
 
 
 2845:Core/Src/deca_device.c **** 
@@ -4078,7 +4078,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2899:Core/Src/deca_device.c **** /*! -----------------------------------------------------------------------------------------------
 2900:Core/Src/deca_device.c ****  * @brief This function puts the device into deep sleep or sleep. dwt_configuresleep() should be ca
 2901:Core/Src/deca_device.c ****  * to configure the sleep and on-wake/wake-up parameters
-ARM GAS  /tmp/ccJEKt3H.s 			page 69
+ARM GAS  /tmp/ccsW6mUR.s 			page 69
 
 
 2902:Core/Src/deca_device.c ****  *
@@ -4138,7 +4138,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2956:Core/Src/deca_device.c **** {
 2957:Core/Src/deca_device.c ****     uint16_t temp = 0;
 2958:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 70
+ARM GAS  /tmp/ccsW6mUR.s 			page 70
 
 
 2959:Core/Src/deca_device.c ****     // Enable VDDPLL for reference clock
@@ -4198,7 +4198,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3013:Core/Src/deca_device.c **** void dwt_configuresleep(uint16_t mode, uint8_t wake)
 3014:Core/Src/deca_device.c **** {
 3015:Core/Src/deca_device.c ****     // Add predefined sleep settings before writing the mode
-ARM GAS  /tmp/ccJEKt3H.s 			page 71
+ARM GAS  /tmp/ccsW6mUR.s 			page 71
 
 
 3016:Core/Src/deca_device.c ****     pdw3000local->sleep_mode |= mode;
@@ -4258,7 +4258,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3070:Core/Src/deca_device.c **** /*! -----------------------------------------------------------------------------------------------
 3071:Core/Src/deca_device.c ****  * @brief this reads the device ID and checks if it is the right one
 3072:Core/Src/deca_device.c ****  *
-ARM GAS  /tmp/ccJEKt3H.s 			page 72
+ARM GAS  /tmp/ccsW6mUR.s 			page 72
 
 
 3073:Core/Src/deca_device.c ****  * input parameters
@@ -4318,7 +4318,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3127:Core/Src/deca_device.c ****  * NOTE: needs to have frame filtering enabled as well
 3128:Core/Src/deca_device.c ****  *
 3129:Core/Src/deca_device.c ****  * input parameters
-ARM GAS  /tmp/ccJEKt3H.s 			page 73
+ARM GAS  /tmp/ccsW6mUR.s 			page 73
 
 
 3130:Core/Src/deca_device.c ****  * @param responseDelayTime - if non-zero the ACK is sent after this delay, max is 255.
@@ -4378,7 +4378,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3184:Core/Src/deca_device.c ****  * @param dbl_buff_mode - enum variable for Receiver Auto-Re-enable
 3185:Core/Src/deca_device.c ****  *
 3186:Core/Src/deca_device.c ****  * output parameters
-ARM GAS  /tmp/ccJEKt3H.s 			page 74
+ARM GAS  /tmp/ccsW6mUR.s 			page 74
 
 
 3187:Core/Src/deca_device.c ****  *
@@ -4438,7 +4438,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3241:Core/Src/deca_device.c **** 
 3242:Core/Src/deca_device.c **** /*! -----------------------------------------------------------------------------------------------
 3243:Core/Src/deca_device.c ****  * @brief This function is used to register the different callbacks called when one of the correspo
-ARM GAS  /tmp/ccJEKt3H.s 			page 75
+ARM GAS  /tmp/ccsW6mUR.s 			page 75
 
 
 3244:Core/Src/deca_device.c ****  *
@@ -4498,7 +4498,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3298:Core/Src/deca_device.c ****     uint32_t reg = ((uint32_t)dwt_read16bitoffsetreg(SYS_STATUS_ID, 2) << 16);
 3299:Core/Src/deca_device.c ****     return ( (reg & (SYS_STATUS_RCINIT_BIT_MASK)) == (SYS_STATUS_RCINIT_BIT_MASK));
 3300:Core/Src/deca_device.c **** }
-ARM GAS  /tmp/ccJEKt3H.s 			page 76
+ARM GAS  /tmp/ccsW6mUR.s 			page 76
 
 
 3301:Core/Src/deca_device.c **** 
@@ -4558,7 +4558,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3355:Core/Src/deca_device.c ****             dwt_write16bitoffsetreg(SYS_STATUS_HI_ID, 0, (SYS_STATUS_HI_SPIERR_BIT_MASK | SYS_STATU
 3356:Core/Src/deca_device.c ****             // Call the corresponding callback if present
 3357:Core/Src/deca_device.c ****             if(pdw3000local->cbSPIErr != NULL)
-ARM GAS  /tmp/ccJEKt3H.s 			page 77
+ARM GAS  /tmp/ccsW6mUR.s 			page 77
 
 
 3358:Core/Src/deca_device.c ****             {
@@ -4618,7 +4618,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3412:Core/Src/deca_device.c ****         uint32_t cia_err = 0;
 3413:Core/Src/deca_device.c ****         
 3414:Core/Src/deca_device.c ****         pdw3000local->cbData.rx_flags = 0;
-ARM GAS  /tmp/ccJEKt3H.s 			page 78
+ARM GAS  /tmp/ccsW6mUR.s 			page 78
 
 
 3415:Core/Src/deca_device.c **** 
@@ -4678,7 +4678,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3469:Core/Src/deca_device.c ****             // Read frame info - Only the first two bytes of the register are used here.
 3470:Core/Src/deca_device.c ****             switch (pdw3000local->dblbuffon)  //check if in double buffer mode and if so which buff
 3471:Core/Src/deca_device.c ****             {
-ARM GAS  /tmp/ccJEKt3H.s 			page 79
+ARM GAS  /tmp/ccsW6mUR.s 			page 79
 
 
 3472:Core/Src/deca_device.c ****             case DBL_BUFF_ACCESS_BUFFER_1: //accessing frame info relating to the second buffer (RX
@@ -4738,7 +4738,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3526:Core/Src/deca_device.c ****         // Call the corresponding callback if present
 3527:Core/Src/deca_device.c ****         if(pdw3000local->cbRxErr != NULL)
 3528:Core/Src/deca_device.c ****         {
-ARM GAS  /tmp/ccJEKt3H.s 			page 80
+ARM GAS  /tmp/ccsW6mUR.s 			page 80
 
 
 3529:Core/Src/deca_device.c ****             pdw3000local->cbRxErr(&pdw3000local->cbData);
@@ -4798,7 +4798,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3583:Core/Src/deca_device.c ****         }
 3584:Core/Src/deca_device.c ****         dwt_write32bitreg(LED_CTRL_ID, reg);
 3585:Core/Src/deca_device.c ****         // Clear force blink bits if needed.
-ARM GAS  /tmp/ccJEKt3H.s 			page 81
+ARM GAS  /tmp/ccsW6mUR.s 			page 81
 
 
 3586:Core/Src/deca_device.c ****         if(mode & DWT_LEDS_INIT_BLINK)
@@ -4858,7 +4858,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3640:Core/Src/deca_device.c ****  *
 3641:Core/Src/deca_device.c ****  * input parameters
 3642:Core/Src/deca_device.c ****  * @param reftime - the reference time (which together with DX_TIME or TX timestamp or RX timestamp
-ARM GAS  /tmp/ccJEKt3H.s 			page 82
+ARM GAS  /tmp/ccsW6mUR.s 			page 82
 
 
 3643:Core/Src/deca_device.c ****  * transmission time or delayed RX on time)
@@ -4918,7 +4918,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3697:Core/Src/deca_device.c ****         if(mode & DWT_START_TX_DELAYED) //delayed TX
 3698:Core/Src/deca_device.c ****         {
 3699:Core/Src/deca_device.c ****             if(mode & DWT_RESPONSE_EXPECTED)
-ARM GAS  /tmp/ccJEKt3H.s 			page 83
+ARM GAS  /tmp/ccsW6mUR.s 			page 83
 
 
 3700:Core/Src/deca_device.c ****             {
@@ -4978,7 +4978,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3754:Core/Src/deca_device.c ****             }
 3755:Core/Src/deca_device.c ****         }
 3756:Core/Src/deca_device.c ****         else
-ARM GAS  /tmp/ccJEKt3H.s 			page 84
+ARM GAS  /tmp/ccsW6mUR.s 			page 84
 
 
 3757:Core/Src/deca_device.c ****         {
@@ -5038,7 +5038,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3811:Core/Src/deca_device.c **** 
 3812:Core/Src/deca_device.c ****     // Enable/restore interrupts again...
 3813:Core/Src/deca_device.c ****     decamutexoff(stat);
-ARM GAS  /tmp/ccJEKt3H.s 			page 85
+ARM GAS  /tmp/ccsW6mUR.s 			page 85
 
 
 3814:Core/Src/deca_device.c **** } // end deviceforcetrxoff()
@@ -5098,7 +5098,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3868:Core/Src/deca_device.c ****  * returns DWT_SUCCESS for success, or DWT_ERROR for error (e.g. a delayed receive enable will be t
 3869:Core/Src/deca_device.c ****  */
 3870:Core/Src/deca_device.c **** int dwt_rxenable(int mode)
-ARM GAS  /tmp/ccJEKt3H.s 			page 86
+ARM GAS  /tmp/ccsW6mUR.s 			page 86
 
 
 3871:Core/Src/deca_device.c **** {
@@ -5158,7 +5158,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3925:Core/Src/deca_device.c ****  */
 3926:Core/Src/deca_device.c **** void dwt_setrxtimeout(uint32_t time)
 3927:Core/Src/deca_device.c **** {
-ARM GAS  /tmp/ccJEKt3H.s 			page 87
+ARM GAS  /tmp/ccsW6mUR.s 			page 87
 
 
 3928:Core/Src/deca_device.c ****     if(time > 0)
@@ -5218,7 +5218,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3982:Core/Src/deca_device.c ****         dwt_write32bitreg(SYS_ENABLE_HI_ID, bitmask_hi); // New value
 3983:Core/Src/deca_device.c ****     }
 3984:Core/Src/deca_device.c ****     else
-ARM GAS  /tmp/ccJEKt3H.s 			page 88
+ARM GAS  /tmp/ccsW6mUR.s 			page 88
 
 
 3985:Core/Src/deca_device.c ****     {
@@ -5278,7 +5278,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4039:Core/Src/deca_device.c ****     temp = dwt_read32bitoffsetreg(EVC_COUNT1_ID, 0); // Read CRC bad (27-16), CRC good (11-0)
 4040:Core/Src/deca_device.c ****     counters->CRCG = temp & 0xFFF;
 4041:Core/Src/deca_device.c ****     counters->CRCB = (temp >> 16) & 0xFFF;
-ARM GAS  /tmp/ccJEKt3H.s 			page 89
+ARM GAS  /tmp/ccsW6mUR.s 			page 89
 
 
 4042:Core/Src/deca_device.c **** 
@@ -5338,7 +5338,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4096:Core/Src/deca_device.c ****     pdw3000local->sleep_mode = 0;
 4097:Core/Src/deca_device.c **** }
 4098:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 90
+ARM GAS  /tmp/ccsW6mUR.s 			page 90
 
 
 4099:Core/Src/deca_device.c **** /*! -----------------------------------------------------------------------------------------------
@@ -5398,7 +5398,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4153:Core/Src/deca_device.c ****  *
 4154:Core/Src/deca_device.c ****  * input parameters
 4155:Core/Src/deca_device.c ****  * @param[in] switch_config - specifies whether the switch needs to be restored to auto.
-ARM GAS  /tmp/ccJEKt3H.s 			page 91
+ARM GAS  /tmp/ccsW6mUR.s 			page 91
 
 
 4156:Core/Src/deca_device.c ****  *
@@ -5458,7 +5458,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4210:Core/Src/deca_device.c ****     }
 4211:Core/Src/deca_device.c **** 
 4212:Core/Src/deca_device.c ****     if (switch_control)
-ARM GAS  /tmp/ccJEKt3H.s 			page 92
+ARM GAS  /tmp/ccsW6mUR.s 			page 92
 
 
 4213:Core/Src/deca_device.c ****     {
@@ -5518,7 +5518,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4267:Core/Src/deca_device.c **** }
 4268:Core/Src/deca_device.c **** 
 4269:Core/Src/deca_device.c **** /*! -----------------------------------------------------------------------------------------------
-ARM GAS  /tmp/ccJEKt3H.s 			page 93
+ARM GAS  /tmp/ccsW6mUR.s 			page 93
 
 
 4270:Core/Src/deca_device.c ****  * @brief This function disables the automatic sequencing of the tx-blocks for a specific channel.
@@ -5578,7 +5578,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  803 0008 FFF7FEFF 		bl	dwt_write32bitoffsetreg
  804              	.LVL82:
 4312:Core/Src/deca_device.c **** }
-ARM GAS  /tmp/ccJEKt3H.s 			page 94
+ARM GAS  /tmp/ccsW6mUR.s 			page 94
 
 
  805              		.loc 1 4312 1 is_stmt 0 view .LVU215
@@ -5638,7 +5638,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  853 001c 10BD     		pop	{r4, pc}
  854              	.L63:
 4173:Core/Src/deca_device.c ****     }
-ARM GAS  /tmp/ccJEKt3H.s 			page 95
+ARM GAS  /tmp/ccsW6mUR.s 			page 95
 
 
  855              		.loc 1 4173 9 is_stmt 1 view .LVU224
@@ -5698,7 +5698,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  492:Core/Src/deca_device.c **** } // end dwt_write16bitoffsetreg()
  902              		.loc 1 492 5 is_stmt 1 view .LVU234
  903 000e 01AB     		add	r3, sp, #4
-ARM GAS  /tmp/ccJEKt3H.s 			page 96
+ARM GAS  /tmp/ccsW6mUR.s 			page 96
 
 
  904 0010 0222     		movs	r2, #2
@@ -5758,7 +5758,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  951              	.LVL94:
  952              	.L72:
  953              	.LBB7:
-ARM GAS  /tmp/ccJEKt3H.s 			page 97
+ARM GAS  /tmp/ccsW6mUR.s 			page 97
 
 
 3617:Core/Src/deca_device.c **** 
@@ -5818,7 +5818,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1000              		.loc 1 508 1 is_stmt 0 view .LVU253
  1001 0000 00B5     		push	{lr}
  1002              		.cfi_def_cfa_offset 4
-ARM GAS  /tmp/ccJEKt3H.s 			page 98
+ARM GAS  /tmp/ccsW6mUR.s 			page 98
 
 
  1003              		.cfi_offset 14, -4
@@ -5878,7 +5878,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4333:Core/Src/deca_device.c ****  * @brief this function sets the DW3000 to continuous tx frame mode for regulatory approvals testin
 4334:Core/Src/deca_device.c ****  *
 4335:Core/Src/deca_device.c ****  * input parameters:
-ARM GAS  /tmp/ccJEKt3H.s 			page 99
+ARM GAS  /tmp/ccsW6mUR.s 			page 99
 
 
 4336:Core/Src/deca_device.c ****  * @param framerepetitionrate - This is a 32-bit value that is used to set the interval between tra
@@ -5938,7 +5938,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4390:Core/Src/deca_device.c **** 
 4391:Core/Src/deca_device.c ****     // Wait until SAR conversion is complete.
 4392:Core/Src/deca_device.c ****     while (!(dwt_read8bitoffsetreg(SAR_STATUS_ID, SAR_STATUS_SAR_DONE_BIT_OFFSET) & SAR_STATUS_SAR_
-ARM GAS  /tmp/ccJEKt3H.s 			page 100
+ARM GAS  /tmp/ccsW6mUR.s 			page 100
 
 
 4393:Core/Src/deca_device.c **** 
@@ -5998,7 +5998,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4447:Core/Src/deca_device.c ****     float realvolt;
 4448:Core/Src/deca_device.c **** 
 4449:Core/Src/deca_device.c ****     // Bench measurements gives approximately: VDDBAT = sar_read * Vref / max_code * 16x_atten   - 
-ARM GAS  /tmp/ccJEKt3H.s 			page 101
+ARM GAS  /tmp/ccsW6mUR.s 			page 101
 
 
 4450:Core/Src/deca_device.c ****     realvolt = (float)((float)(raw_voltage - pdw3000local->vBatP) * 0.4f * 16 / 255) + 3.0f;
@@ -6058,7 +6058,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4504:Core/Src/deca_device.c ****     // Force system clock to FOSC/4 and TX clocks on and enable RF blocks
 4505:Core/Src/deca_device.c ****     dwt_force_clocks(FORCE_CLK_SYS_TX);
 4506:Core/Src/deca_device.c ****     dwt_enable_rf_tx(channel, 0);
-ARM GAS  /tmp/ccJEKt3H.s 			page 102
+ARM GAS  /tmp/ccsW6mUR.s 			page 102
 
 
 4507:Core/Src/deca_device.c ****     dwt_enable_rftx_blocks(channel);
@@ -6118,7 +6118,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4561:Core/Src/deca_device.c **** 
 4562:Core/Src/deca_device.c **** /* AES block */
 4563:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 103
+ARM GAS  /tmp/ccsW6mUR.s 			page 103
 
 
 4564:Core/Src/deca_device.c **** /*! -----------------------------------------------------------------------------------------------
@@ -6178,7 +6178,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4618:Core/Src/deca_device.c ****     dwt_write32bitreg(AES_KEY1_ID, (uint32_t)key->key1);
 4619:Core/Src/deca_device.c ****     dwt_write32bitreg(AES_KEY2_ID, (uint32_t)key->key2);
 4620:Core/Src/deca_device.c ****     dwt_write32bitreg(AES_KEY3_ID, (uint32_t)key->key3);
-ARM GAS  /tmp/ccJEKt3H.s 			page 104
+ARM GAS  /tmp/ccsW6mUR.s 			page 104
 
 
 4621:Core/Src/deca_device.c **** }
@@ -6238,7 +6238,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4675:Core/Src/deca_device.c ****     iv[2] = nonce[8];
 4676:Core/Src/deca_device.c ****     iv[3] = nonce[7];
 4677:Core/Src/deca_device.c ****     iv[4] = nonce[6];
-ARM GAS  /tmp/ccJEKt3H.s 			page 105
+ARM GAS  /tmp/ccsW6mUR.s 			page 105
 
 
 4678:Core/Src/deca_device.c ****     iv[5] = nonce[5];
@@ -6298,7 +6298,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1060              	.LFE136:
  1062              		.section	.text.dwt_update_nonce_CCM,"ax",%progbits
  1063              		.align	1
-ARM GAS  /tmp/ccJEKt3H.s 			page 106
+ARM GAS  /tmp/ccsW6mUR.s 			page 106
 
 
  1064              		.syntax unified
@@ -6358,7 +6358,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4678:Core/Src/deca_device.c ****     iv[6] = nonce[4];
  1105              		.loc 1 4678 11 is_stmt 0 view .LVU277
  1106 0024 4279     		ldrb	r2, [r0, #5]	@ zero_extendqisi2
-ARM GAS  /tmp/ccJEKt3H.s 			page 107
+ARM GAS  /tmp/ccsW6mUR.s 			page 107
 
 
  1107 0026 8DF80520 		strb	r2, [sp, #5]
@@ -6418,7 +6418,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1142 0054 8DF80D30 		strb	r3, [sp, #13]
 4687:Core/Src/deca_device.c ****     iv[15] = nonce[11];
  1143              		.loc 1 4687 5 is_stmt 1 view .LVU297
-ARM GAS  /tmp/ccJEKt3H.s 			page 108
+ARM GAS  /tmp/ccsW6mUR.s 			page 108
 
 
 4687:Core/Src/deca_device.c ****     iv[15] = nonce[11];
@@ -6478,7 +6478,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1192              		.cfi_def_cfa_offset 16
  373:Core/Src/deca_device.c **** }
  1193              		.loc 1 373 5 is_stmt 1 view .LVU306
-ARM GAS  /tmp/ccJEKt3H.s 			page 109
+ARM GAS  /tmp/ccsW6mUR.s 			page 109
 
 
  1194 0004 0024     		movs	r4, #0
@@ -6538,7 +6538,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1240              		.loc 1 390 15 is_stmt 0 view .LVU316
  1241 000e 0020     		movs	r0, #0
  395:Core/Src/deca_device.c ****     {
-ARM GAS  /tmp/ccJEKt3H.s 			page 110
+ARM GAS  /tmp/ccsW6mUR.s 			page 110
 
 
  1242              		.loc 1 395 12 view .LVU317
@@ -6598,7 +6598,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1287              		@ frame_needed = 0, uses_anonymous_args = 0
 2725:Core/Src/deca_device.c ****     uint32_t ret_data = 0;
  1288              		.loc 1 2725 1 is_stmt 0 view .LVU329
-ARM GAS  /tmp/ccJEKt3H.s 			page 111
+ARM GAS  /tmp/ccsW6mUR.s 			page 111
 
 
  1289 0000 38B5     		push	{r3, r4, r5, lr}
@@ -6658,7 +6658,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1334              		.cfi_endproc
  1335              	.LFE78:
  1337              		.section	.text.dwt_read16bitoffsetreg,"ax",%progbits
-ARM GAS  /tmp/ccJEKt3H.s 			page 112
+ARM GAS  /tmp/ccsW6mUR.s 			page 112
 
 
  1338              		.align	1
@@ -6718,7 +6718,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1380              		.loc 1 425 1 view .LVU351
  1381 001c 03B0     		add	sp, sp, #12
  1382              		.cfi_def_cfa_offset 4
-ARM GAS  /tmp/ccJEKt3H.s 			page 113
+ARM GAS  /tmp/ccsW6mUR.s 			page 113
 
 
  1383              		@ sp needed
@@ -6778,7 +6778,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1433              		.fpu fpv4-sp-d16
  1435              	dwt_wait_aes_poll:
  1436              	.LFB134:
-ARM GAS  /tmp/ccJEKt3H.s 			page 114
+ARM GAS  /tmp/ccsW6mUR.s 			page 114
 
 
 4632:Core/Src/deca_device.c ****     uint8_t tmp;
@@ -6838,7 +6838,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1481              		.syntax unified
  1482              		.thumb
  1483              		.thumb_func
-ARM GAS  /tmp/ccJEKt3H.s 			page 115
+ARM GAS  /tmp/ccsW6mUR.s 			page 115
 
 
  1484              		.fpu fpv4-sp-d16
@@ -6898,7 +6898,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1522              		.loc 1 532 5 is_stmt 1 view .LVU386
  532:Core/Src/deca_device.c ****     buf[6] = (uint8_t)(_or>>16);//  &0xFF;
  1523              		.loc 1 532 14 is_stmt 0 view .LVU387
-ARM GAS  /tmp/ccJEKt3H.s 			page 116
+ARM GAS  /tmp/ccsW6mUR.s 			page 116
 
 
  1524 0022 C3F30722 		ubfx	r2, r3, #8, #8
@@ -6958,7 +6958,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1569 0000 08B5     		push	{r3, lr}
  1570              		.cfi_def_cfa_offset 8
  1571              		.cfi_offset 3, -8
-ARM GAS  /tmp/ccJEKt3H.s 			page 117
+ARM GAS  /tmp/ccsW6mUR.s 			page 117
 
 
  1572              		.cfi_offset 14, -4
@@ -7018,7 +7018,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1618              		.syntax unified
  1619              		.thumb
  1620              		.thumb_func
-ARM GAS  /tmp/ccJEKt3H.s 			page 118
+ARM GAS  /tmp/ccsW6mUR.s 			page 118
 
 
  1621              		.fpu fpv4-sp-d16
@@ -7078,7 +7078,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1666              	.LVL150:
  748:Core/Src/deca_device.c ****                 (DWT_DGC_SEL_CH9 << OTP_CFG_DGC_SEL_BIT_OFFSET) | OTP_CFG_DGC_KICK_BIT_MASK);
  1667              		.loc 1 748 9 is_stmt 0 view .LVU418
-ARM GAS  /tmp/ccJEKt3H.s 			page 119
+ARM GAS  /tmp/ccsW6mUR.s 			page 119
 
 
  1668 0028 FFF7FEFF 		bl	dwt_modify32bitoffsetreg
@@ -7138,7 +7138,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1717 0020 0021     		movs	r1, #0
  1718 0022 3046     		mov	r0, r6
  1719 0024 FFF7FEFF 		bl	dwt_modify32bitoffsetreg
-ARM GAS  /tmp/ccJEKt3H.s 			page 120
+ARM GAS  /tmp/ccsW6mUR.s 			page 120
 
 
  1720              	.LVL156:
@@ -7198,7 +7198,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1765 0070 14000700 		.word	458772
  1766              		.cfi_endproc
  1767              	.LFE116:
-ARM GAS  /tmp/ccJEKt3H.s 			page 121
+ARM GAS  /tmp/ccsW6mUR.s 			page 121
 
 
  1769              		.section	.text.dwt_enable_rftx_blocks,"ax",%progbits
@@ -7258,7 +7258,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1814              		.loc 1 4291 9 is_stmt 1 view .LVU444
  1815 001c 054B     		ldr	r3, .L137+8
  1816 001e 4FF0FF32 		mov	r2, #-1
-ARM GAS  /tmp/ccJEKt3H.s 			page 122
+ARM GAS  /tmp/ccsW6mUR.s 			page 122
 
 
  1817 0022 0021     		movs	r1, #0
@@ -7318,7 +7318,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1863              		.loc 1 552 12 view .LVU454
  1864 000a 8DF80D20 		strb	r2, [sp, #13]
  553:Core/Src/deca_device.c ****     buf[3] = (uint8_t)(_or>>8);//   &0xFF;
-ARM GAS  /tmp/ccJEKt3H.s 			page 123
+ARM GAS  /tmp/ccsW6mUR.s 			page 123
 
 
  1865              		.loc 1 553 5 is_stmt 1 view .LVU455
@@ -7378,7 +7378,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1912 000a 0021     		movs	r1, #0
  1913 000c 0648     		ldr	r0, .L143
  1914 000e FFF7FEFF 		bl	dwt_modify16bitoffsetreg
-ARM GAS  /tmp/ccJEKt3H.s 			page 124
+ARM GAS  /tmp/ccsW6mUR.s 			page 124
 
 
  1915              	.LVL174:
@@ -7438,7 +7438,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  1962              		.loc 1 572 12 is_stmt 0 view .LVU473
  1963 0008 8DF80D30 		strb	r3, [sp, #13]
  573:Core/Src/deca_device.c **** }
-ARM GAS  /tmp/ccJEKt3H.s 			page 125
+ARM GAS  /tmp/ccsW6mUR.s 			page 125
 
 
  1964              		.loc 1 573 5 is_stmt 1 view .LVU474
@@ -7498,7 +7498,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  2012 0006 0C46     		mov	r4, r1
  671:Core/Src/deca_device.c **** 
  2013              		.loc 1 671 9 is_stmt 1 view .LVU483
-ARM GAS  /tmp/ccJEKt3H.s 			page 126
+ARM GAS  /tmp/ccsW6mUR.s 			page 126
 
 
  2014 0008 4023     		movs	r3, #64
@@ -7558,7 +7558,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  2055 0030 1946     		mov	r1, r3
  2056              	.LVL188:
  682:Core/Src/deca_device.c ****     }
-ARM GAS  /tmp/ccJEKt3H.s 			page 127
+ARM GAS  /tmp/ccsW6mUR.s 			page 127
 
 
  2057              		.loc 1 682 9 is_stmt 0 view .LVU497
@@ -7618,7 +7618,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  887:Core/Src/deca_device.c ****         //clear the auto INIT2IDLE bit and set FORCE2INIT
  2105              		.loc 1 887 9 is_stmt 0 view .LVU506
  2106 0012 FFF7FEFF 		bl	dwt_modify8bitoffsetreg
-ARM GAS  /tmp/ccJEKt3H.s 			page 128
+ARM GAS  /tmp/ccsW6mUR.s 			page 128
 
 
  2107              	.LVL193:
@@ -7678,7 +7678,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  878:Core/Src/deca_device.c ****         //clear force bits (device will stay in IDLE_RC)
  2153              		.loc 1 878 9 is_stmt 1 view .LVU515
  2154 0056 0A4C     		ldr	r4, .L162+4
-ARM GAS  /tmp/ccJEKt3H.s 			page 129
+ARM GAS  /tmp/ccsW6mUR.s 			page 129
 
 
  2155 0058 4FF40003 		mov	r3, #8388608
@@ -7738,7 +7738,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  2206              		.loc 1 906 1 is_stmt 0 view .LVU520
  2207 0012 08BD     		pop	{r3, pc}
  2208              	.L167:
-ARM GAS  /tmp/ccJEKt3H.s 			page 130
+ARM GAS  /tmp/ccsW6mUR.s 			page 130
 
 
  2209              		.align	2
@@ -7798,7 +7798,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  2261              		.cfi_def_cfa_offset 8
  2262              		.cfi_offset 3, -8
  2263              		.cfi_offset 14, -4
-ARM GAS  /tmp/ccJEKt3H.s 			page 131
+ARM GAS  /tmp/ccsW6mUR.s 			page 131
 
 
  936:Core/Src/deca_device.c ****     {
@@ -7858,7 +7858,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  2311              		.cfi_startproc
  2312              		@ args = 0, pretend = 0, frame = 0
  2313              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /tmp/ccJEKt3H.s 			page 132
+ARM GAS  /tmp/ccsW6mUR.s 			page 132
 
 
  962:Core/Src/deca_device.c ****     uint32_t gpio_mode = dwt_read32bitreg(GPIO_MODE_ID);
@@ -7918,7 +7918,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  2352              		.loc 1 974 8 is_stmt 0 view .LVU551
  2353 0026 14F0040F 		tst	r4, #4
  2354 002a 01D0     		beq	.L180
-ARM GAS  /tmp/ccJEKt3H.s 			page 133
+ARM GAS  /tmp/ccsW6mUR.s 			page 133
 
 
  976:Core/Src/deca_device.c ****     }
@@ -7978,7 +7978,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  2402              	.L187:
  2403              		.align	2
  2404              	.L186:
-ARM GAS  /tmp/ccJEKt3H.s 			page 134
+ARM GAS  /tmp/ccsW6mUR.s 			page 134
 
 
  2405 000c 1C000700 		.word	458780
@@ -8038,7 +8038,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  2456 0002 1B68     		ldr	r3, [r3]
 1026:Core/Src/deca_device.c **** 
  2457              		.loc 1 1026 1 view .LVU568
-ARM GAS  /tmp/ccJEKt3H.s 			page 135
+ARM GAS  /tmp/ccsW6mUR.s 			page 135
 
 
  2458 0004 D87A     		ldrb	r0, [r3, #11]	@ zero_extendqisi2
@@ -8098,7 +8098,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1057:Core/Src/deca_device.c **** }
  2511              		.loc 1 1057 5 view .LVU574
 1057:Core/Src/deca_device.c **** }
-ARM GAS  /tmp/ccJEKt3H.s 			page 136
+ARM GAS  /tmp/ccsW6mUR.s 			page 136
 
 
  2512              		.loc 1 1057 24 is_stmt 0 view .LVU575
@@ -8158,7 +8158,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1122:Core/Src/deca_device.c ****     dwt_write32bitreg(STS_KEY0_ID, pStsKey->key0);
  2565              		.loc 1 1122 1 is_stmt 1 view -0
  2566              		.cfi_startproc
-ARM GAS  /tmp/ccJEKt3H.s 			page 137
+ARM GAS  /tmp/ccsW6mUR.s 			page 137
 
 
  2567              		@ args = 0, pretend = 0, frame = 0
@@ -8218,7 +8218,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  2613              	.LFE34:
  2615              		.section	.text.dwt_configurestsiv,"ax",%progbits
  2616              		.align	1
-ARM GAS  /tmp/ccJEKt3H.s 			page 138
+ARM GAS  /tmp/ccsW6mUR.s 			page 138
 
 
  2617              		.global	dwt_configurestsiv
@@ -8278,7 +8278,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  2664              	.LVL237:
  2665              	.L209:
 1145:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 139
+ARM GAS  /tmp/ccsW6mUR.s 			page 139
 
 
  2666              		.loc 1 1145 1 view .LVU598
@@ -8338,7 +8338,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1192:Core/Src/deca_device.c **** 	uint32_t lut0, lut1, lut2, lut3, lut4, lut5, lut6 = 0;
  2721              		.loc 1 1192 1 is_stmt 1 view -0
  2722              		.cfi_startproc
-ARM GAS  /tmp/ccJEKt3H.s 			page 140
+ARM GAS  /tmp/ccsW6mUR.s 			page 140
 
 
  2723              		@ args = 0, pretend = 0, frame = 0
@@ -8398,7 +8398,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  2764              	.LVL243:
 1216:Core/Src/deca_device.c ****     dwt_write32bitoffsetreg(DGC_LUT_2_CFG_ID, 0x0, lut2);
  2765              		.loc 1 1216 5 is_stmt 1 view .LVU616
-ARM GAS  /tmp/ccJEKt3H.s 			page 141
+ARM GAS  /tmp/ccsW6mUR.s 			page 141
 
 
  2766 0022 4A46     		mov	r2, r9
@@ -8458,7 +8458,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1224:Core/Src/deca_device.c **** 
  2813              		.loc 1 1224 1 is_stmt 0 view .LVU624
  2814 0072 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
-ARM GAS  /tmp/ccJEKt3H.s 			page 142
+ARM GAS  /tmp/ccsW6mUR.s 			page 142
 
 
  2815              	.LVL252:
@@ -8518,7 +8518,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  2863              		.align	1
  2864              		.global	dwt_restoreconfig
  2865              		.syntax unified
-ARM GAS  /tmp/ccJEKt3H.s 			page 143
+ARM GAS  /tmp/ccsW6mUR.s 			page 143
 
 
  2866              		.thumb
@@ -8578,7 +8578,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  2911              	.LVL257:
 1253:Core/Src/deca_device.c **** 
  2912              		.loc 1 1253 5 view .LVU642
-ARM GAS  /tmp/ccJEKt3H.s 			page 144
+ARM GAS  /tmp/ccsW6mUR.s 			page 144
 
 
 1253:Core/Src/deca_device.c **** 
@@ -8638,7 +8638,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  2953              	.LVL262:
  2954 005e D4E7     		b	.L222
  2955              	.LVL263:
-ARM GAS  /tmp/ccJEKt3H.s 			page 145
+ARM GAS  /tmp/ccsW6mUR.s 			page 145
 
 
  2956              	.L226:
@@ -8698,7 +8698,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3004 0006 1B68     		ldr	r3, [r3]
 1289:Core/Src/deca_device.c **** 
  3005              		.loc 1 1289 29 view .LVU665
-ARM GAS  /tmp/ccJEKt3H.s 			page 146
+ARM GAS  /tmp/ccsW6mUR.s 			page 146
 
 
  3006 0008 5875     		strb	r0, [r3, #21]
@@ -8758,7 +8758,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3052              		.align	1
  3053              		.global	dwt_run_pgfcal
  3054              		.syntax unified
-ARM GAS  /tmp/ccJEKt3H.s 			page 147
+ARM GAS  /tmp/ccsW6mUR.s 			page 147
 
 
  3055              		.thumb
@@ -8818,7 +8818,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3098              		.loc 1 1624 47 is_stmt 1 discriminator 2 view .LVU686
 1624:Core/Src/deca_device.c ****     {
  3099              		.loc 1 1624 50 is_stmt 0 discriminator 2 view .LVU687
-ARM GAS  /tmp/ccJEKt3H.s 			page 148
+ARM GAS  /tmp/ccsW6mUR.s 			page 148
 
 
  3100 001e 0134     		adds	r4, r4, #1
@@ -8878,7 +8878,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1639:Core/Src/deca_device.c ****     dwt_write8bitoffsetreg(RX_CAL_STS_ID, 0x0, 1); //clear the status
  3141              		.loc 1 1639 5 is_stmt 0 view .LVU701
  3142 0044 0022     		movs	r2, #0
-ARM GAS  /tmp/ccJEKt3H.s 			page 149
+ARM GAS  /tmp/ccsW6mUR.s 			page 149
 
 
  3143 0046 1146     		mov	r1, r2
@@ -8938,7 +8938,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3186              	.LVL290:
  3187              	.L239:
 1656:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 150
+ARM GAS  /tmp/ccsW6mUR.s 			page 150
 
 
  3188              		.loc 1 1656 1 view .LVU713
@@ -8998,7 +8998,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3236              		.cfi_startproc
  3237              		@ args = 0, pretend = 0, frame = 0
  3238              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /tmp/ccJEKt3H.s 			page 151
+ARM GAS  /tmp/ccsW6mUR.s 			page 151
 
 
 1576:Core/Src/deca_device.c ****     int temp;
@@ -9058,7 +9058,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3280 001e FFF7FEFF 		bl	dwt_read16bitoffsetreg
  3281              	.LVL304:
  3282 0022 0646     		mov	r6, r0
-ARM GAS  /tmp/ccJEKt3H.s 			page 152
+ARM GAS  /tmp/ccsW6mUR.s 			page 152
 
 
  3283              	.LVL305:
@@ -9118,7 +9118,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3332              		.cfi_offset 14, -4
  3333 0002 0246     		mov	r2, r0
 1672:Core/Src/deca_device.c **** }
-ARM GAS  /tmp/ccJEKt3H.s 			page 153
+ARM GAS  /tmp/ccsW6mUR.s 			page 153
 
 
  3334              		.loc 1 1672 5 is_stmt 1 view .LVU742
@@ -9178,7 +9178,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3384              		.align	1
  3385              		.global	dwt_writetxdata
  3386              		.syntax unified
-ARM GAS  /tmp/ccJEKt3H.s 			page 154
+ARM GAS  /tmp/ccsW6mUR.s 			page 154
 
 
  3387              		.thumb
@@ -9238,7 +9238,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3431              	.L274:
 1735:Core/Src/deca_device.c ****     }
  3432              		.loc 1 1735 9 is_stmt 1 view .LVU761
-ARM GAS  /tmp/ccJEKt3H.s 			page 155
+ARM GAS  /tmp/ccsW6mUR.s 			page 155
 
 
 1735:Core/Src/deca_device.c ****     }
@@ -9298,7 +9298,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3477              	.L281:
  3478              		.align	2
  3479              	.L280:
-ARM GAS  /tmp/ccJEKt3H.s 			page 156
+ARM GAS  /tmp/ccsW6mUR.s 			page 156
 
 
  3480 0050 04001F00 		.word	2031620
@@ -9358,7 +9358,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3525 0014 FFF7FEFF 		bl	dwt_modify32bitoffsetreg
  3526              	.LVL335:
  3527              	.L282:
-ARM GAS  /tmp/ccJEKt3H.s 			page 157
+ARM GAS  /tmp/ccsW6mUR.s 			page 157
 
 
 1780:Core/Src/deca_device.c **** 
@@ -9418,7 +9418,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3574              	.LVL343:
  3575              	.LFB48:
 1795:Core/Src/deca_device.c ****     dwt_write8bitoffsetreg(TX_FCTRL_HI_ID, 1, preambleLength);
-ARM GAS  /tmp/ccJEKt3H.s 			page 158
+ARM GAS  /tmp/ccsW6mUR.s 			page 158
 
 
  3576              		.loc 1 1795 1 is_stmt 1 view -0
@@ -9478,7 +9478,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3625              		.loc 1 1325 5 is_stmt 1 view .LVU800
 1325:Core/Src/deca_device.c ****     uint32_t temp;
  3626              		.loc 1 1325 13 is_stmt 0 view .LVU801
-ARM GAS  /tmp/ccJEKt3H.s 			page 159
+ARM GAS  /tmp/ccsW6mUR.s 			page 159
 
 
  3627 0006 0778     		ldrb	r7, [r0]	@ zero_extendqisi2
@@ -9538,7 +9538,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3664              		.loc 1 1355 19 is_stmt 0 discriminator 4 view .LVU818
  3665 0024 6378     		ldrb	r3, [r4, #1]	@ zero_extendqisi2
 1355:Core/Src/deca_device.c ****     {
-ARM GAS  /tmp/ccJEKt3H.s 			page 160
+ARM GAS  /tmp/ccsW6mUR.s 			page 160
 
 
  3666              		.loc 1 1355 5 discriminator 4 view .LVU819
@@ -9598,7 +9598,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1375:Core/Src/deca_device.c ****     sts_len=GET_STS_REG_SET_VALUE((uint16_t)(config->stsLength));
  3711              		.loc 1 1375 38 is_stmt 0 view .LVU829
  3712 005e E279     		ldrb	r2, [r4, #7]	@ zero_extendqisi2
-ARM GAS  /tmp/ccJEKt3H.s 			page 161
+ARM GAS  /tmp/ccsW6mUR.s 			page 161
 
 
 1375:Core/Src/deca_device.c ****     sts_len=GET_STS_REG_SET_VALUE((uint16_t)(config->stsLength));
@@ -9658,7 +9658,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1387:Core/Src/deca_device.c ****         | mode);
  3751              		.loc 1 1387 66 view .LVU846
  3752 009e 5B01     		lsls	r3, r3, #5
-ARM GAS  /tmp/ccJEKt3H.s 			page 162
+ARM GAS  /tmp/ccsW6mUR.s 			page 162
 
 
 1387:Core/Src/deca_device.c ****         | mode);
@@ -9718,7 +9718,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3790 00c8 1021     		movs	r1, #16
  3791 00ca 9C4B     		ldr	r3, .L337+12
  3792 00cc 33F81000 		ldrh	r0, [r3, r0, lsl #1]
-ARM GAS  /tmp/ccJEKt3H.s 			page 163
+ARM GAS  /tmp/ccsW6mUR.s 			page 163
 
 
  3793 00d0 FFF7FEFF 		bl	get_sts_mnth
@@ -9778,7 +9778,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3836 0116 FFF7FEFF 		bl	dwt_modify8bitoffsetreg
  3837              	.LVL364:
 1442:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 164
+ARM GAS  /tmp/ccsW6mUR.s 			page 164
 
 
  3838              		.loc 1 1442 5 view .LVU875
@@ -9838,7 +9838,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3880              	.LVL369:
 1469:Core/Src/deca_device.c **** 
  3881              		.loc 1 1469 5 is_stmt 1 view .LVU888
-ARM GAS  /tmp/ccJEKt3H.s 			page 165
+ARM GAS  /tmp/ccsW6mUR.s 			page 165
 
 
 1469:Core/Src/deca_device.c **** 
@@ -9898,7 +9898,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  3919 0180 7348     		ldr	r0, .L337+32
  3920 0182 FFF7FEFF 		bl	dwt_write32bitoffsetreg
  3921              	.LVL374:
-ARM GAS  /tmp/ccJEKt3H.s 			page 166
+ARM GAS  /tmp/ccsW6mUR.s 			page 166
 
 
 1480:Core/Src/deca_device.c ****                                               ((uint32_t)config->dataRate << TX_FCTRL_TXBR_BIT_OFFS
@@ -9958,7 +9958,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1508:Core/Src/deca_device.c ****     }
  3962              		.loc 1 1508 9 view .LVU920
  3963 01be 41F63C72 		movw	r2, #7996
-ARM GAS  /tmp/ccJEKt3H.s 			page 167
+ARM GAS  /tmp/ccsW6mUR.s 			page 167
 
 
  3964 01c2 0021     		movs	r1, #0
@@ -10018,7 +10018,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4008 0202 FFF7FEFF 		bl	deca_usleep
  4009              	.LVL385:
 1525:Core/Src/deca_device.c ****         {//PLL is locked
-ARM GAS  /tmp/ccJEKt3H.s 			page 168
+ARM GAS  /tmp/ccsW6mUR.s 			page 168
 
 
  4010              		.loc 1 1525 9 view .LVU931
@@ -10078,7 +10078,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4049              	.LVL392:
  4050              	.L329:
 1394:Core/Src/deca_device.c ****         dwt_modify32bitoffsetreg(OTP_CFG_ID, 0, ~(OTP_CFG_OPS_ID_BIT_MASK), DWT_OPSET_SCP | OTP_CFG
-ARM GAS  /tmp/ccJEKt3H.s 			page 169
+ARM GAS  /tmp/ccsW6mUR.s 			page 169
 
 
  4051              		.loc 1 1394 9 is_stmt 1 view .LVU947
@@ -10138,7 +10138,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4096 0278 0322     		movs	r2, #3
  4097 027a 1021     		movs	r1, #16
  4098 027c 2F4B     		ldr	r3, .L337+12
-ARM GAS  /tmp/ccJEKt3H.s 			page 170
+ARM GAS  /tmp/ccsW6mUR.s 			page 170
 
 
  4099 027e 33F81000 		ldrh	r0, [r3, r0, lsl #1]
@@ -10198,7 +10198,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4144 02ba FFF7FEFF 		bl	dwt_write32bitoffsetreg
  4145              	.LVL406:
 1500:Core/Src/deca_device.c ****         // Setup RX analog for ch9
-ARM GAS  /tmp/ccJEKt3H.s 			page 171
+ARM GAS  /tmp/ccsW6mUR.s 			page 171
 
 
  4146              		.loc 1 1500 9 view .LVU966
@@ -10258,7 +10258,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4188 02f2 FFF7FEFF 		bl	dwt_configmrxlut
  4189              	.LVL412:
  4190              	.L319:
-ARM GAS  /tmp/ccJEKt3H.s 			page 172
+ARM GAS  /tmp/ccsW6mUR.s 			page 172
 
 
 1549:Core/Src/deca_device.c ****     }
@@ -10318,7 +10318,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4236              	.L337:
  4237 0330 00000000 		.word	.LANCHOR2
  4238 0334 6666663F 		.word	1063675494
-ARM GAS  /tmp/ccJEKt3H.s 			page 173
+ARM GAS  /tmp/ccsW6mUR.s 			page 173
 
 
  4239 0338 CF4FFCFF 		.word	-241713
@@ -10378,7 +10378,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4291              	.LVL423:
 1816:Core/Src/deca_device.c **** }
  4292              		.loc 1 1816 5 view .LVU992
-ARM GAS  /tmp/ccJEKt3H.s 			page 174
+ARM GAS  /tmp/ccsW6mUR.s 			page 174
 
 
  4293 000e FFF7FEFF 		bl	dwt_readfromdevice
@@ -10438,7 +10438,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4339              		.loc 1 1844 25 is_stmt 0 view .LVU1002
  4340 0016 6319     		adds	r3, r4, r5
 1844:Core/Src/deca_device.c ****     {
-ARM GAS  /tmp/ccJEKt3H.s 			page 175
+ARM GAS  /tmp/ccsW6mUR.s 			page 175
 
 
  4341              		.loc 1 1844 8 view .LVU1003
@@ -10498,7 +10498,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4382              		.loc 1 1855 13 is_stmt 1 view .LVU1016
  4383 003e 2246     		mov	r2, r4
  4384 0040 0021     		movs	r1, #0
-ARM GAS  /tmp/ccJEKt3H.s 			page 176
+ARM GAS  /tmp/ccsW6mUR.s 			page 176
 
 
  4385 0042 0748     		ldr	r0, .L348+8
@@ -10558,7 +10558,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4436 0008 48F24003 		movw	r3, #32832
  4437 000c 4FF6FF72 		movw	r2, #65535
  4438              	.LVL440:
-ARM GAS  /tmp/ccJEKt3H.s 			page 177
+ARM GAS  /tmp/ccsW6mUR.s 			page 177
 
 
 1885:Core/Src/deca_device.c **** 
@@ -10618,7 +10618,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4481 0048 0C48     		ldr	r0, .L355+4
  4482 004a FFF7FEFF 		bl	dwt_write32bitoffsetreg
  4483              	.LVL447:
-ARM GAS  /tmp/ccJEKt3H.s 			page 178
+ARM GAS  /tmp/ccsW6mUR.s 			page 178
 
 
 1898:Core/Src/deca_device.c **** 
@@ -10678,7 +10678,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1924:Core/Src/deca_device.c **** 
  4536              		.loc 1 1924 5 view .LVU1038
  4537              	.LVL451:
-ARM GAS  /tmp/ccJEKt3H.s 			page 179
+ARM GAS  /tmp/ccsW6mUR.s 			page 179
 
 
 1926:Core/Src/deca_device.c ****     {
@@ -10738,7 +10738,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4576              		.loc 1 1933 18 is_stmt 0 view .LVU1054
  4577 002c 0021     		movs	r1, #0
  4578 002e 0748     		ldr	r0, .L363+4
-ARM GAS  /tmp/ccJEKt3H.s 			page 180
+ARM GAS  /tmp/ccsW6mUR.s 			page 180
 
 
  4579 0030 FFF7FEFF 		bl	dwt_read16bitoffsetreg
@@ -10798,7 +10798,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4627              		.loc 1 1961 5 view .LVU1062
  4628              	.LVL461:
 1963:Core/Src/deca_device.c ****     uint8_t   buffer[DRX_CARRIER_INT_LEN] ;
-ARM GAS  /tmp/ccJEKt3H.s 			page 181
+ARM GAS  /tmp/ccsW6mUR.s 			page 181
 
 
  4629              		.loc 1 1963 5 view .LVU1063
@@ -10858,7 +10858,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 1976:Core/Src/deca_device.c ****     }
  4668              		.loc 1 1976 9 is_stmt 1 view .LVU1079
 1976:Core/Src/deca_device.c ****     }
-ARM GAS  /tmp/ccJEKt3H.s 			page 182
+ARM GAS  /tmp/ccsW6mUR.s 			page 182
 
 
  4669              		.loc 1 1976 16 is_stmt 0 view .LVU1080
@@ -10918,7 +10918,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4716              		.loc 1 1999 21 view .LVU1089
  4717 0008 FFF7FEFF 		bl	dwt_read16bitoffsetreg
  4718              	.LVL470:
-ARM GAS  /tmp/ccJEKt3H.s 			page 183
+ARM GAS  /tmp/ccsW6mUR.s 			page 183
 
 
 1999:Core/Src/deca_device.c **** 
@@ -10978,7 +10978,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4763              	.LVL474:
  4764              	.LFB55:
 2022:Core/Src/deca_device.c ****     int ret = DWT_SUCCESS;
-ARM GAS  /tmp/ccJEKt3H.s 			page 184
+ARM GAS  /tmp/ccsW6mUR.s 			page 184
 
 
  4765              		.loc 1 2022 1 is_stmt 1 view -0
@@ -11038,7 +11038,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4806              	.LVL478:
 2031:Core/Src/deca_device.c ****         break;
  4807              		.loc 1 2031 22 view .LVU1116
-ARM GAS  /tmp/ccJEKt3H.s 			page 185
+ARM GAS  /tmp/ccsW6mUR.s 			page 185
 
 
  4808 0022 1144     		add	r1, r1, r2
@@ -11098,7 +11098,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4848              		.loc 1 2034 23 view .LVU1130
  4849 0042 1046     		mov	r0, r2
  4850              	.LVL487:
-ARM GAS  /tmp/ccJEKt3H.s 			page 186
+ARM GAS  /tmp/ccsW6mUR.s 			page 186
 
 
 2034:Core/Src/deca_device.c ****         break;
@@ -11158,7 +11158,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4895              		.thumb
  4896              		.thumb_func
  4897              		.fpu fpv4-sp-d16
-ARM GAS  /tmp/ccJEKt3H.s 			page 187
+ARM GAS  /tmp/ccsW6mUR.s 			page 187
 
 
  4899              	dwt_readdiagnostics:
@@ -11218,7 +11218,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2111:Core/Src/deca_device.c ****             {
  4939              		.loc 1 2111 29 is_stmt 0 view .LVU1156
  4940 001c 937D     		ldrb	r3, [r2, #22]	@ zero_extendqisi2
-ARM GAS  /tmp/ccJEKt3H.s 			page 188
+ARM GAS  /tmp/ccsW6mUR.s 			page 188
 
 
 2111:Core/Src/deca_device.c ****             {
@@ -11278,7 +11278,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  4982              	.LVL500:
 2102:Core/Src/deca_device.c ****             }
  4983              		.loc 1 2102 17 is_stmt 0 view .LVU1170
-ARM GAS  /tmp/ccJEKt3H.s 			page 189
+ARM GAS  /tmp/ccsW6mUR.s 			page 189
 
 
  4984 0056 FFF7FEFF 		bl	dwt_readfromdevice
@@ -11338,7 +11338,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5030 0092 CFE7     		b	.L397
  5031              	.LVL512:
  5032              	.L402:
-ARM GAS  /tmp/ccJEKt3H.s 			page 190
+ARM GAS  /tmp/ccsW6mUR.s 			page 190
 
 
 2127:Core/Src/deca_device.c ****         }
@@ -11398,7 +11398,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5069              		.loc 1 2132 119 view .LVU1196
  5070 00c6 C3F30D03 		ubfx	r3, r3, #0, #14
 2132:Core/Src/deca_device.c ****         if (diagnostics->pdoa & 0x2000) diagnostics->pdoa |= 0xC000; //sign extend
-ARM GAS  /tmp/ccJEKt3H.s 			page 191
+ARM GAS  /tmp/ccsW6mUR.s 			page 191
 
 
  5071              		.loc 1 2132 27 view .LVU1197
@@ -11458,7 +11458,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5111              	.L406:
 2142:Core/Src/deca_device.c ****             diagnostics->stsRxTime[i] = temp[i + BUF0_STS_TS - BUF0_RX_FINFO];    // RX timestamp f
  5112              		.loc 1 2142 13 is_stmt 1 discriminator 3 view .LVU1212
-ARM GAS  /tmp/ccJEKt3H.s 			page 192
+ARM GAS  /tmp/ccsW6mUR.s 			page 192
 
 
 2142:Core/Src/deca_device.c ****             diagnostics->stsRxTime[i] = temp[i + BUF0_STS_TS - BUF0_RX_FINFO];    // RX timestamp f
@@ -11518,7 +11518,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5150 013e 9DF82130 		ldrb	r3, [sp, #33]	@ zero_extendqisi2
  5151              	.LVL517:
 2147:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 193
+ARM GAS  /tmp/ccsW6mUR.s 			page 193
 
 
  5152              		.loc 1 2147 86 view .LVU1230
@@ -11578,7 +11578,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2158:Core/Src/deca_device.c ****             | (uint32_t)temp[BUF0_CIA_DIAG_1 - BUF0_RX_FINFO + 1] << 8 | (uint32_t)temp[BUF0_CIA_DI
  5187              		.loc 1 2158 48 is_stmt 0 view .LVU1250
  5188 0172 9DF83B20 		ldrb	r2, [sp, #59]	@ zero_extendqisi2
-ARM GAS  /tmp/ccJEKt3H.s 			page 194
+ARM GAS  /tmp/ccsW6mUR.s 			page 194
 
 
 2158:Core/Src/deca_device.c ****             | (uint32_t)temp[BUF0_CIA_DIAG_1 - BUF0_RX_FINFO + 1] << 8 | (uint32_t)temp[BUF0_CIA_DI
@@ -11638,7 +11638,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5224              		.loc 1 2163 121 view .LVU1269
  5225 01b0 23F00043 		bic	r3, r3, #-2147483648
 2162:Core/Src/deca_device.c ****             | (uint32_t)temp[BUF0_IP_DIAG_0 - BUF0_RX_FINFO + 1] << 8 | (uint32_t)temp[BUF0_IP_DIAG
-ARM GAS  /tmp/ccJEKt3H.s 			page 195
+ARM GAS  /tmp/ccsW6mUR.s 			page 195
 
 
  5226              		.loc 1 2162 33 view .LVU1270
@@ -11698,7 +11698,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2167:Core/Src/deca_device.c ****         diagnostics->ipatovF2 = ((uint32_t)temp[BUF0_IP_DIAG_3 - BUF0_RX_FINFO + 3] << 24 | (uint32
  5262              		.loc 1 2167 87 view .LVU1289
  5263 01ee 9DF84420 		ldrb	r2, [sp, #68]	@ zero_extendqisi2
-ARM GAS  /tmp/ccJEKt3H.s 			page 196
+ARM GAS  /tmp/ccsW6mUR.s 			page 196
 
 
 2167:Core/Src/deca_device.c ****         diagnostics->ipatovF2 = ((uint32_t)temp[BUF0_IP_DIAG_3 - BUF0_RX_FINFO + 3] << 24 | (uint32
@@ -11758,7 +11758,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5299 0226 43EA0263 		orr	r3, r3, r2, lsl #24
 2171:Core/Src/deca_device.c ****         diagnostics->ipatovFpIndex = (uint16_t)temp[BUF0_IP_DIAG_8 - BUF0_RX_FINFO + 1] << 8 | temp
  5300              		.loc 1 2171 29 view .LVU1309
-ARM GAS  /tmp/ccJEKt3H.s 			page 197
+ARM GAS  /tmp/ccsW6mUR.s 			page 197
 
 
  5301 022a 9DF84D20 		ldrb	r2, [sp, #77]	@ zero_extendqisi2
@@ -11818,7 +11818,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5336              		.loc 1 2176 72 view .LVU1328
  5337 0268 1343     		orrs	r3, r3, r2
 2176:Core/Src/deca_device.c ****         diagnostics->stsPower = ((uint16_t)temp[BUF0_STS_DIAG_1 - BUF0_RX_FINFO + 1] << 8 | temp[BU
-ARM GAS  /tmp/ccJEKt3H.s 			page 198
+ARM GAS  /tmp/ccsW6mUR.s 			page 198
 
 
  5338              		.loc 1 2176 123 view .LVU1329
@@ -11878,7 +11878,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5373              		.loc 1 2180 45 is_stmt 0 view .LVU1348
  5374 02a2 9DF87B20 		ldrb	r2, [sp, #123]	@ zero_extendqisi2
 2180:Core/Src/deca_device.c ****             | (uint32_t)temp[BUF0_STS_DIAG_3 - BUF0_RX_FINFO + 1] << 8 | (uint32_t)temp[BUF0_STS_DI
-ARM GAS  /tmp/ccJEKt3H.s 			page 199
+ARM GAS  /tmp/ccsW6mUR.s 			page 199
 
 
  5375              		.loc 1 2180 105 view .LVU1349
@@ -11938,7 +11938,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5411 02e0 C3F31503 		ubfx	r3, r3, #0, #22
 2182:Core/Src/deca_device.c ****             | (uint32_t)temp[BUF0_STS_DIAG_4 - BUF0_RX_FINFO + 1] << 8 | (uint32_t)temp[BUF0_STS_DI
  5412              		.loc 1 2182 28 view .LVU1368
-ARM GAS  /tmp/ccJEKt3H.s 			page 200
+ARM GAS  /tmp/ccsW6mUR.s 			page 200
 
 
  5413 02e4 6365     		str	r3, [r4, #84]
@@ -11998,7 +11998,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5448 0320 43EA0223 		orr	r3, r3, r2, lsl #8
 2189:Core/Src/deca_device.c ****         diagnostics->sts2Power = ((uint16_t)temp[BUF0_STS1_DIAG_1 - BUF0_RX_FINFO + 1] << 8 | temp[
  5449              		.loc 1 2189 89 view .LVU1388
-ARM GAS  /tmp/ccJEKt3H.s 			page 201
+ARM GAS  /tmp/ccsW6mUR.s 			page 201
 
 
  5450 0324 9DF8B420 		ldrb	r2, [sp, #180]	@ zero_extendqisi2
@@ -12058,7 +12058,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5485              		.loc 1 2191 29 view .LVU1407
  5486 0360 6366     		str	r3, [r4, #100]
 2193:Core/Src/deca_device.c ****             | (uint32_t)temp[BUF0_STS1_DIAG_3 - BUF0_RX_FINFO + 1] << 8 | (uint32_t)temp[BUF0_STS1_
-ARM GAS  /tmp/ccJEKt3H.s 			page 202
+ARM GAS  /tmp/ccsW6mUR.s 			page 202
 
 
  5487              		.loc 1 2193 9 is_stmt 1 view .LVU1408
@@ -12118,7 +12118,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2196:Core/Src/deca_device.c ****         diagnostics->sts2FpIndex = ((uint16_t)temp[BUF0_STS1_DIAG_8 - BUF0_RX_FINFO + 1] << 8 | tem
  5523              		.loc 1 2196 73 view .LVU1427
  5524 039e 1343     		orrs	r3, r3, r2
-ARM GAS  /tmp/ccJEKt3H.s 			page 203
+ARM GAS  /tmp/ccsW6mUR.s 			page 203
 
 
 2196:Core/Src/deca_device.c ****         diagnostics->sts2FpIndex = ((uint16_t)temp[BUF0_STS1_DIAG_8 - BUF0_RX_FINFO + 1] << 8 | tem
@@ -12178,7 +12178,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5562              		.loc 1 2206 9 is_stmt 1 view .LVU1444
 2206:Core/Src/deca_device.c ****         {
  5563              		.loc 1 2206 25 is_stmt 0 view .LVU1445
-ARM GAS  /tmp/ccJEKt3H.s 			page 204
+ARM GAS  /tmp/ccsW6mUR.s 			page 204
 
 
  5564 03d2 937D     		ldrb	r3, [r2, #22]	@ zero_extendqisi2
@@ -12238,7 +12238,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5608 0414 E254     		strb	r2, [r4, r3]
 2219:Core/Src/deca_device.c ****             diagnostics->sts2RxTime[i] = temp[i + STS1_TOA_LO_ID - IP_TOA_LO_ID]; // RX timestamp f
  5609              		.loc 1 2219 13 is_stmt 1 discriminator 3 view .LVU1456
-ARM GAS  /tmp/ccJEKt3H.s 			page 205
+ARM GAS  /tmp/ccsW6mUR.s 			page 205
 
 
 2219:Core/Src/deca_device.c ****             diagnostics->sts2RxTime[i] = temp[i + STS1_TOA_LO_ID - IP_TOA_LO_ID]; // RX timestamp f
@@ -12298,7 +12298,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5647              		.loc 1 2225 43 is_stmt 0 view .LVU1473
  5648 044a 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2
 2225:Core/Src/deca_device.c ****         diagnostics->ipatovPOA = (uint16_t)temp[IP_TOA_HI_ID - IP_TOA_LO_ID + 2] << 8 | temp[IP_TOA
-ARM GAS  /tmp/ccJEKt3H.s 			page 206
+ARM GAS  /tmp/ccsW6mUR.s 			page 206
 
 
  5649              		.loc 1 2225 37 view .LVU1474
@@ -12358,7 +12358,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5685 0480 9DF81620 		ldrb	r2, [sp, #22]	@ zero_extendqisi2
 2232:Core/Src/deca_device.c **** 
  5686              		.loc 1 2232 93 view .LVU1493
-ARM GAS  /tmp/ccJEKt3H.s 			page 207
+ARM GAS  /tmp/ccsW6mUR.s 			page 207
 
 
  5687 0484 9DF81530 		ldrb	r3, [sp, #21]	@ zero_extendqisi2
@@ -12418,7 +12418,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5723 04c0 A384     		strh	r3, [r4, #36]	@ movhi
 2239:Core/Src/deca_device.c ****             | (uint32_t)temp[CIA_DIAG_1_ID - IP_TOA_LO_ID + 1] << 8 | (uint32_t)temp[CIA_DIAG_1_ID 
  5724              		.loc 1 2239 9 is_stmt 1 view .LVU1512
-ARM GAS  /tmp/ccJEKt3H.s 			page 208
+ARM GAS  /tmp/ccsW6mUR.s 			page 208
 
 
 2239:Core/Src/deca_device.c ****             | (uint32_t)temp[CIA_DIAG_1_ID - IP_TOA_LO_ID + 1] << 8 | (uint32_t)temp[CIA_DIAG_1_ID 
@@ -12478,7 +12478,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5761 04fc 43EA0263 		orr	r3, r3, r2, lsl #24
 2247:Core/Src/deca_device.c ****         diagnostics->ipatovPower = ((uint32_t)temp[IP_DIAG_1_ID - IP_TOA_LO_ID + 3] << 24 | (uint32
  5762              		.loc 1 2247 29 view .LVU1531
-ARM GAS  /tmp/ccJEKt3H.s 			page 209
+ARM GAS  /tmp/ccsW6mUR.s 			page 209
 
 
  5763 0500 9DF82920 		ldrb	r2, [sp, #41]	@ zero_extendqisi2
@@ -12538,7 +12538,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5798              		.loc 1 2250 104 view .LVU1550
  5799 053a 9DF83230 		ldrb	r3, [sp, #50]	@ zero_extendqisi2
 2250:Core/Src/deca_device.c ****             | (uint32_t)temp[IP_DIAG_2_ID - IP_TOA_LO_ID + 1] << 8 | (uint32_t)temp[IP_DIAG_2_ID - 
-ARM GAS  /tmp/ccJEKt3H.s 			page 210
+ARM GAS  /tmp/ccsW6mUR.s 			page 210
 
 
  5800              		.loc 1 2250 138 view .LVU1551
@@ -12598,7 +12598,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5836 0578 A363     		str	r3, [r4, #56]
 2254:Core/Src/deca_device.c ****             | (uint32_t)temp[IP_DIAG_4_ID - IP_TOA_LO_ID + 1] << 8 | (uint32_t)temp[IP_DIAG_4_ID - 
  5837              		.loc 1 2254 9 is_stmt 1 view .LVU1570
-ARM GAS  /tmp/ccJEKt3H.s 			page 211
+ARM GAS  /tmp/ccsW6mUR.s 			page 211
 
 
 2254:Core/Src/deca_device.c ****             | (uint32_t)temp[IP_DIAG_4_ID - IP_TOA_LO_ID + 1] << 8 | (uint32_t)temp[IP_DIAG_4_ID - 
@@ -12658,7 +12658,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5873 05b4 43EA0223 		orr	r3, r3, r2, lsl #8
 2257:Core/Src/deca_device.c **** 
  5874              		.loc 1 2257 134 view .LVU1590
-ARM GAS  /tmp/ccJEKt3H.s 			page 212
+ARM GAS  /tmp/ccsW6mUR.s 			page 212
 
 
  5875 05b8 C3F30B03 		ubfx	r3, r3, #0, #12
@@ -12718,7 +12718,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  5910 05f2 9DF86720 		ldrb	r2, [sp, #103]	@ zero_extendqisi2
 2263:Core/Src/deca_device.c ****             | (uint32_t)temp[STS_DIAG_2_ID - IP_TOA_LO_ID + 1] << 8 | (uint32_t)temp[STS_DIAG_2_ID 
  5911              		.loc 1 2263 102 view .LVU1610
-ARM GAS  /tmp/ccJEKt3H.s 			page 213
+ARM GAS  /tmp/ccsW6mUR.s 			page 213
 
 
  5912 05f6 9DF86630 		ldrb	r3, [sp, #102]	@ zero_extendqisi2
@@ -12778,7 +12778,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2265:Core/Src/deca_device.c ****             | (uint32_t)temp[STS_DIAG_3_ID - IP_TOA_LO_ID + 1] << 8 | (uint32_t)temp[STS_DIAG_3_ID 
  5948              		.loc 1 2265 28 view .LVU1629
  5949 0634 2365     		str	r3, [r4, #80]
-ARM GAS  /tmp/ccJEKt3H.s 			page 214
+ARM GAS  /tmp/ccsW6mUR.s 			page 214
 
 
 2269:Core/Src/deca_device.c **** 
@@ -12838,7 +12838,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2274:Core/Src/deca_device.c **** 
  5985              		.loc 1 2274 53 is_stmt 0 view .LVU1649
  5986 066c 9DF88D20 		ldrb	r2, [sp, #141]	@ zero_extendqisi2
-ARM GAS  /tmp/ccJEKt3H.s 			page 215
+ARM GAS  /tmp/ccsW6mUR.s 			page 215
 
 
 2274:Core/Src/deca_device.c **** 
@@ -12898,7 +12898,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6022 06aa 43EA0223 		orr	r3, r3, r2, lsl #8
 2279:Core/Src/deca_device.c ****         diagnostics->sts2F1 = ((uint32_t)temp[STS1_DIAG_2_ID - STS_DIAG_4_ID + offset_0xd + 3] << 2
  6023              		.loc 1 2279 32 view .LVU1669
-ARM GAS  /tmp/ccJEKt3H.s 			page 216
+ARM GAS  /tmp/ccsW6mUR.s 			page 216
 
 
  6024 06ae A4F86030 		strh	r3, [r4, #96]	@ movhi
@@ -12958,7 +12958,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6059              		.loc 1 2283 100 view .LVU1688
  6060 06ea 9DF8B020 		ldrb	r2, [sp, #176]	@ zero_extendqisi2
 2283:Core/Src/deca_device.c ****         diagnostics->sts2F3 = ((uint32_t)temp[STS1_DIAG_4_ID - STS_DIAG_4_ID + offset_0xd + 3] << 2
-ARM GAS  /tmp/ccJEKt3H.s 			page 217
+ARM GAS  /tmp/ccsW6mUR.s 			page 217
 
 
  6061              		.loc 1 2283 84 view .LVU1689
@@ -13018,7 +13018,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2286:Core/Src/deca_device.c ****         diagnostics->sts2AccumCount = ((uint16_t)temp[STS1_DIAG_12_ID - STS_DIAG_4_ID + offset_0xd 
  6097              		.loc 1 2286 34 view .LVU1708
  6098 0728 A4F87030 		strh	r3, [r4, #112]	@ movhi
-ARM GAS  /tmp/ccJEKt3H.s 			page 218
+ARM GAS  /tmp/ccsW6mUR.s 			page 218
 
 
 2287:Core/Src/deca_device.c ****         break;
@@ -13078,7 +13078,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6144 0008 7420     		movs	r0, #116
  6145              	.LVL530:
 2304:Core/Src/deca_device.c **** }
-ARM GAS  /tmp/ccJEKt3H.s 			page 219
+ARM GAS  /tmp/ccsW6mUR.s 			page 219
 
 
  6146              		.loc 1 2304 5 is_stmt 0 view .LVU1720
@@ -13138,7 +13138,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6198              		.cfi_def_cfa_offset 8
  6199              		.cfi_offset 3, -8
  6200              		.cfi_offset 14, -4
-ARM GAS  /tmp/ccJEKt3H.s 			page 220
+ARM GAS  /tmp/ccsW6mUR.s 			page 220
 
 
 2332:Core/Src/deca_device.c **** }
@@ -13198,7 +13198,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2355:Core/Src/deca_device.c ****         break;
  6247              		.loc 1 2355 14 view .LVU1737
  6248 001a C0F30D00 		ubfx	r0, r0, #0, #14
-ARM GAS  /tmp/ccJEKt3H.s 			page 221
+ARM GAS  /tmp/ccsW6mUR.s 			page 221
 
 
  6249              	.LVL535:
@@ -13258,7 +13258,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6288 0042 0548     		ldr	r0, .L433+8
  6289 0044 FFF7FEFF 		bl	dwt_read16bitoffsetreg
  6290              	.LVL542:
-ARM GAS  /tmp/ccJEKt3H.s 			page 222
+ARM GAS  /tmp/ccsW6mUR.s 			page 222
 
 
 2361:Core/Src/deca_device.c ****         break;
@@ -13318,7 +13318,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6339 0016 6371     		strb	r3, [r4, #5]
 2387:Core/Src/deca_device.c **** 
  6340              		.loc 1 2387 1 view .LVU1761
-ARM GAS  /tmp/ccJEKt3H.s 			page 223
+ARM GAS  /tmp/ccsW6mUR.s 			page 223
 
 
  6341 0018 10BD     		pop	{r4, pc}
@@ -13378,7 +13378,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6389              	.LVL550:
 2406:Core/Src/deca_device.c ****     case DBL_BUFF_ACCESS_BUFFER_0:
  6390              		.loc 1 2406 9 is_stmt 1 view .LVU1770
-ARM GAS  /tmp/ccJEKt3H.s 			page 224
+ARM GAS  /tmp/ccsW6mUR.s 			page 224
 
 
  6391              	.L439:
@@ -13438,7 +13438,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6438              		.loc 1 2427 1 is_stmt 1 view -0
  6439              		.cfi_startproc
  6440              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  /tmp/ccJEKt3H.s 			page 225
+ARM GAS  /tmp/ccsW6mUR.s 			page 225
 
 
  6441              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -13498,7 +13498,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6487 0004 0D4A     		ldr	r2, .L453
  6488 0006 1268     		ldr	r2, [r2]
  6489 0008 D27B     		ldrb	r2, [r2, #15]	@ zero_extendqisi2
-ARM GAS  /tmp/ccJEKt3H.s 			page 226
+ARM GAS  /tmp/ccsW6mUR.s 			page 226
 
 
 2444:Core/Src/deca_device.c ****     {
@@ -13558,7 +13558,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6532              	.L454:
  6533 003a 00BF     		.align	2
  6534              	.L453:
-ARM GAS  /tmp/ccJEKt3H.s 			page 227
+ARM GAS  /tmp/ccsW6mUR.s 			page 227
 
 
  6535 003c 00000000 		.word	.LANCHOR2
@@ -13618,7 +13618,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6582 001e 08BD     		pop	{r3, pc}
  6583              	.LVL572:
  6584              	.L456:
-ARM GAS  /tmp/ccJEKt3H.s 			page 228
+ARM GAS  /tmp/ccsW6mUR.s 			page 228
 
 
 2478:Core/Src/deca_device.c ****         break;
@@ -13678,7 +13678,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6633              		.cfi_offset 3, -8
  6634              		.cfi_offset 14, -4
 2497:Core/Src/deca_device.c **** }
-ARM GAS  /tmp/ccJEKt3H.s 			page 229
+ARM GAS  /tmp/ccsW6mUR.s 			page 229
 
 
  6635              		.loc 1 2497 5 view .LVU1819
@@ -13738,7 +13738,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6686              		.cfi_startproc
  6687              		@ args = 0, pretend = 0, frame = 0
  6688              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /tmp/ccJEKt3H.s 			page 230
+ARM GAS  /tmp/ccsW6mUR.s 			page 230
 
 
  6689 0000 08B5     		push	{r3, lr}
@@ -13798,7 +13798,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6738              		.section	.text.dwt_configureframefilter,"ax",%progbits
  6739              		.align	1
  6740              		.global	dwt_configureframefilter
-ARM GAS  /tmp/ccJEKt3H.s 			page 231
+ARM GAS  /tmp/ccsW6mUR.s 			page 231
 
 
  6741              		.syntax unified
@@ -13858,7 +13858,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2577:Core/Src/deca_device.c ****         dwt_write16bitoffsetreg(ADR_FILT_CFG_ID, 0, filtermode);
  6786              		.loc 1 2577 9 is_stmt 1 view .LVU1845
  6787 0020 0123     		movs	r3, #1
-ARM GAS  /tmp/ccJEKt3H.s 			page 232
+ARM GAS  /tmp/ccsW6mUR.s 			page 232
 
 
  6788 0022 FF22     		movs	r2, #255
@@ -13918,7 +13918,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6836 000c 08BD     		pop	{r3, pc}
  6837              		.cfi_endproc
  6838              	.LFE71:
-ARM GAS  /tmp/ccJEKt3H.s 			page 233
+ARM GAS  /tmp/ccsW6mUR.s 			page 233
 
 
  6840              		.section	.text.dwt_setaddress16,"ax",%progbits
@@ -13978,7 +13978,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6890              		.cfi_def_cfa_offset 8
  6891              		.cfi_offset 3, -8
  6892              		.cfi_offset 14, -4
-ARM GAS  /tmp/ccJEKt3H.s 			page 234
+ARM GAS  /tmp/ccsW6mUR.s 			page 234
 
 
  6893 0002 0346     		mov	r3, r0
@@ -14038,7 +14038,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6942              		.align	1
  6943              		.global	dwt_aon_read
  6944              		.syntax unified
-ARM GAS  /tmp/ccJEKt3H.s 			page 235
+ARM GAS  /tmp/ccsW6mUR.s 			page 235
 
 
  6945              		.thumb
@@ -14098,7 +14098,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  6991              		.align	2
  6992              	.L485:
  6993 002c 0C000A00 		.word	655372
-ARM GAS  /tmp/ccJEKt3H.s 			page 236
+ARM GAS  /tmp/ccsW6mUR.s 			page 236
 
 
  6994 0030 04000A00 		.word	655364
@@ -14158,7 +14158,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7041              	.LVL617:
 2685:Core/Src/deca_device.c ****     dwt_write8bitoffsetreg(AON_CTRL_ID,0x0,(temp | AON_CTRL_DCA_ENAB_BIT_MASK | AON_CTRL_DCA_WRITE_
  7042              		.loc 1 2685 5 is_stmt 1 view .LVU1887
-ARM GAS  /tmp/ccJEKt3H.s 			page 237
+ARM GAS  /tmp/ccsW6mUR.s 			page 237
 
 
  7043 0014 2246     		mov	r2, r4
@@ -14218,7 +14218,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7093 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
  7094              		.cfi_def_cfa_offset 24
  7095              		.cfi_offset 3, -24
-ARM GAS  /tmp/ccJEKt3H.s 			page 238
+ARM GAS  /tmp/ccsW6mUR.s 			page 238
 
 
  7096              		.cfi_offset 4, -20
@@ -14278,7 +14278,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7138              		.global	__dwt_otp_write_wdata_id_reg
  7139              		.syntax unified
  7140              		.thumb
-ARM GAS  /tmp/ccJEKt3H.s 			page 239
+ARM GAS  /tmp/ccsW6mUR.s 			page 239
 
 
  7141              		.thumb_func
@@ -14338,7 +14338,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 2768:Core/Src/deca_device.c ****     //uint32_t rd_buf;
  7191              		.loc 1 2768 1 is_stmt 0 view .LVU1914
  7192 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
-ARM GAS  /tmp/ccJEKt3H.s 			page 240
+ARM GAS  /tmp/ccsW6mUR.s 			page 240
 
 
  7193              		.cfi_def_cfa_offset 32
@@ -14398,7 +14398,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7238 0038 FFF7FEFF 		bl	__dwt_otp_write_wdata_id_reg
  7239              	.LVL639:
 2785:Core/Src/deca_device.c ****     __dwt_otp_write_wdata_id_reg(0x01fc);
-ARM GAS  /tmp/ccJEKt3H.s 			page 241
+ARM GAS  /tmp/ccsW6mUR.s 			page 241
 
 
  7240              		.loc 1 2785 5 view .LVU1924
@@ -14458,7 +14458,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7280              		.loc 1 2804 15 view .LVU1938
  7281 007c ADF80050 		strh	r5, [sp]	@ movhi
 2805:Core/Src/deca_device.c ****     wr_buf[2] = 0x100 | ((data >> 8) & 0xff);
-ARM GAS  /tmp/ccJEKt3H.s 			page 242
+ARM GAS  /tmp/ccsW6mUR.s 			page 242
 
 
  7282              		.loc 1 2805 5 is_stmt 1 view .LVU1939
@@ -14518,7 +14518,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7320 00ba FFF7FEFF 		bl	__dwt_otp_write_wdata_id_reg
  7321              	.LVL651:
 2817:Core/Src/deca_device.c ****     __dwt_otp_write_wdata_id_reg(0x01ff);
-ARM GAS  /tmp/ccJEKt3H.s 			page 243
+ARM GAS  /tmp/ccsW6mUR.s 			page 243
 
 
  7322              		.loc 1 2817 5 view .LVU1956
@@ -14578,7 +14578,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7366              		.loc 1 2861 5 view .LVU1966
  7367 010c 4FF48170 		mov	r0, #258
  7368 0110 FFF7FEFF 		bl	__dwt_otp_write_wdata_id_reg
-ARM GAS  /tmp/ccJEKt3H.s 			page 244
+ARM GAS  /tmp/ccsW6mUR.s 			page 244
 
 
  7369              	.LVL662:
@@ -14638,7 +14638,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7419              	.LFB81:
 2884:Core/Src/deca_device.c ****     //program the word
  7420              		.loc 1 2884 1 is_stmt 1 view -0
-ARM GAS  /tmp/ccJEKt3H.s 			page 245
+ARM GAS  /tmp/ccsW6mUR.s 			page 245
 
 
  7421              		.cfi_startproc
@@ -14698,7 +14698,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7468              		.loc 1 2912 1 is_stmt 1 view -0
  7469              		.cfi_startproc
  7470              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  /tmp/ccJEKt3H.s 			page 246
+ARM GAS  /tmp/ccsW6mUR.s 			page 246
 
 
  7471              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -14758,7 +14758,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7518              		.section	.text.dwt_configuresleepcnt,"ax",%progbits
  7519              		.align	1
  7520              		.global	dwt_configuresleepcnt
-ARM GAS  /tmp/ccJEKt3H.s 			page 247
+ARM GAS  /tmp/ccsW6mUR.s 			page 247
 
 
  7521              		.syntax unified
@@ -14818,7 +14818,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7571              		.cfi_def_cfa_offset 16
  7572              		.cfi_offset 3, -16
  7573              		.cfi_offset 4, -12
-ARM GAS  /tmp/ccJEKt3H.s 			page 248
+ARM GAS  /tmp/ccsW6mUR.s 			page 248
 
 
  7574              		.cfi_offset 5, -8
@@ -14878,7 +14878,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7617              	.LVL692:
 2970:Core/Src/deca_device.c ****     // Disable VDDPLL for reference clock
  7618              		.loc 1 2970 5 is_stmt 1 view .LVU2009
-ARM GAS  /tmp/ccJEKt3H.s 			page 249
+ARM GAS  /tmp/ccsW6mUR.s 			page 249
 
 
  7619 0042 0021     		movs	r1, #0
@@ -14938,7 +14938,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7667 0006 1B68     		ldr	r3, [r3]
  7668 0008 1A8A     		ldrh	r2, [r3, #16]
  7669 000a 1043     		orrs	r0, r0, r2
-ARM GAS  /tmp/ccJEKt3H.s 			page 250
+ARM GAS  /tmp/ccsW6mUR.s 			page 250
 
 
  7670              	.LVL697:
@@ -14998,7 +14998,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7719 000a FFF7FEFF 		bl	dwt_write16bitoffsetreg
  7720              	.LVL701:
 3036:Core/Src/deca_device.c ****     // Upload the new configuration
-ARM GAS  /tmp/ccJEKt3H.s 			page 251
+ARM GAS  /tmp/ccsW6mUR.s 			page 251
 
 
  7721              		.loc 1 3036 5 view .LVU2025
@@ -15058,7 +15058,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3060:Core/Src/deca_device.c ****     {
  7771              		.loc 1 3060 7 is_stmt 0 view .LVU2032
  7772 0002 40B1     		cbz	r0, .L528
-ARM GAS  /tmp/ccJEKt3H.s 			page 252
+ARM GAS  /tmp/ccsW6mUR.s 			page 252
 
 
 3062:Core/Src/deca_device.c ****     }
@@ -15118,7 +15118,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7822              		.cfi_offset 14, -4
 3082:Core/Src/deca_device.c **** 
  7823              		.loc 1 3082 5 view .LVU2040
-ARM GAS  /tmp/ccJEKt3H.s 			page 253
+ARM GAS  /tmp/ccsW6mUR.s 			page 253
 
 
 3084:Core/Src/deca_device.c **** 
@@ -15178,7 +15178,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  7868              		.thumb
  7869              		.thumb_func
  7870              		.fpu fpv4-sp-d16
-ARM GAS  /tmp/ccJEKt3H.s 			page 254
+ARM GAS  /tmp/ccsW6mUR.s 			page 254
 
 
  7872              	dwt_initialise:
@@ -15238,7 +15238,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  783:Core/Src/deca_device.c **** 
  7911              		.loc 1 783 5 is_stmt 1 view .LVU2067
  783:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 255
+ARM GAS  /tmp/ccsW6mUR.s 			page 255
 
 
  7912              		.loc 1 783 25 is_stmt 0 view .LVU2068
@@ -15298,7 +15298,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  800:Core/Src/deca_device.c ****     pdw3000local->bias_tune = (_dwt_otpread(BIAS_TUNE_ADDRESS) >> 16) & BIAS_CTRL_BIAS_MASK;
  7948              		.loc 1 800 19 is_stmt 0 view .LVU2087
  7949 0036 0520     		movs	r0, #5
-ARM GAS  /tmp/ccJEKt3H.s 			page 256
+ARM GAS  /tmp/ccsW6mUR.s 			page 256
 
 
  7950              	.LVL721:
@@ -15358,7 +15358,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  815:Core/Src/deca_device.c ****     }
  7989              		.loc 1 815 21 is_stmt 0 view .LVU2103
  7990 0062 2C4B     		ldr	r3, .L560
-ARM GAS  /tmp/ccJEKt3H.s 			page 257
+ARM GAS  /tmp/ccsW6mUR.s 			page 257
 
 
  7991 0064 1B68     		ldr	r3, [r3]
@@ -15418,7 +15418,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  834:Core/Src/deca_device.c ****     {
  8030              		.loc 1 834 20 is_stmt 0 view .LVU2119
  8031 008e 9A7A     		ldrb	r2, [r3, #10]	@ zero_extendqisi2
-ARM GAS  /tmp/ccJEKt3H.s 			page 258
+ARM GAS  /tmp/ccsW6mUR.s 			page 258
 
 
  834:Core/Src/deca_device.c ****     {
@@ -15478,7 +15478,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  8069              	.L551:
  846:Core/Src/deca_device.c **** 
  8070              		.loc 1 846 5 is_stmt 1 view .LVU2137
-ARM GAS  /tmp/ccJEKt3H.s 			page 259
+ARM GAS  /tmp/ccsW6mUR.s 			page 259
 
 
  8071 00b6 9A7B     		ldrb	r2, [r3, #14]	@ zero_extendqisi2
@@ -15538,7 +15538,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  8113 00e4 1D68     		ldr	r5, [r3]
  822:Core/Src/deca_device.c ****     if (mode & DWT_READ_OTP_BAT)
  8114              		.loc 1 822 31 view .LVU2150
-ARM GAS  /tmp/ccJEKt3H.s 			page 260
+ARM GAS  /tmp/ccsW6mUR.s 			page 260
 
 
  8115 00e6 0720     		movs	r0, #7
@@ -15598,7 +15598,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  8160              		.align	1
  8161              		.global	dwt_configciadiag
  8162              		.syntax unified
-ARM GAS  /tmp/ccJEKt3H.s 			page 261
+ARM GAS  /tmp/ccsW6mUR.s 			page 261
 
 
  8163              		.thumb
@@ -15658,7 +15658,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  8207 0028 10BD     		pop	{r4, pc}
  8208              	.LVL744:
  8209              	.L563:
-ARM GAS  /tmp/ccJEKt3H.s 			page 262
+ARM GAS  /tmp/ccsW6mUR.s 			page 262
 
 
 3116:Core/Src/deca_device.c ****     }
@@ -15718,7 +15718,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3143:Core/Src/deca_device.c ****     {
  8259              		.loc 1 3143 5 is_stmt 1 view .LVU2179
 3143:Core/Src/deca_device.c ****     {
-ARM GAS  /tmp/ccJEKt3H.s 			page 263
+ARM GAS  /tmp/ccsW6mUR.s 			page 263
 
 
  8260              		.loc 1 3143 8 is_stmt 0 view .LVU2180
@@ -15778,7 +15778,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  8310 0004 1A46     		mov	r2, r3
  8311 0006 1946     		mov	r1, r3
  8312 0008 1320     		movs	r0, #19
-ARM GAS  /tmp/ccJEKt3H.s 			page 264
+ARM GAS  /tmp/ccsW6mUR.s 			page 264
 
 
  8313 000a FFF7FEFF 		bl	dwt_writetodevice
@@ -15838,7 +15838,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  8359 0000 10B5     		push	{r4, lr}
  8360              		.cfi_def_cfa_offset 8
  8361              		.cfi_offset 4, -8
-ARM GAS  /tmp/ccJEKt3H.s 			page 265
+ARM GAS  /tmp/ccsW6mUR.s 			page 265
 
 
  8362              		.cfi_offset 14, -4
@@ -15898,7 +15898,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3196:Core/Src/deca_device.c ****         pdw3000local->dblbuffon = DBL_BUFF_ACCESS_BUFFER_0;    //the host will access RX_BUFFER_0 i
  8401              		.loc 1 3196 9 is_stmt 1 view .LVU2212
 3197:Core/Src/deca_device.c ****         //Updating indirect address here to save time setting it inside the interrupt(in order to r
-ARM GAS  /tmp/ccJEKt3H.s 			page 266
+ARM GAS  /tmp/ccsW6mUR.s 			page 266
 
 
  8402              		.loc 1 3197 9 view .LVU2213
@@ -15958,7 +15958,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  8445              	.LFE92:
  8447              		.section	.text.dwt_setrxaftertxdelay,"ax",%progbits
  8448              		.align	1
-ARM GAS  /tmp/ccJEKt3H.s 			page 267
+ARM GAS  /tmp/ccsW6mUR.s 			page 267
 
 
  8449              		.global	dwt_setrxaftertxdelay
@@ -16018,7 +16018,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3239:Core/Src/deca_device.c **** }
  8493              		.loc 1 3239 5 is_stmt 0 view .LVU2236
  8494 0018 0021     		movs	r1, #0
-ARM GAS  /tmp/ccJEKt3H.s 			page 268
+ARM GAS  /tmp/ccsW6mUR.s 			page 268
 
 
  8495 001a 2846     		mov	r0, r5
@@ -16078,7 +16078,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  8540 000a 2263     		str	r2, [r4, #48]
 3265:Core/Src/deca_device.c ****     pdw3000local->cbSPIErr = cbSPIErr;
  8541              		.loc 1 3265 5 is_stmt 1 view .LVU2248
-ARM GAS  /tmp/ccJEKt3H.s 			page 269
+ARM GAS  /tmp/ccsW6mUR.s 			page 269
 
 
 3265:Core/Src/deca_device.c ****     pdw3000local->cbSPIErr = cbSPIErr;
@@ -16138,7 +16138,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  8587              		.loc 1 3282 13 is_stmt 0 view .LVU2259
  8588 0002 0021     		movs	r1, #0
  8589 0004 4420     		movs	r0, #68
-ARM GAS  /tmp/ccJEKt3H.s 			page 270
+ARM GAS  /tmp/ccsW6mUR.s 			page 270
 
 
  8590 0006 FFF7FEFF 		bl	dwt_read8bitoffsetreg
@@ -16198,7 +16198,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3329:Core/Src/deca_device.c **** 
  8641              		.loc 1 3329 1 is_stmt 1 view -0
  8642              		.cfi_startproc
-ARM GAS  /tmp/ccJEKt3H.s 			page 271
+ARM GAS  /tmp/ccsW6mUR.s 			page 271
 
 
  8643              		@ args = 0, pretend = 0, frame = 0
@@ -16258,7 +16258,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  8685              	.LVL787:
  8686              	.L604:
 3378:Core/Src/deca_device.c ****     {
-ARM GAS  /tmp/ccJEKt3H.s 			page 272
+ARM GAS  /tmp/ccsW6mUR.s 			page 272
 
 
  8687              		.loc 1 3378 5 is_stmt 1 view .LVU2280
@@ -16318,7 +16318,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  8727 0062 0022     		movs	r2, #0
  8728 0064 83F82020 		strb	r2, [r3, #32]
 3416:Core/Src/deca_device.c ****         {
-ARM GAS  /tmp/ccJEKt3H.s 			page 273
+ARM GAS  /tmp/ccsW6mUR.s 			page 273
 
 
  8729              		.loc 1 3416 9 is_stmt 1 view .LVU2295
@@ -16378,7 +16378,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3451:Core/Src/deca_device.c ****         }
  8767              		.loc 1 3451 21 is_stmt 0 view .LVU2312
  8768 00a0 46F08056 		orr	r6, r6, #268435456
-ARM GAS  /tmp/ccJEKt3H.s 			page 274
+ARM GAS  /tmp/ccsW6mUR.s 			page 274
 
 
  8769              	.LVL793:
@@ -16438,7 +16438,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  8809              	.L623:
 3486:Core/Src/deca_device.c ****             {
  8810              		.loc 1 3486 13 view .LVU2327
-ARM GAS  /tmp/ccJEKt3H.s 			page 275
+ARM GAS  /tmp/ccsW6mUR.s 			page 275
 
 
 3486:Core/Src/deca_device.c ****             {
@@ -16498,7 +16498,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3511:Core/Src/deca_device.c ****         {
  8851              		.loc 1 3511 25 is_stmt 0 view .LVU2342
  8852 0110 614B     		ldr	r3, .L640
-ARM GAS  /tmp/ccJEKt3H.s 			page 276
+ARM GAS  /tmp/ccsW6mUR.s 			page 276
 
 
  8853 0112 1B68     		ldr	r3, [r3]
@@ -16558,7 +16558,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  8892 013e 0021     		movs	r1, #0
  8893 0140 4820     		movs	r0, #72
  8894              	.LVL803:
-ARM GAS  /tmp/ccJEKt3H.s 			page 277
+ARM GAS  /tmp/ccsW6mUR.s 			page 277
 
 
 3347:Core/Src/deca_device.c **** 
@@ -16618,7 +16618,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3357:Core/Src/deca_device.c ****             {
  8936              		.loc 1 3357 15 view .LVU2371
  8937 017c 0BB1     		cbz	r3, .L607
-ARM GAS  /tmp/ccJEKt3H.s 			page 278
+ARM GAS  /tmp/ccsW6mUR.s 			page 278
 
 
 3359:Core/Src/deca_device.c ****             }
@@ -16678,7 +16678,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  8981              	.LBB14:
  8982              	.LBB12:
 3418:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 279
+ARM GAS  /tmp/ccsW6mUR.s 			page 279
 
 
  8983              		.loc 1 3418 13 view .LVU2383
@@ -16738,7 +16738,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9021              		.loc 1 3430 24 is_stmt 0 view .LVU2399
  9022 01e8 45F48065 		orr	r5, r5, #1024
  9023              	.LVL815:
-ARM GAS  /tmp/ccJEKt3H.s 			page 280
+ARM GAS  /tmp/ccsW6mUR.s 			page 280
 
 
 3430:Core/Src/deca_device.c ****         }
@@ -16798,7 +16798,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9062 021c 46F40046 		orr	r6, r6, #32768
  9063              	.LVL819:
 3460:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 281
+ARM GAS  /tmp/ccsW6mUR.s 			page 281
 
 
  9064              		.loc 1 3460 21 view .LVU2416
@@ -16858,7 +16858,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9106              	.LVL824:
  9107              	.L636:
 3498:Core/Src/deca_device.c ****             }
-ARM GAS  /tmp/ccJEKt3H.s 			page 282
+ARM GAS  /tmp/ccsW6mUR.s 			page 282
 
 
  9108              		.loc 1 3498 47 view .LVU2429
@@ -16918,7 +16918,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9151 028c 3FF44EAF 		beq	.L602
 3543:Core/Src/deca_device.c ****         }
  9152              		.loc 1 3543 13 is_stmt 1 view .LVU2441
-ARM GAS  /tmp/ccJEKt3H.s 			page 283
+ARM GAS  /tmp/ccsW6mUR.s 			page 283
 
 
  9153 0290 1830     		adds	r0, r0, #24
@@ -16978,7 +16978,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9201              		.loc 1 3572 9 is_stmt 0 view .LVU2449
  9202 0018 FFF7FEFF 		bl	dwt_modify32bitoffsetreg
  9203              	.LVL833:
-ARM GAS  /tmp/ccJEKt3H.s 			page 284
+ARM GAS  /tmp/ccsW6mUR.s 			page 284
 
 
 3575:Core/Src/deca_device.c **** 
@@ -17038,7 +17038,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9246 0054 0023     		movs	r3, #0
  9247 0056 6FF47C62 		mvn	r2, #4032
  9248 005a 1946     		mov	r1, r3
-ARM GAS  /tmp/ccJEKt3H.s 			page 285
+ARM GAS  /tmp/ccsW6mUR.s 			page 285
 
 
  9249 005c 4FF4A020 		mov	r0, #327680
@@ -17098,7 +17098,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9298              		.loc 1 3651 5 is_stmt 0 view .LVU2468
  9299 0008 FFF7FEFF 		bl	dwt_write32bitoffsetreg
  9300              	.LVL846:
-ARM GAS  /tmp/ccJEKt3H.s 			page 286
+ARM GAS  /tmp/ccsW6mUR.s 			page 286
 
 
 3652:Core/Src/deca_device.c **** 
@@ -17158,7 +17158,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9352              		@ args = 0, pretend = 0, frame = 0
  9353              		@ frame_needed = 0, uses_anonymous_args = 0
 3689:Core/Src/deca_device.c ****     int retval = DWT_SUCCESS ;
-ARM GAS  /tmp/ccJEKt3H.s 			page 287
+ARM GAS  /tmp/ccsW6mUR.s 			page 287
 
 
  9354              		.loc 1 3689 1 is_stmt 0 view .LVU2476
@@ -17218,7 +17218,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9393 0028 10F0080F 		tst	r0, #8
  9394 002c 51D1     		bne	.L664
 3745:Core/Src/deca_device.c ****             if (sys_state == DW_SYS_STATE_TXERR)
-ARM GAS  /tmp/ccJEKt3H.s 			page 288
+ARM GAS  /tmp/ccsW6mUR.s 			page 288
 
 
  9395              		.loc 1 3745 13 is_stmt 1 view .LVU2492
@@ -17278,7 +17278,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3712:Core/Src/deca_device.c ****             }
  9436              		.loc 1 3712 17 is_stmt 1 view .LVU2506
  9437 005a 0023     		movs	r3, #0
-ARM GAS  /tmp/ccJEKt3H.s 			page 289
+ARM GAS  /tmp/ccsW6mUR.s 			page 289
 
 
  9438 005c 1A46     		mov	r2, r3
@@ -17338,7 +17338,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9482 0092 1A46     		mov	r2, r3
  9483 0094 1946     		mov	r1, r3
  9484 0096 0520     		movs	r0, #5
-ARM GAS  /tmp/ccJEKt3H.s 			page 290
+ARM GAS  /tmp/ccsW6mUR.s 			page 290
 
 
  9485              	.LVL871:
@@ -17398,7 +17398,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9529              		.loc 1 3749 17 is_stmt 1 view .LVU2526
 3749:Core/Src/deca_device.c ****             }
  9530              		.loc 1 3749 24 is_stmt 0 view .LVU2527
-ARM GAS  /tmp/ccJEKt3H.s 			page 291
+ARM GAS  /tmp/ccsW6mUR.s 			page 291
 
 
  9531 00cc 4FF0FF30 		mov	r0, #-1
@@ -17458,7 +17458,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9573 0100 0023     		movs	r3, #0
  9574 0102 1A46     		mov	r2, r3
  9575 0104 1946     		mov	r1, r3
-ARM GAS  /tmp/ccJEKt3H.s 			page 292
+ARM GAS  /tmp/ccsW6mUR.s 			page 292
 
 
  9576 0106 0B20     		movs	r0, #11
@@ -17518,7 +17518,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9620              		.cfi_endproc
  9621              	.LFE102:
  9623              		.section	.text.dwt_forcetrxoff,"ax",%progbits
-ARM GAS  /tmp/ccJEKt3H.s 			page 293
+ARM GAS  /tmp/ccsW6mUR.s 			page 293
 
 
  9624              		.align	1
@@ -17578,7 +17578,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9671              		.thumb
  9672              		.thumb_func
  9673              		.fpu fpv4-sp-d16
-ARM GAS  /tmp/ccJEKt3H.s 			page 294
+ARM GAS  /tmp/ccsW6mUR.s 			page 294
 
 
  9675              	dwt_setsniffmode:
@@ -17638,7 +17638,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9716 0018 1146     		mov	r1, r2
  9717              	.LVL909:
 3844:Core/Src/deca_device.c ****     }
-ARM GAS  /tmp/ccJEKt3H.s 			page 295
+ARM GAS  /tmp/ccsW6mUR.s 			page 295
 
 
  9718              		.loc 1 3844 9 view .LVU2572
@@ -17698,7 +17698,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9764 000e 48D8     		bhi	.L692
  9765 0010 DFE803F0 		tbb	[pc, r3]
  9766              	.L686:
-ARM GAS  /tmp/ccJEKt3H.s 			page 296
+ARM GAS  /tmp/ccsW6mUR.s 			page 296
 
 
  9767 0014 10       		.byte	(.L689-.L686)/2
@@ -17758,7 +17758,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9813 0042 4420     		movs	r0, #68
  9814 0044 FFF7FEFF 		bl	dwt_read8bitoffsetreg
  9815              	.LVL918:
-ARM GAS  /tmp/ccJEKt3H.s 			page 297
+ARM GAS  /tmp/ccsW6mUR.s 			page 297
 
 
 3899:Core/Src/deca_device.c ****         {
@@ -17818,7 +17818,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9859              	.LVL927:
 3892:Core/Src/deca_device.c ****             break;
  9860              		.loc 1 3892 17 is_stmt 0 view .LVU2602
-ARM GAS  /tmp/ccJEKt3H.s 			page 298
+ARM GAS  /tmp/ccsW6mUR.s 			page 298
 
 
  9861 0076 FFF7FEFF 		bl	dwt_writetodevice
@@ -17878,7 +17878,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9906              		.global	dwt_setrxtimeout
  9907              		.syntax unified
  9908              		.thumb
-ARM GAS  /tmp/ccJEKt3H.s 			page 299
+ARM GAS  /tmp/ccsW6mUR.s 			page 299
 
 
  9909              		.thumb_func
@@ -17938,7 +17938,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  9954 002a FFF7FEFF 		bl	dwt_modify16bitoffsetreg
  9955              	.LVL941:
 3938:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 300
+ARM GAS  /tmp/ccsW6mUR.s 			page 300
 
 
  9956              		.loc 1 3938 1 view .LVU2623
@@ -17998,7 +17998,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 3973:Core/Src/deca_device.c ****     decaIrqStatus_t stat ;
  10009              		.loc 1 3973 1 is_stmt 1 view -0
  10010              		.cfi_startproc
-ARM GAS  /tmp/ccJEKt3H.s 			page 301
+ARM GAS  /tmp/ccsW6mUR.s 			page 301
 
 
  10011              		@ args = 0, pretend = 0, frame = 0
@@ -18058,7 +18058,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10053 0026 1946     		mov	r1, r3
  10054 0028 4020     		movs	r0, #64
  10055 002a FFF7FEFF 		bl	dwt_modify32bitoffsetreg
-ARM GAS  /tmp/ccJEKt3H.s 			page 302
+ARM GAS  /tmp/ccsW6mUR.s 			page 302
 
 
  10056              	.LVL950:
@@ -18118,7 +18118,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10103              		.section	.text.dwt_configeventcounters,"ax",%progbits
  10104              		.align	1
  10105              		.global	dwt_configeventcounters
-ARM GAS  /tmp/ccJEKt3H.s 			page 303
+ARM GAS  /tmp/ccsW6mUR.s 			page 303
 
 
  10106              		.syntax unified
@@ -18178,7 +18178,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10153              		.global	dwt_readeventcounters
  10154              		.syntax unified
  10155              		.thumb
-ARM GAS  /tmp/ccJEKt3H.s 			page 304
+ARM GAS  /tmp/ccsW6mUR.s 			page 304
 
 
  10156              		.thumb_func
@@ -18238,7 +18238,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10197              	.LVL969:
 4040:Core/Src/deca_device.c ****     counters->CRCB = (temp >> 16) & 0xFFF;
  10198              		.loc 1 4040 5 is_stmt 1 view .LVU2673
-ARM GAS  /tmp/ccJEKt3H.s 			page 305
+ARM GAS  /tmp/ccsW6mUR.s 			page 305
 
 
 4040:Core/Src/deca_device.c ****     counters->CRCB = (temp >> 16) & 0xFFF;
@@ -18298,7 +18298,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10235              		.loc 1 4049 5 is_stmt 1 view .LVU2691
 4049:Core/Src/deca_device.c **** 
  10236              		.loc 1 4049 28 is_stmt 0 view .LVU2692
-ARM GAS  /tmp/ccJEKt3H.s 			page 306
+ARM GAS  /tmp/ccsW6mUR.s 			page 306
 
 
  10237 004a C0F30B00 		ubfx	r0, r0, #0, #12
@@ -18358,7 +18358,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10273              		.loc 1 4059 12 is_stmt 0 view .LVU2710
  10274 0070 0021     		movs	r1, #0
  10275 0072 0948     		ldr	r0, .L719+24
-ARM GAS  /tmp/ccJEKt3H.s 			page 307
+ARM GAS  /tmp/ccsW6mUR.s 			page 307
 
 
  10276 0074 FFF7FEFF 		bl	dwt_read32bitoffsetreg
@@ -18418,7 +18418,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10324 0008 FFF7FEFF 		bl	deca_sleep
  10325              	.LVL983:
 4085:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 308
+ARM GAS  /tmp/ccsW6mUR.s 			page 308
 
 
  10326              		.loc 1 4085 5 view .LVU2719
@@ -18478,7 +18478,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10374              	.LFB112:
 4110:Core/Src/deca_device.c ****     uint8_t reg_val = ((value & XTAL_TRIM_BIT_MASK) >> XTAL_XTAL_TRIM_BIT_OFFSET);
  10375              		.loc 1 4110 1 is_stmt 1 view -0
-ARM GAS  /tmp/ccJEKt3H.s 			page 309
+ARM GAS  /tmp/ccsW6mUR.s 			page 309
 
 
  10376              		.cfi_startproc
@@ -18538,7 +18538,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10422              		.cfi_startproc
  10423              		@ args = 0, pretend = 0, frame = 0
  10424              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /tmp/ccJEKt3H.s 			page 310
+ARM GAS  /tmp/ccsW6mUR.s 			page 310
 
 
  10425              		@ link register save eliminated.
@@ -18598,7 +18598,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10471              	.L735:
  10472              		.align	2
  10473              	.L734:
-ARM GAS  /tmp/ccJEKt3H.s 			page 311
+ARM GAS  /tmp/ccsW6mUR.s 			page 311
 
 
  10474 0010 60000300 		.word	196704
@@ -18658,7 +18658,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10520 0014 022B     		cmp	r3, #2
  10521 0016 00D9     		bls	.L738
 4237:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 312
+ARM GAS  /tmp/ccsW6mUR.s 			page 312
 
 
  10522              		.loc 1 4237 55 view .LVU2759
@@ -18718,7 +18718,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10570              		@ frame_needed = 0, uses_anonymous_args = 0
 4258:Core/Src/deca_device.c ****     //Enable repeated frames
  10571              		.loc 1 4258 1 is_stmt 0 view .LVU2768
-ARM GAS  /tmp/ccJEKt3H.s 			page 313
+ARM GAS  /tmp/ccsW6mUR.s 			page 313
 
 
  10572 0000 10B5     		push	{r4, lr}
@@ -18778,7 +18778,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10620              	.LVL1007:
  10621              	.LFB121:
 4325:Core/Src/deca_device.c ****     dwt_enable_rf_tx(channel, 1);
-ARM GAS  /tmp/ccJEKt3H.s 			page 314
+ARM GAS  /tmp/ccsW6mUR.s 			page 314
 
 
  10622              		.loc 1 4325 1 is_stmt 1 view -0
@@ -18838,7 +18838,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10670 0000 38B5     		push	{r3, r4, r5, lr}
  10671              		.cfi_def_cfa_offset 16
  10672              		.cfi_offset 3, -16
-ARM GAS  /tmp/ccJEKt3H.s 			page 315
+ARM GAS  /tmp/ccsW6mUR.s 			page 315
 
 
  10673              		.cfi_offset 4, -12
@@ -18898,7 +18898,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10720              		.cfi_def_cfa_offset 8
  10721              		.cfi_offset 3, -8
  10722              		.cfi_offset 14, -4
-ARM GAS  /tmp/ccJEKt3H.s 			page 316
+ARM GAS  /tmp/ccsW6mUR.s 			page 316
 
 
 4355:Core/Src/deca_device.c **** }
@@ -18958,7 +18958,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10770              	.LVL1021:
  10771 000c 0546     		mov	r5, r0
  10772              	.LVL1022:
-ARM GAS  /tmp/ccJEKt3H.s 			page 317
+ARM GAS  /tmp/ccsW6mUR.s 			page 317
 
 
 4378:Core/Src/deca_device.c **** 
@@ -19018,7 +19018,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10814              		.loc 1 4398 14 is_stmt 0 view .LVU2816
  10815 004a C0F30726 		ubfx	r6, r0, #8, #8
  10816              	.LVL1029:
-ARM GAS  /tmp/ccJEKt3H.s 			page 318
+ARM GAS  /tmp/ccsW6mUR.s 			page 318
 
 
 4401:Core/Src/deca_device.c **** 
@@ -19078,7 +19078,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4425:Core/Src/deca_device.c ****     float realtemp;
  10865              		.loc 1 4425 1 is_stmt 1 view -0
  10866              		.cfi_startproc
-ARM GAS  /tmp/ccJEKt3H.s 			page 319
+ARM GAS  /tmp/ccsW6mUR.s 			page 319
 
 
  10867              		@ args = 0, pretend = 0, frame = 0
@@ -19138,7 +19138,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  10914              		@ link register save eliminated.
 4447:Core/Src/deca_device.c **** 
  10915              		.loc 1 4447 5 view .LVU2835
-ARM GAS  /tmp/ccJEKt3H.s 			page 320
+ARM GAS  /tmp/ccsW6mUR.s 			page 320
 
 
 4450:Core/Src/deca_device.c ****     //realvolt = ((float)raw_voltage * 0.4f / 255) * 16;
@@ -19198,7 +19198,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4467:Core/Src/deca_device.c ****     return dwt_read8bitoffsetreg(SAR_READING_ID, 1);
  10962              		.loc 1 4467 1 is_stmt 1 view -0
  10963              		.cfi_startproc
-ARM GAS  /tmp/ccJEKt3H.s 			page 321
+ARM GAS  /tmp/ccsW6mUR.s 			page 321
 
 
  10964              		@ args = 0, pretend = 0, frame = 0
@@ -19258,7 +19258,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11014              		.thumb
  11015              		.thumb_func
  11016              		.fpu fpv4-sp-d16
-ARM GAS  /tmp/ccJEKt3H.s 			page 322
+ARM GAS  /tmp/ccsW6mUR.s 			page 322
 
 
  11018              	dwt_calcbandwidthadj:
@@ -19318,7 +19318,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11063              	.L774:
 4514:Core/Src/deca_device.c **** 
  11064              		.loc 1 4514 80 discriminator 1 view .LVU2863
-ARM GAS  /tmp/ccJEKt3H.s 			page 323
+ARM GAS  /tmp/ccsW6mUR.s 			page 323
 
 
 4514:Core/Src/deca_device.c **** 
@@ -19378,7 +19378,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11110              		.thumb_func
  11111              		.fpu fpv4-sp-d16
  11113              	dwt_configuretxrf:
-ARM GAS  /tmp/ccJEKt3H.s 			page 324
+ARM GAS  /tmp/ccsW6mUR.s 			page 324
 
 
  11114              	.LVL1056:
@@ -19438,7 +19438,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11156              	.LVL1061:
 1096:Core/Src/deca_device.c ****         {
  11157              		.loc 1 1096 13 view .LVU2886
-ARM GAS  /tmp/ccJEKt3H.s 			page 325
+ARM GAS  /tmp/ccsW6mUR.s 			page 325
 
 
  11158 0022 FFF7FEFF 		bl	dwt_read8bitoffsetreg
@@ -19498,7 +19498,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11207              		.cfi_offset 4, -12
  11208              		.cfi_offset 5, -8
  11209              		.cfi_offset 14, -4
-ARM GAS  /tmp/ccJEKt3H.s 			page 326
+ARM GAS  /tmp/ccsW6mUR.s 			page 326
 
 
  11210 0002 0546     		mov	r5, r0
@@ -19558,7 +19558,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11252 003a 10F0010F 		tst	r0, #1
  11253 003e F8D1     		bne	.L787
 4553:Core/Src/deca_device.c **** 
-ARM GAS  /tmp/ccJEKt3H.s 			page 327
+ARM GAS  /tmp/ccsW6mUR.s 			page 327
 
 
  11254              		.loc 1 4553 5 is_stmt 1 view .LVU2906
@@ -19618,7 +19618,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11301              		.cfi_startproc
  11302              		@ args = 0, pretend = 0, frame = 0
  11303              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /tmp/ccJEKt3H.s 			page 328
+ARM GAS  /tmp/ccsW6mUR.s 			page 328
 
 
 4573:Core/Src/deca_device.c ****     uint16_t tmp;
@@ -19678,7 +19678,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11340 001c 8378     		ldrb	r3, [r0, #2]	@ zero_extendqisi2
 4581:Core/Src/deca_device.c ****     tmp |= ((uint32_t)pCfg->aes_core_type)    << AES_CFG_CORE_SEL_BIT_OFFSET;
  11341              		.loc 1 4581 9 view .LVU2934
-ARM GAS  /tmp/ccJEKt3H.s 			page 329
+ARM GAS  /tmp/ccsW6mUR.s 			page 329
 
 
  11342 001e 42EA0322 		orr	r2, r2, r3, lsl #8
@@ -19738,7 +19738,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11387              	dwt_mic_size_from_bytes:
  11388              	.LVL1093:
  11389              	.LFB132:
-ARM GAS  /tmp/ccJEKt3H.s 			page 330
+ARM GAS  /tmp/ccsW6mUR.s 			page 330
 
 
 4595:Core/Src/deca_device.c ****     dwt_mic_size_e  mic_size=MIC_0;
@@ -19798,7 +19798,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11434              		.cfi_def_cfa_offset 8
  11435              		.cfi_offset 4, -8
  11436              		.cfi_offset 14, -4
-ARM GAS  /tmp/ccJEKt3H.s 			page 331
+ARM GAS  /tmp/ccsW6mUR.s 			page 331
 
 
  11437 0002 0446     		mov	r4, r0
@@ -19858,7 +19858,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11486              	dwt_do_aes:
  11487              	.LVL1103:
  11488              	.LFB137:
-ARM GAS  /tmp/ccJEKt3H.s 			page 332
+ARM GAS  /tmp/ccsW6mUR.s 			page 332
 
 
 4707:Core/Src/deca_device.c **** 
@@ -19918,7 +19918,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4737:Core/Src/deca_device.c ****     /* program Initialization Vector
 4738:Core/Src/deca_device.c ****      * */
 4739:Core/Src/deca_device.c ****     if(core_type==AES_core_type_GCM)
-ARM GAS  /tmp/ccJEKt3H.s 			page 333
+ARM GAS  /tmp/ccsW6mUR.s 			page 333
 
 
  11512              		.loc 1 4739 5 is_stmt 1 view .LVU2975
@@ -19978,7 +19978,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11547              	.L806:
  11548              	.LVL1107:
 4759:Core/Src/deca_device.c ****         }
-ARM GAS  /tmp/ccJEKt3H.s 			page 334
+ARM GAS  /tmp/ccsW6mUR.s 			page 334
 
 
 4760:Core/Src/deca_device.c ****         else
@@ -20038,7 +20038,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11566              		.loc 1 4796 5 is_stmt 1 view .LVU2998
  11567              		.loc 1 4796 14 is_stmt 0 view .LVU2999
  11568 0042 217C     		ldrb	r1, [r4, #16]	@ zero_extendqisi2
-ARM GAS  /tmp/ccJEKt3H.s 			page 335
+ARM GAS  /tmp/ccsW6mUR.s 			page 335
 
 
  11569              	.LVL1110:
@@ -20098,7 +20098,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4824:Core/Src/deca_device.c ****         {
 4825:Core/Src/deca_device.c ****             return ERROR_PAYLOAD_SIZE;
 4826:Core/Src/deca_device.c ****         }
-ARM GAS  /tmp/ccJEKt3H.s 			page 336
+ARM GAS  /tmp/ccsW6mUR.s 			page 336
 
 
 4827:Core/Src/deca_device.c ****     }
@@ -20158,7 +20158,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11631              	.LVL1120:
 4846:Core/Src/deca_device.c ****     ret = dwt_wait_aes_poll();
  11632              		.loc 1 4846 5 view .LVU3022
-ARM GAS  /tmp/ccJEKt3H.s 			page 337
+ARM GAS  /tmp/ccsW6mUR.s 			page 337
 
 
  11633              		.loc 1 4846 11 is_stmt 0 view .LVU3023
@@ -20218,7 +20218,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4888:Core/Src/deca_device.c ****             if (job->payload_len)
 4889:Core/Src/deca_device.c ****             {
 4890:Core/Src/deca_device.c ****                 dwt_readfromdevice(read_addr, job->header_len, job->payload_len, job->payload);
-ARM GAS  /tmp/ccJEKt3H.s 			page 338
+ARM GAS  /tmp/ccsW6mUR.s 			page 338
 
 
 4891:Core/Src/deca_device.c ****             }
@@ -20278,7 +20278,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11684              	.L818:
 4774:Core/Src/deca_device.c ****         }
  11685              		.loc 1 4774 23 view .LVU3041
-ARM GAS  /tmp/ccJEKt3H.s 			page 339
+ARM GAS  /tmp/ccsW6mUR.s 			page 339
 
 
  11686 00ba 40F2FF33 		movw	r3, #1023
@@ -20338,7 +20338,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4812:Core/Src/deca_device.c ****         {
  11730              		.loc 1 4812 9 is_stmt 1 view .LVU3052
 4812:Core/Src/deca_device.c ****         {
-ARM GAS  /tmp/ccJEKt3H.s 			page 340
+ARM GAS  /tmp/ccsW6mUR.s 			page 340
 
 
  11731              		.loc 1 4812 25 is_stmt 0 view .LVU3053
@@ -20398,7 +20398,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11771              		.loc 1 4858 17 is_stmt 0 view .LVU3067
  11772 010e 627C     		ldrb	r2, [r4, #17]	@ zero_extendqisi2
 4858:Core/Src/deca_device.c ****         {
-ARM GAS  /tmp/ccJEKt3H.s 			page 341
+ARM GAS  /tmp/ccsW6mUR.s 			page 341
 
 
  11773              		.loc 1 4858 49 view .LVU3068
@@ -20458,7 +20458,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
 4890:Core/Src/deca_device.c ****             }
  11811              		.loc 1 4890 17 is_stmt 1 view .LVU3085
  11812 0134 217B     		ldrb	r1, [r4, #12]	@ zero_extendqisi2
-ARM GAS  /tmp/ccJEKt3H.s 			page 342
+ARM GAS  /tmp/ccsW6mUR.s 			page 342
 
 
  11813 0136 3046     		mov	r0, r6
@@ -20518,7 +20518,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11857              		.loc 1 4734 16 view .LVU3095
  11858 0164 6FF00200 		mvn	r0, #2
  11859              	.LVL1151:
-ARM GAS  /tmp/ccJEKt3H.s 			page 343
+ARM GAS  /tmp/ccsW6mUR.s 			page 343
 
 
  11860              		.loc 1 4895 1 view .LVU3096
@@ -20578,7 +20578,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11900              		.cfi_startproc
  11901              		@ args = 0, pretend = 0, frame = 0
  11902              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /tmp/ccJEKt3H.s 			page 344
+ARM GAS  /tmp/ccsW6mUR.s 			page 344
 
 
  11903              		.loc 1 4909 1 is_stmt 0 view .LVU3100
@@ -20638,7 +20638,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11939 001c 0648     		ldr	r0, .L850
  11940              	.LVL1160:
 4916:Core/Src/deca_device.c ****         break;
-ARM GAS  /tmp/ccJEKt3H.s 			page 345
+ARM GAS  /tmp/ccsW6mUR.s 			page 345
 
 
  11941              		.loc 1 4916 9 view .LVU3109
@@ -20698,7 +20698,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  11987              		.fpu fpv4-sp-d16
  11989              	dwt_configuresfdtype:
  11990              	.LVL1170:
-ARM GAS  /tmp/ccJEKt3H.s 			page 346
+ARM GAS  /tmp/ccsW6mUR.s 			page 346
 
 
  11991              	.LFB139:
@@ -20758,7 +20758,7 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  12029      00000000 
  12030              		.section	.bss.crcTable,"aw",%nobits
  12031              		.align	2
-ARM GAS  /tmp/ccJEKt3H.s 			page 347
+ARM GAS  /tmp/ccsW6mUR.s 			page 347
 
 
  12032              		.set	.LANCHOR0,. + 0
@@ -20805,427 +20805,427 @@ ARM GAS  /tmp/ccJEKt3H.s 			page 1
  12073              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
  12074              		.file 3 "Core/Inc/deca_device_api.h"
  12075              		.file 4 "/usr/include/newlib/assert.h"
-ARM GAS  /tmp/ccJEKt3H.s 			page 348
+ARM GAS  /tmp/ccsW6mUR.s 			page 348
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 deca_device.c
-     /tmp/ccJEKt3H.s:18     .text._dwt_crc8init:0000000000000000 $t
-     /tmp/ccJEKt3H.s:25     .text._dwt_crc8init:0000000000000000 _dwt_crc8init
-     /tmp/ccJEKt3H.s:114    .text._dwt_crc8init:0000000000000030 $d
-     /tmp/ccJEKt3H.s:119    .text.get_sts_mnth:0000000000000000 $t
-     /tmp/ccJEKt3H.s:125    .text.get_sts_mnth:0000000000000000 get_sts_mnth
-     /tmp/ccJEKt3H.s:189    .text.dwt_apiversion:0000000000000000 $t
-     /tmp/ccJEKt3H.s:196    .text.dwt_apiversion:0000000000000000 dwt_apiversion
-     /tmp/ccJEKt3H.s:211    .text.dwt_setlocaldataptr:0000000000000000 $t
-     /tmp/ccJEKt3H.s:218    .text.dwt_setlocaldataptr:0000000000000000 dwt_setlocaldataptr
-     /tmp/ccJEKt3H.s:248    .text.dwt_setlocaldataptr:0000000000000014 $d
-     /tmp/ccJEKt3H.s:254    .text.dwt_wakeup_ic:0000000000000000 $t
-     /tmp/ccJEKt3H.s:261    .text.dwt_wakeup_ic:0000000000000000 dwt_wakeup_ic
-     /tmp/ccJEKt3H.s:280    .text.dwt_generatecrc8:0000000000000000 $t
-     /tmp/ccJEKt3H.s:287    .text.dwt_generatecrc8:0000000000000000 dwt_generatecrc8
-     /tmp/ccJEKt3H.s:335    .text.dwt_generatecrc8:0000000000000024 $d
-     /tmp/ccJEKt3H.s:340    .rodata.dwt_xfer3000.str1.4:0000000000000000 $d
-     /tmp/ccJEKt3H.s:355    .text.dwt_xfer3000:0000000000000000 $t
-     /tmp/ccJEKt3H.s:361    .text.dwt_xfer3000:0000000000000000 dwt_xfer3000
-     /tmp/ccJEKt3H.s:1396   .text.dwt_read8bitoffsetreg:0000000000000000 dwt_read8bitoffsetreg
-     /tmp/ccJEKt3H.s:669    .text.dwt_xfer3000:000000000000014c $d
-     /tmp/ccJEKt3H.s:679    .text.dwt_writetodevice:0000000000000000 $t
-     /tmp/ccJEKt3H.s:686    .text.dwt_writetodevice:0000000000000000 dwt_writetodevice
-     /tmp/ccJEKt3H.s:714    .text.dwt_write32bitoffsetreg:0000000000000000 $t
-     /tmp/ccJEKt3H.s:721    .text.dwt_write32bitoffsetreg:0000000000000000 dwt_write32bitoffsetreg
-     /tmp/ccJEKt3H.s:783    .text.dwt_disable_rftx_blocks:0000000000000000 $t
-     /tmp/ccJEKt3H.s:789    .text.dwt_disable_rftx_blocks:0000000000000000 dwt_disable_rftx_blocks
-     /tmp/ccJEKt3H.s:810    .text.dwt_disable_rftx_blocks:0000000000000010 $d
-     /tmp/ccJEKt3H.s:815    .text.dwt_disable_rf_tx:0000000000000000 $t
-     /tmp/ccJEKt3H.s:821    .text.dwt_disable_rf_tx:0000000000000000 dwt_disable_rf_tx
-     /tmp/ccJEKt3H.s:866    .text.dwt_disable_rf_tx:000000000000002c $d
-     /tmp/ccJEKt3H.s:872    .text.dwt_write16bitoffsetreg:0000000000000000 $t
-     /tmp/ccJEKt3H.s:879    .text.dwt_write16bitoffsetreg:0000000000000000 dwt_write16bitoffsetreg
-     /tmp/ccJEKt3H.s:919    .text.dwt_force_clocks:0000000000000000 $t
-     /tmp/ccJEKt3H.s:925    .text.dwt_force_clocks:0000000000000000 dwt_force_clocks
-     /tmp/ccJEKt3H.s:981    .text.dwt_force_clocks:000000000000002c $d
-     /tmp/ccJEKt3H.s:986    .text.dwt_write8bitoffsetreg:0000000000000000 $t
-     /tmp/ccJEKt3H.s:993    .text.dwt_write8bitoffsetreg:0000000000000000 dwt_write8bitoffsetreg
-     /tmp/ccJEKt3H.s:1026   .text.dwt_update_nonce_GCM:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1032   .text.dwt_update_nonce_GCM:0000000000000000 dwt_update_nonce_GCM
-     /tmp/ccJEKt3H.s:1058   .text.dwt_update_nonce_GCM:0000000000000010 $d
-     /tmp/ccJEKt3H.s:1063   .text.dwt_update_nonce_CCM:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1069   .text.dwt_update_nonce_CCM:0000000000000000 dwt_update_nonce_CCM
-     /tmp/ccJEKt3H.s:1167   .text.dwt_update_nonce_CCM:0000000000000074 $d
-     /tmp/ccJEKt3H.s:1172   .text.dwt_readfromdevice:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1179   .text.dwt_readfromdevice:0000000000000000 dwt_readfromdevice
-     /tmp/ccJEKt3H.s:1207   .text.dwt_read32bitoffsetreg:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1214   .text.dwt_read32bitoffsetreg:0000000000000000 dwt_read32bitoffsetreg
-     /tmp/ccJEKt3H.s:1275   .text._dwt_otpread:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1281   .text._dwt_otpread:0000000000000000 _dwt_otpread
-     /tmp/ccJEKt3H.s:1331   .text._dwt_otpread:0000000000000030 $d
-     /tmp/ccJEKt3H.s:1338   .text.dwt_read16bitoffsetreg:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1345   .text.dwt_read16bitoffsetreg:0000000000000000 dwt_read16bitoffsetreg
-     /tmp/ccJEKt3H.s:1389   .text.dwt_read8bitoffsetreg:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1429   .text.dwt_wait_aes_poll:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1435   .text.dwt_wait_aes_poll:0000000000000000 dwt_wait_aes_poll
-ARM GAS  /tmp/ccJEKt3H.s 			page 349
+     /tmp/ccsW6mUR.s:18     .text._dwt_crc8init:0000000000000000 $t
+     /tmp/ccsW6mUR.s:25     .text._dwt_crc8init:0000000000000000 _dwt_crc8init
+     /tmp/ccsW6mUR.s:114    .text._dwt_crc8init:0000000000000030 $d
+     /tmp/ccsW6mUR.s:119    .text.get_sts_mnth:0000000000000000 $t
+     /tmp/ccsW6mUR.s:125    .text.get_sts_mnth:0000000000000000 get_sts_mnth
+     /tmp/ccsW6mUR.s:189    .text.dwt_apiversion:0000000000000000 $t
+     /tmp/ccsW6mUR.s:196    .text.dwt_apiversion:0000000000000000 dwt_apiversion
+     /tmp/ccsW6mUR.s:211    .text.dwt_setlocaldataptr:0000000000000000 $t
+     /tmp/ccsW6mUR.s:218    .text.dwt_setlocaldataptr:0000000000000000 dwt_setlocaldataptr
+     /tmp/ccsW6mUR.s:248    .text.dwt_setlocaldataptr:0000000000000014 $d
+     /tmp/ccsW6mUR.s:254    .text.dwt_wakeup_ic:0000000000000000 $t
+     /tmp/ccsW6mUR.s:261    .text.dwt_wakeup_ic:0000000000000000 dwt_wakeup_ic
+     /tmp/ccsW6mUR.s:280    .text.dwt_generatecrc8:0000000000000000 $t
+     /tmp/ccsW6mUR.s:287    .text.dwt_generatecrc8:0000000000000000 dwt_generatecrc8
+     /tmp/ccsW6mUR.s:335    .text.dwt_generatecrc8:0000000000000024 $d
+     /tmp/ccsW6mUR.s:340    .rodata.dwt_xfer3000.str1.4:0000000000000000 $d
+     /tmp/ccsW6mUR.s:355    .text.dwt_xfer3000:0000000000000000 $t
+     /tmp/ccsW6mUR.s:361    .text.dwt_xfer3000:0000000000000000 dwt_xfer3000
+     /tmp/ccsW6mUR.s:1396   .text.dwt_read8bitoffsetreg:0000000000000000 dwt_read8bitoffsetreg
+     /tmp/ccsW6mUR.s:669    .text.dwt_xfer3000:000000000000014c $d
+     /tmp/ccsW6mUR.s:679    .text.dwt_writetodevice:0000000000000000 $t
+     /tmp/ccsW6mUR.s:686    .text.dwt_writetodevice:0000000000000000 dwt_writetodevice
+     /tmp/ccsW6mUR.s:714    .text.dwt_write32bitoffsetreg:0000000000000000 $t
+     /tmp/ccsW6mUR.s:721    .text.dwt_write32bitoffsetreg:0000000000000000 dwt_write32bitoffsetreg
+     /tmp/ccsW6mUR.s:783    .text.dwt_disable_rftx_blocks:0000000000000000 $t
+     /tmp/ccsW6mUR.s:789    .text.dwt_disable_rftx_blocks:0000000000000000 dwt_disable_rftx_blocks
+     /tmp/ccsW6mUR.s:810    .text.dwt_disable_rftx_blocks:0000000000000010 $d
+     /tmp/ccsW6mUR.s:815    .text.dwt_disable_rf_tx:0000000000000000 $t
+     /tmp/ccsW6mUR.s:821    .text.dwt_disable_rf_tx:0000000000000000 dwt_disable_rf_tx
+     /tmp/ccsW6mUR.s:866    .text.dwt_disable_rf_tx:000000000000002c $d
+     /tmp/ccsW6mUR.s:872    .text.dwt_write16bitoffsetreg:0000000000000000 $t
+     /tmp/ccsW6mUR.s:879    .text.dwt_write16bitoffsetreg:0000000000000000 dwt_write16bitoffsetreg
+     /tmp/ccsW6mUR.s:919    .text.dwt_force_clocks:0000000000000000 $t
+     /tmp/ccsW6mUR.s:925    .text.dwt_force_clocks:0000000000000000 dwt_force_clocks
+     /tmp/ccsW6mUR.s:981    .text.dwt_force_clocks:000000000000002c $d
+     /tmp/ccsW6mUR.s:986    .text.dwt_write8bitoffsetreg:0000000000000000 $t
+     /tmp/ccsW6mUR.s:993    .text.dwt_write8bitoffsetreg:0000000000000000 dwt_write8bitoffsetreg
+     /tmp/ccsW6mUR.s:1026   .text.dwt_update_nonce_GCM:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1032   .text.dwt_update_nonce_GCM:0000000000000000 dwt_update_nonce_GCM
+     /tmp/ccsW6mUR.s:1058   .text.dwt_update_nonce_GCM:0000000000000010 $d
+     /tmp/ccsW6mUR.s:1063   .text.dwt_update_nonce_CCM:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1069   .text.dwt_update_nonce_CCM:0000000000000000 dwt_update_nonce_CCM
+     /tmp/ccsW6mUR.s:1167   .text.dwt_update_nonce_CCM:0000000000000074 $d
+     /tmp/ccsW6mUR.s:1172   .text.dwt_readfromdevice:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1179   .text.dwt_readfromdevice:0000000000000000 dwt_readfromdevice
+     /tmp/ccsW6mUR.s:1207   .text.dwt_read32bitoffsetreg:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1214   .text.dwt_read32bitoffsetreg:0000000000000000 dwt_read32bitoffsetreg
+     /tmp/ccsW6mUR.s:1275   .text._dwt_otpread:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1281   .text._dwt_otpread:0000000000000000 _dwt_otpread
+     /tmp/ccsW6mUR.s:1331   .text._dwt_otpread:0000000000000030 $d
+     /tmp/ccsW6mUR.s:1338   .text.dwt_read16bitoffsetreg:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1345   .text.dwt_read16bitoffsetreg:0000000000000000 dwt_read16bitoffsetreg
+     /tmp/ccsW6mUR.s:1389   .text.dwt_read8bitoffsetreg:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1429   .text.dwt_wait_aes_poll:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1435   .text.dwt_wait_aes_poll:0000000000000000 dwt_wait_aes_poll
+ARM GAS  /tmp/ccsW6mUR.s 			page 349
 
 
-     /tmp/ccJEKt3H.s:1474   .text.dwt_wait_aes_poll:0000000000000024 $d
-     /tmp/ccJEKt3H.s:1479   .text.dwt_modify32bitoffsetreg:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1486   .text.dwt_modify32bitoffsetreg:0000000000000000 dwt_modify32bitoffsetreg
-     /tmp/ccJEKt3H.s:1557   .text._dwt_kick_ops_table_on_wakeup:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1563   .text._dwt_kick_ops_table_on_wakeup:0000000000000000 _dwt_kick_ops_table_on_wakeup
-     /tmp/ccJEKt3H.s:1611   .text._dwt_kick_ops_table_on_wakeup:000000000000003c $d
-     /tmp/ccJEKt3H.s:1617   .text._dwt_kick_dgc_on_wakeup:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1623   .text._dwt_kick_dgc_on_wakeup:0000000000000000 _dwt_kick_dgc_on_wakeup
-     /tmp/ccJEKt3H.s:1675   .text._dwt_kick_dgc_on_wakeup:0000000000000030 $d
-     /tmp/ccJEKt3H.s:1680   .text.dwt_enable_rf_tx:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1686   .text.dwt_enable_rf_tx:0000000000000000 dwt_enable_rf_tx
-     /tmp/ccJEKt3H.s:1761   .text.dwt_enable_rf_tx:0000000000000060 $d
-     /tmp/ccJEKt3H.s:1770   .text.dwt_enable_rftx_blocks:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1776   .text.dwt_enable_rftx_blocks:0000000000000000 dwt_enable_rftx_blocks
-     /tmp/ccJEKt3H.s:1828   .text.dwt_enable_rftx_blocks:000000000000002c $d
-     /tmp/ccJEKt3H.s:1835   .text.dwt_modify16bitoffsetreg:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1842   .text.dwt_modify16bitoffsetreg:0000000000000000 dwt_modify16bitoffsetreg
-     /tmp/ccJEKt3H.s:1893   .text._dwt_prog_ldo_and_bias_tune:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1899   .text._dwt_prog_ldo_and_bias_tune:0000000000000000 _dwt_prog_ldo_and_bias_tune
-     /tmp/ccJEKt3H.s:1930   .text._dwt_prog_ldo_and_bias_tune:0000000000000028 $d
-     /tmp/ccJEKt3H.s:1937   .text.dwt_modify8bitoffsetreg:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1944   .text.dwt_modify8bitoffsetreg:0000000000000000 dwt_modify8bitoffsetreg
-     /tmp/ccJEKt3H.s:1987   .text.dwt_enablespicrccheck:0000000000000000 $t
-     /tmp/ccJEKt3H.s:1994   .text.dwt_enablespicrccheck:0000000000000000 dwt_enablespicrccheck
-     /tmp/ccJEKt3H.s:2067   .text.dwt_enablespicrccheck:000000000000003c $d
-     /tmp/ccJEKt3H.s:2072   .text.dwt_setdwstate:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2079   .text.dwt_setdwstate:0000000000000000 dwt_setdwstate
-     /tmp/ccJEKt3H.s:2176   .text.dwt_setdwstate:000000000000007c $d
-     /tmp/ccJEKt3H.s:2182   .text.dwt_enablegpioclocks:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2189   .text.dwt_enablegpioclocks:0000000000000000 dwt_enablegpioclocks
-     /tmp/ccJEKt3H.s:2211   .text.dwt_enablegpioclocks:0000000000000014 $d
-     /tmp/ccJEKt3H.s:2216   .text.dwt_otprevision:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2223   .text.dwt_otprevision:0000000000000000 dwt_otprevision
-     /tmp/ccJEKt3H.s:2240   .text.dwt_otprevision:0000000000000008 $d
-     /tmp/ccJEKt3H.s:2245   .text.dwt_setfinegraintxseq:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2252   .text.dwt_setfinegraintxseq:0000000000000000 dwt_setfinegraintxseq
-     /tmp/ccJEKt3H.s:2293   .text.dwt_setfinegraintxseq:000000000000001c $d
-     /tmp/ccJEKt3H.s:2300   .text.dwt_setlnapamode:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2307   .text.dwt_setlnapamode:0000000000000000 dwt_setlnapamode
-     /tmp/ccJEKt3H.s:2372   .text.dwt_setlnapamode:000000000000003c $d
-     /tmp/ccJEKt3H.s:2377   .text.dwt_readpgdelay:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2384   .text.dwt_readpgdelay:0000000000000000 dwt_readpgdelay
-     /tmp/ccJEKt3H.s:2405   .text.dwt_readpgdelay:000000000000000c $d
-     /tmp/ccJEKt3H.s:2410   .text.dwt_geticrefvolt:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2417   .text.dwt_geticrefvolt:0000000000000000 dwt_geticrefvolt
-     /tmp/ccJEKt3H.s:2434   .text.dwt_geticrefvolt:0000000000000008 $d
-     /tmp/ccJEKt3H.s:2439   .text.dwt_geticreftemp:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2446   .text.dwt_geticreftemp:0000000000000000 dwt_geticreftemp
-     /tmp/ccJEKt3H.s:2463   .text.dwt_geticreftemp:0000000000000008 $d
-     /tmp/ccJEKt3H.s:2468   .text.dwt_getpartid:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2475   .text.dwt_getpartid:0000000000000000 dwt_getpartid
-     /tmp/ccJEKt3H.s:2492   .text.dwt_getpartid:0000000000000008 $d
-     /tmp/ccJEKt3H.s:2497   .text.dwt_getlotid:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2504   .text.dwt_getlotid:0000000000000000 dwt_getlotid
-     /tmp/ccJEKt3H.s:2521   .text.dwt_getlotid:0000000000000008 $d
-     /tmp/ccJEKt3H.s:2526   .text.dwt_readdevid:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2533   .text.dwt_readdevid:0000000000000000 dwt_readdevid
-ARM GAS  /tmp/ccJEKt3H.s 			page 350
+     /tmp/ccsW6mUR.s:1474   .text.dwt_wait_aes_poll:0000000000000024 $d
+     /tmp/ccsW6mUR.s:1479   .text.dwt_modify32bitoffsetreg:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1486   .text.dwt_modify32bitoffsetreg:0000000000000000 dwt_modify32bitoffsetreg
+     /tmp/ccsW6mUR.s:1557   .text._dwt_kick_ops_table_on_wakeup:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1563   .text._dwt_kick_ops_table_on_wakeup:0000000000000000 _dwt_kick_ops_table_on_wakeup
+     /tmp/ccsW6mUR.s:1611   .text._dwt_kick_ops_table_on_wakeup:000000000000003c $d
+     /tmp/ccsW6mUR.s:1617   .text._dwt_kick_dgc_on_wakeup:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1623   .text._dwt_kick_dgc_on_wakeup:0000000000000000 _dwt_kick_dgc_on_wakeup
+     /tmp/ccsW6mUR.s:1675   .text._dwt_kick_dgc_on_wakeup:0000000000000030 $d
+     /tmp/ccsW6mUR.s:1680   .text.dwt_enable_rf_tx:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1686   .text.dwt_enable_rf_tx:0000000000000000 dwt_enable_rf_tx
+     /tmp/ccsW6mUR.s:1761   .text.dwt_enable_rf_tx:0000000000000060 $d
+     /tmp/ccsW6mUR.s:1770   .text.dwt_enable_rftx_blocks:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1776   .text.dwt_enable_rftx_blocks:0000000000000000 dwt_enable_rftx_blocks
+     /tmp/ccsW6mUR.s:1828   .text.dwt_enable_rftx_blocks:000000000000002c $d
+     /tmp/ccsW6mUR.s:1835   .text.dwt_modify16bitoffsetreg:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1842   .text.dwt_modify16bitoffsetreg:0000000000000000 dwt_modify16bitoffsetreg
+     /tmp/ccsW6mUR.s:1893   .text._dwt_prog_ldo_and_bias_tune:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1899   .text._dwt_prog_ldo_and_bias_tune:0000000000000000 _dwt_prog_ldo_and_bias_tune
+     /tmp/ccsW6mUR.s:1930   .text._dwt_prog_ldo_and_bias_tune:0000000000000028 $d
+     /tmp/ccsW6mUR.s:1937   .text.dwt_modify8bitoffsetreg:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1944   .text.dwt_modify8bitoffsetreg:0000000000000000 dwt_modify8bitoffsetreg
+     /tmp/ccsW6mUR.s:1987   .text.dwt_enablespicrccheck:0000000000000000 $t
+     /tmp/ccsW6mUR.s:1994   .text.dwt_enablespicrccheck:0000000000000000 dwt_enablespicrccheck
+     /tmp/ccsW6mUR.s:2067   .text.dwt_enablespicrccheck:000000000000003c $d
+     /tmp/ccsW6mUR.s:2072   .text.dwt_setdwstate:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2079   .text.dwt_setdwstate:0000000000000000 dwt_setdwstate
+     /tmp/ccsW6mUR.s:2176   .text.dwt_setdwstate:000000000000007c $d
+     /tmp/ccsW6mUR.s:2182   .text.dwt_enablegpioclocks:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2189   .text.dwt_enablegpioclocks:0000000000000000 dwt_enablegpioclocks
+     /tmp/ccsW6mUR.s:2211   .text.dwt_enablegpioclocks:0000000000000014 $d
+     /tmp/ccsW6mUR.s:2216   .text.dwt_otprevision:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2223   .text.dwt_otprevision:0000000000000000 dwt_otprevision
+     /tmp/ccsW6mUR.s:2240   .text.dwt_otprevision:0000000000000008 $d
+     /tmp/ccsW6mUR.s:2245   .text.dwt_setfinegraintxseq:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2252   .text.dwt_setfinegraintxseq:0000000000000000 dwt_setfinegraintxseq
+     /tmp/ccsW6mUR.s:2293   .text.dwt_setfinegraintxseq:000000000000001c $d
+     /tmp/ccsW6mUR.s:2300   .text.dwt_setlnapamode:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2307   .text.dwt_setlnapamode:0000000000000000 dwt_setlnapamode
+     /tmp/ccsW6mUR.s:2372   .text.dwt_setlnapamode:000000000000003c $d
+     /tmp/ccsW6mUR.s:2377   .text.dwt_readpgdelay:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2384   .text.dwt_readpgdelay:0000000000000000 dwt_readpgdelay
+     /tmp/ccsW6mUR.s:2405   .text.dwt_readpgdelay:000000000000000c $d
+     /tmp/ccsW6mUR.s:2410   .text.dwt_geticrefvolt:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2417   .text.dwt_geticrefvolt:0000000000000000 dwt_geticrefvolt
+     /tmp/ccsW6mUR.s:2434   .text.dwt_geticrefvolt:0000000000000008 $d
+     /tmp/ccsW6mUR.s:2439   .text.dwt_geticreftemp:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2446   .text.dwt_geticreftemp:0000000000000000 dwt_geticreftemp
+     /tmp/ccsW6mUR.s:2463   .text.dwt_geticreftemp:0000000000000008 $d
+     /tmp/ccsW6mUR.s:2468   .text.dwt_getpartid:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2475   .text.dwt_getpartid:0000000000000000 dwt_getpartid
+     /tmp/ccsW6mUR.s:2492   .text.dwt_getpartid:0000000000000008 $d
+     /tmp/ccsW6mUR.s:2497   .text.dwt_getlotid:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2504   .text.dwt_getlotid:0000000000000000 dwt_getlotid
+     /tmp/ccsW6mUR.s:2521   .text.dwt_getlotid:0000000000000008 $d
+     /tmp/ccsW6mUR.s:2526   .text.dwt_readdevid:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2533   .text.dwt_readdevid:0000000000000000 dwt_readdevid
+ARM GAS  /tmp/ccsW6mUR.s 			page 350
 
 
-     /tmp/ccJEKt3H.s:2555   .text.dwt_configurestskey:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2562   .text.dwt_configurestskey:0000000000000000 dwt_configurestskey
-     /tmp/ccJEKt3H.s:2608   .text.dwt_configurestskey:0000000000000030 $d
-     /tmp/ccJEKt3H.s:2616   .text.dwt_configurestsiv:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2623   .text.dwt_configurestsiv:0000000000000000 dwt_configurestsiv
-     /tmp/ccJEKt3H.s:2669   .text.dwt_configurestsiv:0000000000000030 $d
-     /tmp/ccJEKt3H.s:2677   .text.dwt_configurestsloadiv:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2684   .text.dwt_configurestsloadiv:0000000000000000 dwt_configurestsloadiv
-     /tmp/ccJEKt3H.s:2706   .text.dwt_configurestsloadiv:0000000000000010 $d
-     /tmp/ccJEKt3H.s:2711   .text.dwt_configmrxlut:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2718   .text.dwt_configmrxlut:0000000000000000 dwt_configmrxlut
-     /tmp/ccJEKt3H.s:2835   .text.dwt_configmrxlut:000000000000008c $d
-     /tmp/ccJEKt3H.s:2863   .text.dwt_restoreconfig:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2870   .text.dwt_restoreconfig:0000000000000000 dwt_restoreconfig
-     /tmp/ccJEKt3H.s:2972   .text.dwt_restoreconfig:000000000000006c $d
-     /tmp/ccJEKt3H.s:2981   .text.dwt_configurestsmode:0000000000000000 $t
-     /tmp/ccJEKt3H.s:2988   .text.dwt_configurestsmode:0000000000000000 dwt_configurestsmode
-     /tmp/ccJEKt3H.s:3044   .text.dwt_configurestsmode:000000000000003c $d
-     /tmp/ccJEKt3H.s:3052   .text.dwt_run_pgfcal:0000000000000000 $t
-     /tmp/ccJEKt3H.s:3059   .text.dwt_run_pgfcal:0000000000000000 dwt_run_pgfcal
-     /tmp/ccJEKt3H.s:3216   .text.dwt_run_pgfcal:000000000000009c $d
-     /tmp/ccJEKt3H.s:3225   .text.dwt_pgf_cal:0000000000000000 $t
-     /tmp/ccJEKt3H.s:3232   .text.dwt_pgf_cal:0000000000000000 dwt_pgf_cal
-     /tmp/ccJEKt3H.s:3309   .text.dwt_pgf_cal:0000000000000044 $d
-     /tmp/ccJEKt3H.s:3314   .text.dwt_setrxantennadelay:0000000000000000 $t
-     /tmp/ccJEKt3H.s:3321   .text.dwt_setrxantennadelay:0000000000000000 dwt_setrxantennadelay
-     /tmp/ccJEKt3H.s:3347   .text.dwt_settxantennadelay:0000000000000000 $t
-     /tmp/ccJEKt3H.s:3354   .text.dwt_settxantennadelay:0000000000000000 dwt_settxantennadelay
-     /tmp/ccJEKt3H.s:3379   .text.dwt_settxantennadelay:0000000000000010 $d
-     /tmp/ccJEKt3H.s:3384   .text.dwt_writetxdata:0000000000000000 $t
-     /tmp/ccJEKt3H.s:3391   .text.dwt_writetxdata:0000000000000000 dwt_writetxdata
-     /tmp/ccJEKt3H.s:3480   .text.dwt_writetxdata:0000000000000050 $d
-     /tmp/ccJEKt3H.s:3486   .text.dwt_writetxfctrl:0000000000000000 $t
-     /tmp/ccJEKt3H.s:3493   .text.dwt_writetxfctrl:0000000000000000 dwt_writetxfctrl
-     /tmp/ccJEKt3H.s:3561   .text.dwt_writetxfctrl:000000000000003c $d
-     /tmp/ccJEKt3H.s:3566   .text.dwt_setplenfine:0000000000000000 $t
-     /tmp/ccJEKt3H.s:3573   .text.dwt_setplenfine:0000000000000000 dwt_setplenfine
-     /tmp/ccJEKt3H.s:3599   .text.dwt_configure:0000000000000000 $t
-     /tmp/ccJEKt3H.s:3606   .text.dwt_configure:0000000000000000 dwt_configure
-     /tmp/ccJEKt3H.s:3672   .text.dwt_configure:0000000000000032 $d
-     /tmp/ccJEKt3H.s:3680   .text.dwt_configure:0000000000000040 $t
-     /tmp/ccJEKt3H.s:4237   .text.dwt_configure:0000000000000330 $d
-     /tmp/ccJEKt3H.s:4263   .text.dwt_read_rx_scratch_data:0000000000000000 $t
-     /tmp/ccJEKt3H.s:4270   .text.dwt_read_rx_scratch_data:0000000000000000 dwt_read_rx_scratch_data
-     /tmp/ccJEKt3H.s:4301   .text.dwt_readrxdata:0000000000000000 $t
-     /tmp/ccJEKt3H.s:4308   .text.dwt_readrxdata:0000000000000000 dwt_readrxdata
-     /tmp/ccJEKt3H.s:4400   .text.dwt_readrxdata:0000000000000058 $d
-     /tmp/ccJEKt3H.s:4407   .rodata.dwt_readaccdata.str1.4:0000000000000000 $d
-     /tmp/ccJEKt3H.s:4411   .text.dwt_readaccdata:0000000000000000 $t
-     /tmp/ccJEKt3H.s:4418   .text.dwt_readaccdata:0000000000000000 dwt_readaccdata
-     /tmp/ccJEKt3H.s:4509   .text.dwt_readaccdata:0000000000000078 $d
-     /tmp/ccJEKt3H.s:4519   .text.dwt_readclockoffset:0000000000000000 $t
-     /tmp/ccJEKt3H.s:4526   .text.dwt_readclockoffset:0000000000000000 dwt_readclockoffset
-     /tmp/ccJEKt3H.s:4602   .text.dwt_readclockoffset:0000000000000048 $d
-     /tmp/ccJEKt3H.s:4609   .text.dwt_readcarrierintegrator:0000000000000000 $t
-     /tmp/ccJEKt3H.s:4616   .text.dwt_readcarrierintegrator:0000000000000000 dwt_readcarrierintegrator
-     /tmp/ccJEKt3H.s:4685   .text.dwt_readcarrierintegrator:0000000000000040 $d
-ARM GAS  /tmp/ccJEKt3H.s 			page 351
+     /tmp/ccsW6mUR.s:2555   .text.dwt_configurestskey:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2562   .text.dwt_configurestskey:0000000000000000 dwt_configurestskey
+     /tmp/ccsW6mUR.s:2608   .text.dwt_configurestskey:0000000000000030 $d
+     /tmp/ccsW6mUR.s:2616   .text.dwt_configurestsiv:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2623   .text.dwt_configurestsiv:0000000000000000 dwt_configurestsiv
+     /tmp/ccsW6mUR.s:2669   .text.dwt_configurestsiv:0000000000000030 $d
+     /tmp/ccsW6mUR.s:2677   .text.dwt_configurestsloadiv:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2684   .text.dwt_configurestsloadiv:0000000000000000 dwt_configurestsloadiv
+     /tmp/ccsW6mUR.s:2706   .text.dwt_configurestsloadiv:0000000000000010 $d
+     /tmp/ccsW6mUR.s:2711   .text.dwt_configmrxlut:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2718   .text.dwt_configmrxlut:0000000000000000 dwt_configmrxlut
+     /tmp/ccsW6mUR.s:2835   .text.dwt_configmrxlut:000000000000008c $d
+     /tmp/ccsW6mUR.s:2863   .text.dwt_restoreconfig:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2870   .text.dwt_restoreconfig:0000000000000000 dwt_restoreconfig
+     /tmp/ccsW6mUR.s:2972   .text.dwt_restoreconfig:000000000000006c $d
+     /tmp/ccsW6mUR.s:2981   .text.dwt_configurestsmode:0000000000000000 $t
+     /tmp/ccsW6mUR.s:2988   .text.dwt_configurestsmode:0000000000000000 dwt_configurestsmode
+     /tmp/ccsW6mUR.s:3044   .text.dwt_configurestsmode:000000000000003c $d
+     /tmp/ccsW6mUR.s:3052   .text.dwt_run_pgfcal:0000000000000000 $t
+     /tmp/ccsW6mUR.s:3059   .text.dwt_run_pgfcal:0000000000000000 dwt_run_pgfcal
+     /tmp/ccsW6mUR.s:3216   .text.dwt_run_pgfcal:000000000000009c $d
+     /tmp/ccsW6mUR.s:3225   .text.dwt_pgf_cal:0000000000000000 $t
+     /tmp/ccsW6mUR.s:3232   .text.dwt_pgf_cal:0000000000000000 dwt_pgf_cal
+     /tmp/ccsW6mUR.s:3309   .text.dwt_pgf_cal:0000000000000044 $d
+     /tmp/ccsW6mUR.s:3314   .text.dwt_setrxantennadelay:0000000000000000 $t
+     /tmp/ccsW6mUR.s:3321   .text.dwt_setrxantennadelay:0000000000000000 dwt_setrxantennadelay
+     /tmp/ccsW6mUR.s:3347   .text.dwt_settxantennadelay:0000000000000000 $t
+     /tmp/ccsW6mUR.s:3354   .text.dwt_settxantennadelay:0000000000000000 dwt_settxantennadelay
+     /tmp/ccsW6mUR.s:3379   .text.dwt_settxantennadelay:0000000000000010 $d
+     /tmp/ccsW6mUR.s:3384   .text.dwt_writetxdata:0000000000000000 $t
+     /tmp/ccsW6mUR.s:3391   .text.dwt_writetxdata:0000000000000000 dwt_writetxdata
+     /tmp/ccsW6mUR.s:3480   .text.dwt_writetxdata:0000000000000050 $d
+     /tmp/ccsW6mUR.s:3486   .text.dwt_writetxfctrl:0000000000000000 $t
+     /tmp/ccsW6mUR.s:3493   .text.dwt_writetxfctrl:0000000000000000 dwt_writetxfctrl
+     /tmp/ccsW6mUR.s:3561   .text.dwt_writetxfctrl:000000000000003c $d
+     /tmp/ccsW6mUR.s:3566   .text.dwt_setplenfine:0000000000000000 $t
+     /tmp/ccsW6mUR.s:3573   .text.dwt_setplenfine:0000000000000000 dwt_setplenfine
+     /tmp/ccsW6mUR.s:3599   .text.dwt_configure:0000000000000000 $t
+     /tmp/ccsW6mUR.s:3606   .text.dwt_configure:0000000000000000 dwt_configure
+     /tmp/ccsW6mUR.s:3672   .text.dwt_configure:0000000000000032 $d
+     /tmp/ccsW6mUR.s:3680   .text.dwt_configure:0000000000000040 $t
+     /tmp/ccsW6mUR.s:4237   .text.dwt_configure:0000000000000330 $d
+     /tmp/ccsW6mUR.s:4263   .text.dwt_read_rx_scratch_data:0000000000000000 $t
+     /tmp/ccsW6mUR.s:4270   .text.dwt_read_rx_scratch_data:0000000000000000 dwt_read_rx_scratch_data
+     /tmp/ccsW6mUR.s:4301   .text.dwt_readrxdata:0000000000000000 $t
+     /tmp/ccsW6mUR.s:4308   .text.dwt_readrxdata:0000000000000000 dwt_readrxdata
+     /tmp/ccsW6mUR.s:4400   .text.dwt_readrxdata:0000000000000058 $d
+     /tmp/ccsW6mUR.s:4407   .rodata.dwt_readaccdata.str1.4:0000000000000000 $d
+     /tmp/ccsW6mUR.s:4411   .text.dwt_readaccdata:0000000000000000 $t
+     /tmp/ccsW6mUR.s:4418   .text.dwt_readaccdata:0000000000000000 dwt_readaccdata
+     /tmp/ccsW6mUR.s:4509   .text.dwt_readaccdata:0000000000000078 $d
+     /tmp/ccsW6mUR.s:4519   .text.dwt_readclockoffset:0000000000000000 $t
+     /tmp/ccsW6mUR.s:4526   .text.dwt_readclockoffset:0000000000000000 dwt_readclockoffset
+     /tmp/ccsW6mUR.s:4602   .text.dwt_readclockoffset:0000000000000048 $d
+     /tmp/ccsW6mUR.s:4609   .text.dwt_readcarrierintegrator:0000000000000000 $t
+     /tmp/ccsW6mUR.s:4616   .text.dwt_readcarrierintegrator:0000000000000000 dwt_readcarrierintegrator
+     /tmp/ccsW6mUR.s:4685   .text.dwt_readcarrierintegrator:0000000000000040 $d
+ARM GAS  /tmp/ccsW6mUR.s 			page 351
 
 
-     /tmp/ccJEKt3H.s:4690   .text.dwt_readstsquality:0000000000000000 $t
-     /tmp/ccJEKt3H.s:4697   .text.dwt_readstsquality:0000000000000000 dwt_readstsquality
-     /tmp/ccJEKt3H.s:4749   .text.dwt_readstsquality:000000000000002c $d
-     /tmp/ccJEKt3H.s:4755   .text.dwt_readstsstatus:0000000000000000 $t
-     /tmp/ccJEKt3H.s:4762   .text.dwt_readstsstatus:0000000000000000 dwt_readstsstatus
-     /tmp/ccJEKt3H.s:4883   .text.dwt_readstsstatus:0000000000000060 $d
-     /tmp/ccJEKt3H.s:4892   .text.dwt_readdiagnostics:0000000000000000 $t
-     /tmp/ccJEKt3H.s:4899   .text.dwt_readdiagnostics:0000000000000000 dwt_readdiagnostics
-     /tmp/ccJEKt3H.s:5108   .text.dwt_readdiagnostics:0000000000000104 $d
-     /tmp/ccJEKt3H.s:5114   .text.dwt_readdiagnostics:000000000000010c $t
-     /tmp/ccJEKt3H.s:6116   .text.dwt_readdiagnostics:0000000000000744 $d
-     /tmp/ccJEKt3H.s:6121   .text.dwt_readtxtimestamp:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6128   .text.dwt_readtxtimestamp:0000000000000000 dwt_readtxtimestamp
-     /tmp/ccJEKt3H.s:6155   .text.dwt_readtxtimestamphi32:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6162   .text.dwt_readtxtimestamphi32:0000000000000000 dwt_readtxtimestamphi32
-     /tmp/ccJEKt3H.s:6184   .text.dwt_readtxtimestamplo32:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6191   .text.dwt_readtxtimestamplo32:0000000000000000 dwt_readtxtimestamplo32
-     /tmp/ccJEKt3H.s:6213   .text.dwt_readpdoa:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6220   .text.dwt_readpdoa:0000000000000000 dwt_readpdoa
-     /tmp/ccJEKt3H.s:6299   .text.dwt_readpdoa:0000000000000050 $d
-     /tmp/ccJEKt3H.s:6306   .text.dwt_readtdoa:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6313   .text.dwt_readtdoa:0000000000000000 dwt_readtdoa
-     /tmp/ccJEKt3H.s:6347   .text.dwt_readtdoa:000000000000001c $d
-     /tmp/ccJEKt3H.s:6352   .text.dwt_readrxtimestamp:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6359   .text.dwt_readrxtimestamp:0000000000000000 dwt_readrxtimestamp
-     /tmp/ccJEKt3H.s:6422   .text.dwt_readrxtimestamp:0000000000000038 $d
-     /tmp/ccJEKt3H.s:6428   .text.dwt_readrxtimestampunadj:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6435   .text.dwt_readrxtimestampunadj:0000000000000000 dwt_readrxtimestampunadj
-     /tmp/ccJEKt3H.s:6465   .text.dwt_readrxtimestamp_ipatov:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6472   .text.dwt_readrxtimestamp_ipatov:0000000000000000 dwt_readrxtimestamp_ipatov
-     /tmp/ccJEKt3H.s:6535   .text.dwt_readrxtimestamp_ipatov:000000000000003c $d
-     /tmp/ccJEKt3H.s:6541   .text.dwt_readrxtimestamp_sts:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6548   .text.dwt_readrxtimestamp_sts:0000000000000000 dwt_readrxtimestamp_sts
-     /tmp/ccJEKt3H.s:6611   .text.dwt_readrxtimestamp_sts:0000000000000038 $d
-     /tmp/ccJEKt3H.s:6618   .text.dwt_readrxtimestamphi32:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6625   .text.dwt_readrxtimestamphi32:0000000000000000 dwt_readrxtimestamphi32
-     /tmp/ccJEKt3H.s:6647   .text.dwt_readrxtimestamplo32:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6654   .text.dwt_readrxtimestamplo32:0000000000000000 dwt_readrxtimestamplo32
-     /tmp/ccJEKt3H.s:6676   .text.dwt_readsystimestamphi32:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6683   .text.dwt_readsystimestamphi32:0000000000000000 dwt_readsystimestamphi32
-     /tmp/ccJEKt3H.s:6705   .text.dwt_readsystime:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6712   .text.dwt_readsystime:0000000000000000 dwt_readsystime
-     /tmp/ccJEKt3H.s:6739   .text.dwt_configureframefilter:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6746   .text.dwt_configureframefilter:0000000000000000 dwt_configureframefilter
-     /tmp/ccJEKt3H.s:6808   .text.dwt_setpanid:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6815   .text.dwt_setpanid:0000000000000000 dwt_setpanid
-     /tmp/ccJEKt3H.s:6841   .text.dwt_setaddress16:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6848   .text.dwt_setaddress16:0000000000000000 dwt_setaddress16
-     /tmp/ccJEKt3H.s:6874   .text.dwt_seteui:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6881   .text.dwt_seteui:0000000000000000 dwt_seteui
-     /tmp/ccJEKt3H.s:6908   .text.dwt_geteui:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6915   .text.dwt_geteui:0000000000000000 dwt_geteui
-     /tmp/ccJEKt3H.s:6942   .text.dwt_aon_read:0000000000000000 $t
-     /tmp/ccJEKt3H.s:6949   .text.dwt_aon_read:0000000000000000 dwt_aon_read
-     /tmp/ccJEKt3H.s:6993   .text.dwt_aon_read:000000000000002c $d
-     /tmp/ccJEKt3H.s:7000   .text.dwt_aon_write:0000000000000000 $t
-     /tmp/ccJEKt3H.s:7007   .text.dwt_aon_write:0000000000000000 dwt_aon_write
-ARM GAS  /tmp/ccJEKt3H.s 			page 352
+     /tmp/ccsW6mUR.s:4690   .text.dwt_readstsquality:0000000000000000 $t
+     /tmp/ccsW6mUR.s:4697   .text.dwt_readstsquality:0000000000000000 dwt_readstsquality
+     /tmp/ccsW6mUR.s:4749   .text.dwt_readstsquality:000000000000002c $d
+     /tmp/ccsW6mUR.s:4755   .text.dwt_readstsstatus:0000000000000000 $t
+     /tmp/ccsW6mUR.s:4762   .text.dwt_readstsstatus:0000000000000000 dwt_readstsstatus
+     /tmp/ccsW6mUR.s:4883   .text.dwt_readstsstatus:0000000000000060 $d
+     /tmp/ccsW6mUR.s:4892   .text.dwt_readdiagnostics:0000000000000000 $t
+     /tmp/ccsW6mUR.s:4899   .text.dwt_readdiagnostics:0000000000000000 dwt_readdiagnostics
+     /tmp/ccsW6mUR.s:5108   .text.dwt_readdiagnostics:0000000000000104 $d
+     /tmp/ccsW6mUR.s:5114   .text.dwt_readdiagnostics:000000000000010c $t
+     /tmp/ccsW6mUR.s:6116   .text.dwt_readdiagnostics:0000000000000744 $d
+     /tmp/ccsW6mUR.s:6121   .text.dwt_readtxtimestamp:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6128   .text.dwt_readtxtimestamp:0000000000000000 dwt_readtxtimestamp
+     /tmp/ccsW6mUR.s:6155   .text.dwt_readtxtimestamphi32:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6162   .text.dwt_readtxtimestamphi32:0000000000000000 dwt_readtxtimestamphi32
+     /tmp/ccsW6mUR.s:6184   .text.dwt_readtxtimestamplo32:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6191   .text.dwt_readtxtimestamplo32:0000000000000000 dwt_readtxtimestamplo32
+     /tmp/ccsW6mUR.s:6213   .text.dwt_readpdoa:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6220   .text.dwt_readpdoa:0000000000000000 dwt_readpdoa
+     /tmp/ccsW6mUR.s:6299   .text.dwt_readpdoa:0000000000000050 $d
+     /tmp/ccsW6mUR.s:6306   .text.dwt_readtdoa:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6313   .text.dwt_readtdoa:0000000000000000 dwt_readtdoa
+     /tmp/ccsW6mUR.s:6347   .text.dwt_readtdoa:000000000000001c $d
+     /tmp/ccsW6mUR.s:6352   .text.dwt_readrxtimestamp:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6359   .text.dwt_readrxtimestamp:0000000000000000 dwt_readrxtimestamp
+     /tmp/ccsW6mUR.s:6422   .text.dwt_readrxtimestamp:0000000000000038 $d
+     /tmp/ccsW6mUR.s:6428   .text.dwt_readrxtimestampunadj:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6435   .text.dwt_readrxtimestampunadj:0000000000000000 dwt_readrxtimestampunadj
+     /tmp/ccsW6mUR.s:6465   .text.dwt_readrxtimestamp_ipatov:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6472   .text.dwt_readrxtimestamp_ipatov:0000000000000000 dwt_readrxtimestamp_ipatov
+     /tmp/ccsW6mUR.s:6535   .text.dwt_readrxtimestamp_ipatov:000000000000003c $d
+     /tmp/ccsW6mUR.s:6541   .text.dwt_readrxtimestamp_sts:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6548   .text.dwt_readrxtimestamp_sts:0000000000000000 dwt_readrxtimestamp_sts
+     /tmp/ccsW6mUR.s:6611   .text.dwt_readrxtimestamp_sts:0000000000000038 $d
+     /tmp/ccsW6mUR.s:6618   .text.dwt_readrxtimestamphi32:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6625   .text.dwt_readrxtimestamphi32:0000000000000000 dwt_readrxtimestamphi32
+     /tmp/ccsW6mUR.s:6647   .text.dwt_readrxtimestamplo32:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6654   .text.dwt_readrxtimestamplo32:0000000000000000 dwt_readrxtimestamplo32
+     /tmp/ccsW6mUR.s:6676   .text.dwt_readsystimestamphi32:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6683   .text.dwt_readsystimestamphi32:0000000000000000 dwt_readsystimestamphi32
+     /tmp/ccsW6mUR.s:6705   .text.dwt_readsystime:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6712   .text.dwt_readsystime:0000000000000000 dwt_readsystime
+     /tmp/ccsW6mUR.s:6739   .text.dwt_configureframefilter:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6746   .text.dwt_configureframefilter:0000000000000000 dwt_configureframefilter
+     /tmp/ccsW6mUR.s:6808   .text.dwt_setpanid:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6815   .text.dwt_setpanid:0000000000000000 dwt_setpanid
+     /tmp/ccsW6mUR.s:6841   .text.dwt_setaddress16:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6848   .text.dwt_setaddress16:0000000000000000 dwt_setaddress16
+     /tmp/ccsW6mUR.s:6874   .text.dwt_seteui:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6881   .text.dwt_seteui:0000000000000000 dwt_seteui
+     /tmp/ccsW6mUR.s:6908   .text.dwt_geteui:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6915   .text.dwt_geteui:0000000000000000 dwt_geteui
+     /tmp/ccsW6mUR.s:6942   .text.dwt_aon_read:0000000000000000 $t
+     /tmp/ccsW6mUR.s:6949   .text.dwt_aon_read:0000000000000000 dwt_aon_read
+     /tmp/ccsW6mUR.s:6993   .text.dwt_aon_read:000000000000002c $d
+     /tmp/ccsW6mUR.s:7000   .text.dwt_aon_write:0000000000000000 $t
+     /tmp/ccsW6mUR.s:7007   .text.dwt_aon_write:0000000000000000 dwt_aon_write
+ARM GAS  /tmp/ccsW6mUR.s 			page 352
 
 
-     /tmp/ccJEKt3H.s:7071   .text.dwt_aon_write:000000000000003c $d
-     /tmp/ccJEKt3H.s:7078   .text.dwt_otpread:0000000000000000 $t
-     /tmp/ccJEKt3H.s:7085   .text.dwt_otpread:0000000000000000 dwt_otpread
-     /tmp/ccJEKt3H.s:7137   .text.__dwt_otp_write_wdata_id_reg:0000000000000000 $t
-     /tmp/ccJEKt3H.s:7144   .text.__dwt_otp_write_wdata_id_reg:0000000000000000 __dwt_otp_write_wdata_id_reg
-     /tmp/ccJEKt3H.s:7178   .text._dwt_otpprogword32:0000000000000000 $t
-     /tmp/ccJEKt3H.s:7184   .text._dwt_otpprogword32:0000000000000000 _dwt_otpprogword32
-     /tmp/ccJEKt3H.s:7404   .text._dwt_otpprogword32:0000000000000148 $d
-     /tmp/ccJEKt3H.s:7410   .text.dwt_otpwriteandverify:0000000000000000 $t
-     /tmp/ccJEKt3H.s:7417   .text.dwt_otpwriteandverify:0000000000000000 dwt_otpwriteandverify
-     /tmp/ccJEKt3H.s:7458   .text.dwt_entersleep:0000000000000000 $t
-     /tmp/ccJEKt3H.s:7465   .text.dwt_entersleep:0000000000000000 dwt_entersleep
-     /tmp/ccJEKt3H.s:7513   .text.dwt_entersleep:000000000000002c $d
-     /tmp/ccJEKt3H.s:7519   .text.dwt_configuresleepcnt:0000000000000000 $t
-     /tmp/ccJEKt3H.s:7526   .text.dwt_configuresleepcnt:0000000000000000 dwt_configuresleepcnt
-     /tmp/ccJEKt3H.s:7557   .text.dwt_calibratesleepcnt:0000000000000000 $t
-     /tmp/ccJEKt3H.s:7564   .text.dwt_calibratesleepcnt:0000000000000000 dwt_calibratesleepcnt
-     /tmp/ccJEKt3H.s:7639   .text.dwt_calibratesleepcnt:000000000000005c $d
-     /tmp/ccJEKt3H.s:7644   .text.dwt_configuresleep:0000000000000000 $t
-     /tmp/ccJEKt3H.s:7651   .text.dwt_configuresleep:0000000000000000 dwt_configuresleep
-     /tmp/ccJEKt3H.s:7692   .text.dwt_configuresleep:0000000000000028 $d
-     /tmp/ccJEKt3H.s:7698   .text.dwt_clearaonconfig:0000000000000000 $t
-     /tmp/ccJEKt3H.s:7705   .text.dwt_clearaonconfig:0000000000000000 dwt_clearaonconfig
-     /tmp/ccJEKt3H.s:7745   .text.dwt_clearaonconfig:0000000000000030 $d
-     /tmp/ccJEKt3H.s:7751   .text.dwt_entersleepaftertx:0000000000000000 $t
-     /tmp/ccJEKt3H.s:7758   .text.dwt_entersleepaftertx:0000000000000000 dwt_entersleepaftertx
-     /tmp/ccJEKt3H.s:7801   .text.dwt_entersleepaftertx:0000000000000028 $d
-     /tmp/ccJEKt3H.s:7806   .text.dwt_check_dev_id:0000000000000000 $t
-     /tmp/ccJEKt3H.s:7813   .text.dwt_check_dev_id:0000000000000000 dwt_check_dev_id
-     /tmp/ccJEKt3H.s:7860   .text.dwt_check_dev_id:0000000000000020 $d
-     /tmp/ccJEKt3H.s:7865   .text.dwt_initialise:0000000000000000 $t
-     /tmp/ccJEKt3H.s:7872   .text.dwt_initialise:0000000000000000 dwt_initialise
-     /tmp/ccJEKt3H.s:8153   .text.dwt_initialise:0000000000000114 $d
-     /tmp/ccJEKt3H.s:8160   .text.dwt_configciadiag:0000000000000000 $t
-     /tmp/ccJEKt3H.s:8167   .text.dwt_configciadiag:0000000000000000 dwt_configciadiag
-     /tmp/ccJEKt3H.s:8223   .text.dwt_configciadiag:000000000000003c $d
-     /tmp/ccJEKt3H.s:8229   .text.dwt_enableautoack:0000000000000000 $t
-     /tmp/ccJEKt3H.s:8236   .text.dwt_enableautoack:0000000000000000 dwt_enableautoack
-     /tmp/ccJEKt3H.s:8286   .text.dwt_enableautoack:0000000000000034 $d
-     /tmp/ccJEKt3H.s:8291   .text.dwt_signal_rx_buff_free:0000000000000000 $t
-     /tmp/ccJEKt3H.s:8298   .text.dwt_signal_rx_buff_free:0000000000000000 dwt_signal_rx_buff_free
-     /tmp/ccJEKt3H.s:8339   .text.dwt_signal_rx_buff_free:0000000000000024 $d
-     /tmp/ccJEKt3H.s:8344   .text.dwt_setdblrxbuffmode:0000000000000000 $t
-     /tmp/ccJEKt3H.s:8351   .text.dwt_setdblrxbuffmode:0000000000000000 dwt_setdblrxbuffmode
-     /tmp/ccJEKt3H.s:8441   .text.dwt_setdblrxbuffmode:0000000000000050 $d
-     /tmp/ccJEKt3H.s:8448   .text.dwt_setrxaftertxdelay:0000000000000000 $t
-     /tmp/ccJEKt3H.s:8455   .text.dwt_setrxaftertxdelay:0000000000000000 dwt_setrxaftertxdelay
-     /tmp/ccJEKt3H.s:8505   .text.dwt_setrxaftertxdelay:0000000000000024 $d
-     /tmp/ccJEKt3H.s:8510   .text.dwt_setcallbacks:0000000000000000 $t
-     /tmp/ccJEKt3H.s:8517   .text.dwt_setcallbacks:0000000000000000 dwt_setcallbacks
-     /tmp/ccJEKt3H.s:8564   .text.dwt_setcallbacks:000000000000001c $d
-     /tmp/ccJEKt3H.s:8569   .text.dwt_checkirq:0000000000000000 $t
-     /tmp/ccJEKt3H.s:8576   .text.dwt_checkirq:0000000000000000 dwt_checkirq
-     /tmp/ccJEKt3H.s:8599   .text.dwt_checkidlerc:0000000000000000 $t
-     /tmp/ccJEKt3H.s:8606   .text.dwt_checkidlerc:0000000000000000 dwt_checkidlerc
-     /tmp/ccJEKt3H.s:8632   .text.dwt_isr:0000000000000000 $t
-     /tmp/ccJEKt3H.s:8639   .text.dwt_isr:0000000000000000 dwt_isr
-ARM GAS  /tmp/ccJEKt3H.s 			page 353
+     /tmp/ccsW6mUR.s:7071   .text.dwt_aon_write:000000000000003c $d
+     /tmp/ccsW6mUR.s:7078   .text.dwt_otpread:0000000000000000 $t
+     /tmp/ccsW6mUR.s:7085   .text.dwt_otpread:0000000000000000 dwt_otpread
+     /tmp/ccsW6mUR.s:7137   .text.__dwt_otp_write_wdata_id_reg:0000000000000000 $t
+     /tmp/ccsW6mUR.s:7144   .text.__dwt_otp_write_wdata_id_reg:0000000000000000 __dwt_otp_write_wdata_id_reg
+     /tmp/ccsW6mUR.s:7178   .text._dwt_otpprogword32:0000000000000000 $t
+     /tmp/ccsW6mUR.s:7184   .text._dwt_otpprogword32:0000000000000000 _dwt_otpprogword32
+     /tmp/ccsW6mUR.s:7404   .text._dwt_otpprogword32:0000000000000148 $d
+     /tmp/ccsW6mUR.s:7410   .text.dwt_otpwriteandverify:0000000000000000 $t
+     /tmp/ccsW6mUR.s:7417   .text.dwt_otpwriteandverify:0000000000000000 dwt_otpwriteandverify
+     /tmp/ccsW6mUR.s:7458   .text.dwt_entersleep:0000000000000000 $t
+     /tmp/ccsW6mUR.s:7465   .text.dwt_entersleep:0000000000000000 dwt_entersleep
+     /tmp/ccsW6mUR.s:7513   .text.dwt_entersleep:000000000000002c $d
+     /tmp/ccsW6mUR.s:7519   .text.dwt_configuresleepcnt:0000000000000000 $t
+     /tmp/ccsW6mUR.s:7526   .text.dwt_configuresleepcnt:0000000000000000 dwt_configuresleepcnt
+     /tmp/ccsW6mUR.s:7557   .text.dwt_calibratesleepcnt:0000000000000000 $t
+     /tmp/ccsW6mUR.s:7564   .text.dwt_calibratesleepcnt:0000000000000000 dwt_calibratesleepcnt
+     /tmp/ccsW6mUR.s:7639   .text.dwt_calibratesleepcnt:000000000000005c $d
+     /tmp/ccsW6mUR.s:7644   .text.dwt_configuresleep:0000000000000000 $t
+     /tmp/ccsW6mUR.s:7651   .text.dwt_configuresleep:0000000000000000 dwt_configuresleep
+     /tmp/ccsW6mUR.s:7692   .text.dwt_configuresleep:0000000000000028 $d
+     /tmp/ccsW6mUR.s:7698   .text.dwt_clearaonconfig:0000000000000000 $t
+     /tmp/ccsW6mUR.s:7705   .text.dwt_clearaonconfig:0000000000000000 dwt_clearaonconfig
+     /tmp/ccsW6mUR.s:7745   .text.dwt_clearaonconfig:0000000000000030 $d
+     /tmp/ccsW6mUR.s:7751   .text.dwt_entersleepaftertx:0000000000000000 $t
+     /tmp/ccsW6mUR.s:7758   .text.dwt_entersleepaftertx:0000000000000000 dwt_entersleepaftertx
+     /tmp/ccsW6mUR.s:7801   .text.dwt_entersleepaftertx:0000000000000028 $d
+     /tmp/ccsW6mUR.s:7806   .text.dwt_check_dev_id:0000000000000000 $t
+     /tmp/ccsW6mUR.s:7813   .text.dwt_check_dev_id:0000000000000000 dwt_check_dev_id
+     /tmp/ccsW6mUR.s:7860   .text.dwt_check_dev_id:0000000000000020 $d
+     /tmp/ccsW6mUR.s:7865   .text.dwt_initialise:0000000000000000 $t
+     /tmp/ccsW6mUR.s:7872   .text.dwt_initialise:0000000000000000 dwt_initialise
+     /tmp/ccsW6mUR.s:8153   .text.dwt_initialise:0000000000000114 $d
+     /tmp/ccsW6mUR.s:8160   .text.dwt_configciadiag:0000000000000000 $t
+     /tmp/ccsW6mUR.s:8167   .text.dwt_configciadiag:0000000000000000 dwt_configciadiag
+     /tmp/ccsW6mUR.s:8223   .text.dwt_configciadiag:000000000000003c $d
+     /tmp/ccsW6mUR.s:8229   .text.dwt_enableautoack:0000000000000000 $t
+     /tmp/ccsW6mUR.s:8236   .text.dwt_enableautoack:0000000000000000 dwt_enableautoack
+     /tmp/ccsW6mUR.s:8286   .text.dwt_enableautoack:0000000000000034 $d
+     /tmp/ccsW6mUR.s:8291   .text.dwt_signal_rx_buff_free:0000000000000000 $t
+     /tmp/ccsW6mUR.s:8298   .text.dwt_signal_rx_buff_free:0000000000000000 dwt_signal_rx_buff_free
+     /tmp/ccsW6mUR.s:8339   .text.dwt_signal_rx_buff_free:0000000000000024 $d
+     /tmp/ccsW6mUR.s:8344   .text.dwt_setdblrxbuffmode:0000000000000000 $t
+     /tmp/ccsW6mUR.s:8351   .text.dwt_setdblrxbuffmode:0000000000000000 dwt_setdblrxbuffmode
+     /tmp/ccsW6mUR.s:8441   .text.dwt_setdblrxbuffmode:0000000000000050 $d
+     /tmp/ccsW6mUR.s:8448   .text.dwt_setrxaftertxdelay:0000000000000000 $t
+     /tmp/ccsW6mUR.s:8455   .text.dwt_setrxaftertxdelay:0000000000000000 dwt_setrxaftertxdelay
+     /tmp/ccsW6mUR.s:8505   .text.dwt_setrxaftertxdelay:0000000000000024 $d
+     /tmp/ccsW6mUR.s:8510   .text.dwt_setcallbacks:0000000000000000 $t
+     /tmp/ccsW6mUR.s:8517   .text.dwt_setcallbacks:0000000000000000 dwt_setcallbacks
+     /tmp/ccsW6mUR.s:8564   .text.dwt_setcallbacks:000000000000001c $d
+     /tmp/ccsW6mUR.s:8569   .text.dwt_checkirq:0000000000000000 $t
+     /tmp/ccsW6mUR.s:8576   .text.dwt_checkirq:0000000000000000 dwt_checkirq
+     /tmp/ccsW6mUR.s:8599   .text.dwt_checkidlerc:0000000000000000 $t
+     /tmp/ccsW6mUR.s:8606   .text.dwt_checkidlerc:0000000000000000 dwt_checkidlerc
+     /tmp/ccsW6mUR.s:8632   .text.dwt_isr:0000000000000000 $t
+     /tmp/ccsW6mUR.s:8639   .text.dwt_isr:0000000000000000 dwt_isr
+ARM GAS  /tmp/ccsW6mUR.s 			page 353
 
 
-     /tmp/ccJEKt3H.s:9161   .text.dwt_isr:0000000000000298 $d
-     /tmp/ccJEKt3H.s:9168   .text.dwt_setleds:0000000000000000 $t
-     /tmp/ccJEKt3H.s:9175   .text.dwt_setleds:0000000000000000 dwt_setleds
-     /tmp/ccJEKt3H.s:9267   .text.dwt_setleds:0000000000000074 $d
-     /tmp/ccJEKt3H.s:9274   .text.dwt_setreferencetrxtime:0000000000000000 $t
-     /tmp/ccJEKt3H.s:9281   .text.dwt_setreferencetrxtime:0000000000000000 dwt_setreferencetrxtime
-     /tmp/ccJEKt3H.s:9307   .text.dwt_setdelayedtrxtime:0000000000000000 $t
-     /tmp/ccJEKt3H.s:9314   .text.dwt_setdelayedtrxtime:0000000000000000 dwt_setdelayedtrxtime
-     /tmp/ccJEKt3H.s:9340   .text.dwt_starttx:0000000000000000 $t
-     /tmp/ccJEKt3H.s:9347   .text.dwt_starttx:0000000000000000 dwt_starttx
-     /tmp/ccJEKt3H.s:9619   .text.dwt_starttx:0000000000000138 $d
-     /tmp/ccJEKt3H.s:9624   .text.dwt_forcetrxoff:0000000000000000 $t
-     /tmp/ccJEKt3H.s:9631   .text.dwt_forcetrxoff:0000000000000000 dwt_forcetrxoff
-     /tmp/ccJEKt3H.s:9668   .text.dwt_setsniffmode:0000000000000000 $t
-     /tmp/ccJEKt3H.s:9675   .text.dwt_setsniffmode:0000000000000000 dwt_setsniffmode
-     /tmp/ccJEKt3H.s:9729   .text.dwt_setsniffmode:0000000000000024 $d
-     /tmp/ccJEKt3H.s:9734   .text.dwt_rxenable:0000000000000000 $t
-     /tmp/ccJEKt3H.s:9741   .text.dwt_rxenable:0000000000000000 dwt_rxenable
-     /tmp/ccJEKt3H.s:9767   .text.dwt_rxenable:0000000000000014 $d
-     /tmp/ccJEKt3H.s:9783   .text.dwt_rxenable:0000000000000024 $t
-     /tmp/ccJEKt3H.s:9905   .text.dwt_setrxtimeout:0000000000000000 $t
-     /tmp/ccJEKt3H.s:9912   .text.dwt_setrxtimeout:0000000000000000 dwt_setrxtimeout
-     /tmp/ccJEKt3H.s:9962   .text.dwt_setpreambledetecttimeout:0000000000000000 $t
-     /tmp/ccJEKt3H.s:9969   .text.dwt_setpreambledetecttimeout:0000000000000000 dwt_setpreambledetecttimeout
-     /tmp/ccJEKt3H.s:9994   .text.dwt_setpreambledetecttimeout:0000000000000010 $d
-     /tmp/ccJEKt3H.s:9999   .text.dwt_setinterrupt:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10006  .text.dwt_setinterrupt:0000000000000000 dwt_setinterrupt
-     /tmp/ccJEKt3H.s:10104  .text.dwt_configeventcounters:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10111  .text.dwt_configeventcounters:0000000000000000 dwt_configeventcounters
-     /tmp/ccJEKt3H.s:10152  .text.dwt_readeventcounters:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10159  .text.dwt_readeventcounters:0000000000000000 dwt_readeventcounters
-     /tmp/ccJEKt3H.s:10291  .text.dwt_readeventcounters:0000000000000080 $d
-     /tmp/ccJEKt3H.s:10302  .text.dwt_softreset:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10309  .text.dwt_softreset:0000000000000000 dwt_softreset
-     /tmp/ccJEKt3H.s:10359  .text.dwt_softreset:0000000000000038 $d
-     /tmp/ccJEKt3H.s:10365  .text.dwt_setxtaltrim:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10372  .text.dwt_setxtaltrim:0000000000000000 dwt_setxtaltrim
-     /tmp/ccJEKt3H.s:10406  .text.dwt_setxtaltrim:0000000000000018 $d
-     /tmp/ccJEKt3H.s:10412  .text.dwt_getxtaltrim:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10419  .text.dwt_getxtaltrim:0000000000000000 dwt_getxtaltrim
-     /tmp/ccJEKt3H.s:10436  .text.dwt_getxtaltrim:0000000000000008 $d
-     /tmp/ccJEKt3H.s:10441  .text.dwt_get_dgcdecision:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10448  .text.dwt_get_dgcdecision:0000000000000000 dwt_get_dgcdecision
-     /tmp/ccJEKt3H.s:10474  .text.dwt_get_dgcdecision:0000000000000010 $d
-     /tmp/ccJEKt3H.s:10479  .text.dwt_repeated_cw:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10486  .text.dwt_repeated_cw:0000000000000000 dwt_repeated_cw
-     /tmp/ccJEKt3H.s:10551  .text.dwt_repeated_cw:0000000000000038 $d
-     /tmp/ccJEKt3H.s:10557  .text.dwt_repeated_frames:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10564  .text.dwt_repeated_frames:0000000000000000 dwt_repeated_frames
-     /tmp/ccJEKt3H.s:10607  .text.dwt_repeated_frames:0000000000000024 $d
-     /tmp/ccJEKt3H.s:10612  .text.dwt_configcwmode:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10619  .text.dwt_configcwmode:0000000000000000 dwt_configcwmode
-     /tmp/ccJEKt3H.s:10655  .text.dwt_configcontinuousframemode:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10662  .text.dwt_configcontinuousframemode:0000000000000000 dwt_configcontinuousframemode
-     /tmp/ccJEKt3H.s:10706  .text.dwt_disablecontinuousframemode:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10713  .text.dwt_disablecontinuousframemode:0000000000000000 dwt_disablecontinuousframemode
-     /tmp/ccJEKt3H.s:10735  .text.dwt_disablecontinuousframemode:0000000000000010 $d
-ARM GAS  /tmp/ccJEKt3H.s 			page 354
+     /tmp/ccsW6mUR.s:9161   .text.dwt_isr:0000000000000298 $d
+     /tmp/ccsW6mUR.s:9168   .text.dwt_setleds:0000000000000000 $t
+     /tmp/ccsW6mUR.s:9175   .text.dwt_setleds:0000000000000000 dwt_setleds
+     /tmp/ccsW6mUR.s:9267   .text.dwt_setleds:0000000000000074 $d
+     /tmp/ccsW6mUR.s:9274   .text.dwt_setreferencetrxtime:0000000000000000 $t
+     /tmp/ccsW6mUR.s:9281   .text.dwt_setreferencetrxtime:0000000000000000 dwt_setreferencetrxtime
+     /tmp/ccsW6mUR.s:9307   .text.dwt_setdelayedtrxtime:0000000000000000 $t
+     /tmp/ccsW6mUR.s:9314   .text.dwt_setdelayedtrxtime:0000000000000000 dwt_setdelayedtrxtime
+     /tmp/ccsW6mUR.s:9340   .text.dwt_starttx:0000000000000000 $t
+     /tmp/ccsW6mUR.s:9347   .text.dwt_starttx:0000000000000000 dwt_starttx
+     /tmp/ccsW6mUR.s:9619   .text.dwt_starttx:0000000000000138 $d
+     /tmp/ccsW6mUR.s:9624   .text.dwt_forcetrxoff:0000000000000000 $t
+     /tmp/ccsW6mUR.s:9631   .text.dwt_forcetrxoff:0000000000000000 dwt_forcetrxoff
+     /tmp/ccsW6mUR.s:9668   .text.dwt_setsniffmode:0000000000000000 $t
+     /tmp/ccsW6mUR.s:9675   .text.dwt_setsniffmode:0000000000000000 dwt_setsniffmode
+     /tmp/ccsW6mUR.s:9729   .text.dwt_setsniffmode:0000000000000024 $d
+     /tmp/ccsW6mUR.s:9734   .text.dwt_rxenable:0000000000000000 $t
+     /tmp/ccsW6mUR.s:9741   .text.dwt_rxenable:0000000000000000 dwt_rxenable
+     /tmp/ccsW6mUR.s:9767   .text.dwt_rxenable:0000000000000014 $d
+     /tmp/ccsW6mUR.s:9783   .text.dwt_rxenable:0000000000000024 $t
+     /tmp/ccsW6mUR.s:9905   .text.dwt_setrxtimeout:0000000000000000 $t
+     /tmp/ccsW6mUR.s:9912   .text.dwt_setrxtimeout:0000000000000000 dwt_setrxtimeout
+     /tmp/ccsW6mUR.s:9962   .text.dwt_setpreambledetecttimeout:0000000000000000 $t
+     /tmp/ccsW6mUR.s:9969   .text.dwt_setpreambledetecttimeout:0000000000000000 dwt_setpreambledetecttimeout
+     /tmp/ccsW6mUR.s:9994   .text.dwt_setpreambledetecttimeout:0000000000000010 $d
+     /tmp/ccsW6mUR.s:9999   .text.dwt_setinterrupt:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10006  .text.dwt_setinterrupt:0000000000000000 dwt_setinterrupt
+     /tmp/ccsW6mUR.s:10104  .text.dwt_configeventcounters:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10111  .text.dwt_configeventcounters:0000000000000000 dwt_configeventcounters
+     /tmp/ccsW6mUR.s:10152  .text.dwt_readeventcounters:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10159  .text.dwt_readeventcounters:0000000000000000 dwt_readeventcounters
+     /tmp/ccsW6mUR.s:10291  .text.dwt_readeventcounters:0000000000000080 $d
+     /tmp/ccsW6mUR.s:10302  .text.dwt_softreset:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10309  .text.dwt_softreset:0000000000000000 dwt_softreset
+     /tmp/ccsW6mUR.s:10359  .text.dwt_softreset:0000000000000038 $d
+     /tmp/ccsW6mUR.s:10365  .text.dwt_setxtaltrim:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10372  .text.dwt_setxtaltrim:0000000000000000 dwt_setxtaltrim
+     /tmp/ccsW6mUR.s:10406  .text.dwt_setxtaltrim:0000000000000018 $d
+     /tmp/ccsW6mUR.s:10412  .text.dwt_getxtaltrim:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10419  .text.dwt_getxtaltrim:0000000000000000 dwt_getxtaltrim
+     /tmp/ccsW6mUR.s:10436  .text.dwt_getxtaltrim:0000000000000008 $d
+     /tmp/ccsW6mUR.s:10441  .text.dwt_get_dgcdecision:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10448  .text.dwt_get_dgcdecision:0000000000000000 dwt_get_dgcdecision
+     /tmp/ccsW6mUR.s:10474  .text.dwt_get_dgcdecision:0000000000000010 $d
+     /tmp/ccsW6mUR.s:10479  .text.dwt_repeated_cw:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10486  .text.dwt_repeated_cw:0000000000000000 dwt_repeated_cw
+     /tmp/ccsW6mUR.s:10551  .text.dwt_repeated_cw:0000000000000038 $d
+     /tmp/ccsW6mUR.s:10557  .text.dwt_repeated_frames:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10564  .text.dwt_repeated_frames:0000000000000000 dwt_repeated_frames
+     /tmp/ccsW6mUR.s:10607  .text.dwt_repeated_frames:0000000000000024 $d
+     /tmp/ccsW6mUR.s:10612  .text.dwt_configcwmode:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10619  .text.dwt_configcwmode:0000000000000000 dwt_configcwmode
+     /tmp/ccsW6mUR.s:10655  .text.dwt_configcontinuousframemode:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10662  .text.dwt_configcontinuousframemode:0000000000000000 dwt_configcontinuousframemode
+     /tmp/ccsW6mUR.s:10706  .text.dwt_disablecontinuousframemode:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10713  .text.dwt_disablecontinuousframemode:0000000000000000 dwt_disablecontinuousframemode
+     /tmp/ccsW6mUR.s:10735  .text.dwt_disablecontinuousframemode:0000000000000010 $d
+ARM GAS  /tmp/ccsW6mUR.s 			page 354
 
 
-     /tmp/ccJEKt3H.s:10740  .text.dwt_readtempvbat:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10747  .text.dwt_readtempvbat:0000000000000000 dwt_readtempvbat
-     /tmp/ccJEKt3H.s:10848  .text.dwt_readtempvbat:0000000000000078 $d
-     /tmp/ccJEKt3H.s:10855  .text.dwt_convertrawtemperature:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10862  .text.dwt_convertrawtemperature:0000000000000000 dwt_convertrawtemperature
-     /tmp/ccJEKt3H.s:10894  .text.dwt_convertrawtemperature:0000000000000024 $d
-     /tmp/ccJEKt3H.s:10900  .text.dwt_convertrawvoltage:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10907  .text.dwt_convertrawvoltage:0000000000000000 dwt_convertrawvoltage
-     /tmp/ccJEKt3H.s:10946  .text.dwt_convertrawvoltage:0000000000000034 $d
-     /tmp/ccJEKt3H.s:10953  .text.dwt_readwakeuptemp:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10960  .text.dwt_readwakeuptemp:0000000000000000 dwt_readwakeuptemp
-     /tmp/ccJEKt3H.s:10982  .text.dwt_readwakeupvbat:0000000000000000 $t
-     /tmp/ccJEKt3H.s:10989  .text.dwt_readwakeupvbat:0000000000000000 dwt_readwakeupvbat
-     /tmp/ccJEKt3H.s:11011  .text.dwt_calcbandwidthadj:0000000000000000 $t
-     /tmp/ccJEKt3H.s:11018  .text.dwt_calcbandwidthadj:0000000000000000 dwt_calcbandwidthadj
-     /tmp/ccJEKt3H.s:11099  .text.dwt_calcbandwidthadj:0000000000000060 $d
-     /tmp/ccJEKt3H.s:11106  .text.dwt_configuretxrf:0000000000000000 $t
-     /tmp/ccJEKt3H.s:11113  .text.dwt_configuretxrf:0000000000000000 dwt_configuretxrf
-     /tmp/ccJEKt3H.s:11181  .text.dwt_configuretxrf:000000000000003c $d
-     /tmp/ccJEKt3H.s:11189  .text.dwt_calcpgcount:0000000000000000 $t
-     /tmp/ccJEKt3H.s:11196  .text.dwt_calcpgcount:0000000000000000 dwt_calcpgcount
-     /tmp/ccJEKt3H.s:11283  .text.dwt_calcpgcount:0000000000000060 $d
-     /tmp/ccJEKt3H.s:11290  .text.dwt_configure_aes:0000000000000000 $t
-     /tmp/ccJEKt3H.s:11297  .text.dwt_configure_aes:0000000000000000 dwt_configure_aes
-     /tmp/ccJEKt3H.s:11375  .text.dwt_configure_aes:000000000000003c $d
-     /tmp/ccJEKt3H.s:11380  .text.dwt_mic_size_from_bytes:0000000000000000 $t
-     /tmp/ccJEKt3H.s:11387  .text.dwt_mic_size_from_bytes:0000000000000000 dwt_mic_size_from_bytes
-     /tmp/ccJEKt3H.s:11418  .text.dwt_set_keyreg_128:0000000000000000 $t
-     /tmp/ccJEKt3H.s:11425  .text.dwt_set_keyreg_128:0000000000000000 dwt_set_keyreg_128
-     /tmp/ccJEKt3H.s:11471  .text.dwt_set_keyreg_128:0000000000000030 $d
-     /tmp/ccJEKt3H.s:11479  .text.dwt_do_aes:0000000000000000 $t
-     /tmp/ccJEKt3H.s:11486  .text.dwt_do_aes:0000000000000000 dwt_do_aes
-     /tmp/ccJEKt3H.s:11880  .text.dwt_do_aes:0000000000000178 $d
-     /tmp/ccJEKt3H.s:11889  .text.dwt_configure_le_address:0000000000000000 $t
-     /tmp/ccJEKt3H.s:11896  .text.dwt_configure_le_address:0000000000000000 dwt_configure_le_address
-     /tmp/ccJEKt3H.s:11914  .text.dwt_configure_le_address:000000000000000c $d
-     /tmp/ccJEKt3H.s:11918  .text.dwt_configure_le_address:0000000000000010 $t
-     /tmp/ccJEKt3H.s:11976  .text.dwt_configure_le_address:0000000000000038 $d
-     /tmp/ccJEKt3H.s:11982  .text.dwt_configuresfdtype:0000000000000000 $t
-     /tmp/ccJEKt3H.s:11989  .text.dwt_configuresfdtype:0000000000000000 dwt_configuresfdtype
-     /tmp/ccJEKt3H.s:12018  .text.dwt_configuresfdtype:0000000000000018 $d
-     /tmp/ccJEKt3H.s:12063  .rodata.sts_length_factors:0000000000000000 sts_length_factors
-     /tmp/ccJEKt3H.s:12024  .bss.DW3000local:0000000000000000 $d
-     /tmp/ccJEKt3H.s:12028  .bss.DW3000local:0000000000000000 DW3000local
-     /tmp/ccJEKt3H.s:12031  .bss.crcTable:0000000000000000 $d
-     /tmp/ccJEKt3H.s:12035  .bss.crcTable:0000000000000000 crcTable
-     /tmp/ccJEKt3H.s:12038  .data.pdw3000local:0000000000000000 $d
-     /tmp/ccJEKt3H.s:12042  .data.pdw3000local:0000000000000000 pdw3000local
-     /tmp/ccJEKt3H.s:12045  .rodata.__func__.0:0000000000000000 $d
-     /tmp/ccJEKt3H.s:12049  .rodata.__func__.0:0000000000000000 __func__.0
-     /tmp/ccJEKt3H.s:12052  .rodata.__func__.1:0000000000000000 $d
-     /tmp/ccJEKt3H.s:12056  .rodata.__func__.1:0000000000000000 __func__.1
-     /tmp/ccJEKt3H.s:12059  .rodata.sts_length_factors:0000000000000000 $d
+     /tmp/ccsW6mUR.s:10740  .text.dwt_readtempvbat:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10747  .text.dwt_readtempvbat:0000000000000000 dwt_readtempvbat
+     /tmp/ccsW6mUR.s:10848  .text.dwt_readtempvbat:0000000000000078 $d
+     /tmp/ccsW6mUR.s:10855  .text.dwt_convertrawtemperature:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10862  .text.dwt_convertrawtemperature:0000000000000000 dwt_convertrawtemperature
+     /tmp/ccsW6mUR.s:10894  .text.dwt_convertrawtemperature:0000000000000024 $d
+     /tmp/ccsW6mUR.s:10900  .text.dwt_convertrawvoltage:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10907  .text.dwt_convertrawvoltage:0000000000000000 dwt_convertrawvoltage
+     /tmp/ccsW6mUR.s:10946  .text.dwt_convertrawvoltage:0000000000000034 $d
+     /tmp/ccsW6mUR.s:10953  .text.dwt_readwakeuptemp:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10960  .text.dwt_readwakeuptemp:0000000000000000 dwt_readwakeuptemp
+     /tmp/ccsW6mUR.s:10982  .text.dwt_readwakeupvbat:0000000000000000 $t
+     /tmp/ccsW6mUR.s:10989  .text.dwt_readwakeupvbat:0000000000000000 dwt_readwakeupvbat
+     /tmp/ccsW6mUR.s:11011  .text.dwt_calcbandwidthadj:0000000000000000 $t
+     /tmp/ccsW6mUR.s:11018  .text.dwt_calcbandwidthadj:0000000000000000 dwt_calcbandwidthadj
+     /tmp/ccsW6mUR.s:11099  .text.dwt_calcbandwidthadj:0000000000000060 $d
+     /tmp/ccsW6mUR.s:11106  .text.dwt_configuretxrf:0000000000000000 $t
+     /tmp/ccsW6mUR.s:11113  .text.dwt_configuretxrf:0000000000000000 dwt_configuretxrf
+     /tmp/ccsW6mUR.s:11181  .text.dwt_configuretxrf:000000000000003c $d
+     /tmp/ccsW6mUR.s:11189  .text.dwt_calcpgcount:0000000000000000 $t
+     /tmp/ccsW6mUR.s:11196  .text.dwt_calcpgcount:0000000000000000 dwt_calcpgcount
+     /tmp/ccsW6mUR.s:11283  .text.dwt_calcpgcount:0000000000000060 $d
+     /tmp/ccsW6mUR.s:11290  .text.dwt_configure_aes:0000000000000000 $t
+     /tmp/ccsW6mUR.s:11297  .text.dwt_configure_aes:0000000000000000 dwt_configure_aes
+     /tmp/ccsW6mUR.s:11375  .text.dwt_configure_aes:000000000000003c $d
+     /tmp/ccsW6mUR.s:11380  .text.dwt_mic_size_from_bytes:0000000000000000 $t
+     /tmp/ccsW6mUR.s:11387  .text.dwt_mic_size_from_bytes:0000000000000000 dwt_mic_size_from_bytes
+     /tmp/ccsW6mUR.s:11418  .text.dwt_set_keyreg_128:0000000000000000 $t
+     /tmp/ccsW6mUR.s:11425  .text.dwt_set_keyreg_128:0000000000000000 dwt_set_keyreg_128
+     /tmp/ccsW6mUR.s:11471  .text.dwt_set_keyreg_128:0000000000000030 $d
+     /tmp/ccsW6mUR.s:11479  .text.dwt_do_aes:0000000000000000 $t
+     /tmp/ccsW6mUR.s:11486  .text.dwt_do_aes:0000000000000000 dwt_do_aes
+     /tmp/ccsW6mUR.s:11880  .text.dwt_do_aes:0000000000000178 $d
+     /tmp/ccsW6mUR.s:11889  .text.dwt_configure_le_address:0000000000000000 $t
+     /tmp/ccsW6mUR.s:11896  .text.dwt_configure_le_address:0000000000000000 dwt_configure_le_address
+     /tmp/ccsW6mUR.s:11914  .text.dwt_configure_le_address:000000000000000c $d
+     /tmp/ccsW6mUR.s:11918  .text.dwt_configure_le_address:0000000000000010 $t
+     /tmp/ccsW6mUR.s:11976  .text.dwt_configure_le_address:0000000000000038 $d
+     /tmp/ccsW6mUR.s:11982  .text.dwt_configuresfdtype:0000000000000000 $t
+     /tmp/ccsW6mUR.s:11989  .text.dwt_configuresfdtype:0000000000000000 dwt_configuresfdtype
+     /tmp/ccsW6mUR.s:12018  .text.dwt_configuresfdtype:0000000000000018 $d
+     /tmp/ccsW6mUR.s:12063  .rodata.sts_length_factors:0000000000000000 sts_length_factors
+     /tmp/ccsW6mUR.s:12024  .bss.DW3000local:0000000000000000 $d
+     /tmp/ccsW6mUR.s:12028  .bss.DW3000local:0000000000000000 DW3000local
+     /tmp/ccsW6mUR.s:12031  .bss.crcTable:0000000000000000 $d
+     /tmp/ccsW6mUR.s:12035  .bss.crcTable:0000000000000000 crcTable
+     /tmp/ccsW6mUR.s:12038  .data.pdw3000local:0000000000000000 $d
+     /tmp/ccsW6mUR.s:12042  .data.pdw3000local:0000000000000000 pdw3000local
+     /tmp/ccsW6mUR.s:12045  .rodata.__func__.0:0000000000000000 $d
+     /tmp/ccsW6mUR.s:12049  .rodata.__func__.0:0000000000000000 __func__.0
+     /tmp/ccsW6mUR.s:12052  .rodata.__func__.1:0000000000000000 $d
+     /tmp/ccsW6mUR.s:12056  .rodata.__func__.1:0000000000000000 __func__.1
+     /tmp/ccsW6mUR.s:12059  .rodata.sts_length_factors:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 wakeup_device_with_io
 writetospiwithcrc
-ARM GAS  /tmp/ccJEKt3H.s 			page 355
+ARM GAS  /tmp/ccsW6mUR.s 			page 355
 
 
 __assert_func

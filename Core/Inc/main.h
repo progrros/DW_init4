@@ -61,7 +61,7 @@ void Error_Handler(void);
 #define DW_NSS_GPIO_Port GPIOA
 #define DW_IRQn_Pin GPIO_PIN_12
 #define DW_IRQn_GPIO_Port GPIOB
-#define DW_RESET_Pin GPIO_PIN_13
+#define DW_RESET_Pin GPIO_PIN_10
 #define DW_RESET_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */

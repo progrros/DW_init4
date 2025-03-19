@@ -28,12 +28,12 @@ build/debug/ds_twr_initiator_sts.o: Core/Src/ds_twr_initiator_sts.c \
  Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h \
  Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h \
  Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart.h \
- Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart_ex.h \
- Core/Inc/deca_device_api.h Core/Inc/deca_types.h Core/Inc/deca_regs.h \
- Core/Inc/deca_vals.h Core/Inc/deca_spi.h Core/Inc/deca_types.h \
- Core/Inc/port.h Core/Inc/shared_defines.h Core/Inc/shared_functions.h \
- Core/Inc/example_selection.h Core/Inc/config_options.h \
- Core/Inc/deca_device_api.h
+ Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart_ex.h Core/Inc/tim.h \
+ Core/Inc/main.h Core/Inc/deca_device_api.h Core/Inc/deca_types.h \
+ Core/Inc/deca_regs.h Core/Inc/deca_vals.h Core/Inc/deca_spi.h \
+ Core/Inc/deca_types.h Core/Inc/port.h Core/Inc/shared_defines.h \
+ Core/Inc/shared_functions.h Core/Inc/example_selection.h \
+ Core/Inc/config_options.h Core/Inc/deca_device_api.h
 Core/Inc/main.h:
 Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:
 Core/Inc/stm32f3xx_hal_conf.h:
@@ -67,6 +67,8 @@ Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h:
 Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h:
 Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart.h:
 Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart_ex.h:
+Core/Inc/tim.h:
+Core/Inc/main.h:
 Core/Inc/deca_device_api.h:
 Core/Inc/deca_types.h:
 Core/Inc/deca_regs.h:
